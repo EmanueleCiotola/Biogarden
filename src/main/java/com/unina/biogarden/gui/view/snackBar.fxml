@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.unina.biogarden.gui.controller.SnackbarController">
+    
+    <Label fx:id="snackBarLabel" opacity="0" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-padding: 10px 20px; -fx-background-radius: 10px; -fx-font-size: 12px;" text="Messaggio" StackPane.alignment="BOTTOM_CENTER">
+      <StackPane.margin>
+         <Insets bottom="15.0" />
+      </StackPane.margin></Label>
+
+</StackPane>
