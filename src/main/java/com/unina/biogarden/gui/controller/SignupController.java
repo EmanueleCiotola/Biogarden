@@ -1,7 +1,9 @@
 package com.unina.biogarden.gui.controller;
 
+import com.unina.biogarden.dto.Utente;
 import com.unina.biogarden.router.Router;
 import com.unina.biogarden.service.SignupService;
+import com.unina.biogarden.util.Sessione;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -75,11 +77,25 @@ public class SignupController {
         String ripetiPassword = ripetiPasswordField.getText();
 
         if (signupService.isTerzoBloccoValido(password, ripetiPassword)) {
-            if (signupService.signup(password) != null) {
+            Utente utente = costruisciUtente();
+            Utente registrato = signupService.signup(utente);
+            if (registrato != null) {
+                Sessione.setUtenteCorrente(registrato);
                 Router.getInstance().navigateTo("homePage");
             }
         }
     }
+
+    private Utente costruisciUtente() {
+        return signupService.creaUtente(
+            nomeField.getText().trim(),
+            cognomeField.getText().trim(),
+            codiceFiscaleField.getText().trim().toUpperCase(),
+            usernameField.getText().trim(),
+            passwordField.getText()
+        );
+    }
+
 
     @FXML
     private void goToLogin() {

@@ -12,23 +12,25 @@ public class LoginService {
     private UtenteDao dao = new UtenteDaoImpl();
 
     public Utente login(String username, String password) {
-        if (username == null || username.isEmpty()) {
+        if (!areCampiValidi(username, password)) return null;
+        return eseguiLogin(username, password);
+    }
+    private boolean areCampiValidi(String username, String password) {
+        if (username.isEmpty()) {
             SnackbarController.show(ErrorMessages.USERNAME_VUOTO.getMessage());
-            return null;
-        } else if (password == null || password.isEmpty()) {
+        } else if (password.isEmpty()) {
             SnackbarController.show(ErrorMessages.PASSWORD_VUOTA.getMessage());
-            return null;
-        }
-
+        } else return true;
+        return false;
+    }
+    private Utente eseguiLogin(String username, String password) {
         try {
             return dao.verificaCredenziali(username, password);
         } catch (InvalidCredentialsException e) {
             SnackbarController.show(ErrorMessages.CREDENZIALI_NON_VALIDE.getMessage());
         } catch (DatabaseException e) {
             SnackbarController.show(ErrorMessages.ERRORE_GENERICO.getMessage());
-            // eventualmente log
         }
         return null;
     }
-
 }

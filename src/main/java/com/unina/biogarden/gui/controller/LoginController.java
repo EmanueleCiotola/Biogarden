@@ -1,6 +1,8 @@
 package com.unina.biogarden.gui.controller;
+import com.unina.biogarden.dto.Utente;
 import com.unina.biogarden.router.Router;
 import com.unina.biogarden.service.LoginService;
+import com.unina.biogarden.util.Sessione;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -35,7 +37,9 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (loginService.login(username, password) != null) {
+        Utente utente = loginService.login(username, password);
+        if (utente != null) {
+            Sessione.setUtenteCorrente(utente);
             Router.getInstance().navigateTo("homePage");
         }
     }

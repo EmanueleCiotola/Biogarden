@@ -3,6 +3,7 @@ package com.unina.biogarden.service;
 import com.unina.biogarden.dao.utente.UtenteDao;
 import com.unina.biogarden.dao.utente.UtenteDaoImpl;
 import com.unina.biogarden.dto.Utente;
+import com.unina.biogarden.exception.DatabaseException;
 import com.unina.biogarden.gui.controller.SnackbarController;
 import com.unina.biogarden.util.ErrorMessages;
 
@@ -14,9 +15,7 @@ public class SignupService {
             SnackbarController.show(ErrorMessages.NOME_VUOTO.getMessage());
         } else if (cognome.isEmpty()) {
             SnackbarController.show(ErrorMessages.COGNOME_VUOTO.getMessage());
-        } else {
-            return true;
-        }
+        } else return true;
         return false;
     }
 
@@ -52,7 +51,7 @@ public class SignupService {
         return true;
     }
     public boolean isPasswordValida(String password) {
-        if (password == null || password.isEmpty()) {
+        if (password.isEmpty()) {
             SnackbarController.show(ErrorMessages.PASSWORD_VUOTA.getMessage());
         } else if (password.length() < 8) {
             SnackbarController.show(ErrorMessages.PASSWORD_LUNGHEZZA.getMessage());
@@ -68,7 +67,7 @@ public class SignupService {
         return false;
     }
     public boolean isRipetizionePasswordValida(String password, String ripetiPassword) {
-        if (ripetiPassword == null || ripetiPassword.isEmpty()) {
+        if (ripetiPassword.isEmpty()) {
             SnackbarController.show(ErrorMessages.PASSWORD_RIPETUTA_VUOTA.getMessage());
         } else if (!password.equals(ripetiPassword)) {
             SnackbarController.show(ErrorMessages.PASSWORD_NON_COINCIDONO.getMessage());
@@ -76,7 +75,17 @@ public class SignupService {
         return false;
     }
 
-    public Utente signup(String password) {
-        return dao.registraUtente(null);
+    public Utente creaUtente(String nome, String cognome, String codiceFiscale, String username, String password) {
+        Utente utente = new Utente(nome, cognome, codiceFiscale, username, password);
+        return utente;
+    }
+
+    public Utente signup(Utente utente) {
+        try {
+            return dao.registraUtente(utente);
+        } catch (DatabaseException e) {
+            SnackbarController.show(ErrorMessages.ERRORE_GENERICO.getMessage());
+            return null;
+        }
     }
 }
