@@ -21,7 +21,6 @@ public class Router {
         this.rootStack = rootStack;
     }
 
-    // per snackbar
     public static StackPane getRootStack() {
         return getInstance().rootStack;
     }
@@ -29,30 +28,47 @@ public class Router {
     public void navigateTo(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/unina/biogarden/gui/view/" + fxml + ".fxml"));
-            Node view = loader.load();
+            Node newView = loader.load();
 
             if (rootStack.getChildren().isEmpty()) {
-                rootStack.getChildren().setAll(view);
+                rootStack.getChildren().setAll(newView);
             } else {
                 Node oldView = rootStack.getChildren().get(0);
-                FadeTransition fadeOut = new FadeTransition(Duration.millis(250), oldView);
-                fadeOut.setFromValue(1.0);
-                fadeOut.setToValue(0.0);
-
-                fadeOut.setOnFinished(_ -> {
-                    view.setOpacity(0);
-                    rootStack.getChildren().setAll(view);
-
-                    FadeTransition fadeIn = new FadeTransition(Duration.millis(250), view);
-                    fadeIn.setFromValue(0.0);
-                    fadeIn.setToValue(1.0);
-                    fadeIn.play();
+                fadeOut(oldView, () -> {
+                    rootStack.getChildren().setAll(newView);
+                    fadeIn(newView);
                 });
-
-                fadeOut.play();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void switchBlocks(Node from, Node to) {
+        fadeOut(from, () -> {
+            from.setVisible(false);
+            from.setManaged(false);
+
+            to.setOpacity(0);
+            to.setVisible(true);
+            to.setManaged(true);
+
+            fadeIn(to);
+        });
+    }
+
+    private void fadeOut(Node node, Runnable onFinished) {
+        FadeTransition ft = new FadeTransition(Duration.millis(250), node);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.setOnFinished(event -> onFinished.run());
+        ft.play();
+    }
+
+    private void fadeIn(Node node) {
+        FadeTransition ft = new FadeTransition(Duration.millis(250), node);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
     }
 }

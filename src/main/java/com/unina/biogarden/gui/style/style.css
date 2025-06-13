@@ -1,17 +1,53 @@
-/* .text-field:focused {
-    -fx-border-radius: 3;
-    -fx-background-color: #e0f7fa;
-    -fxbox-shadow: #d40000 5 solid;
-} */
-
-.text-field {
-    -fx-border-color: transparent;
-    -fx-border-width: 2px;
-    -fx-border-radius: 4px;
-    -fx-background-insets: 0, 1;
-    -fx-background-radius: 4px, 3px;
+.root { -fx-background-color: #f6fafd; }
+.label, .text {
+    -fx-font-family: "IBM Plex Sans";
+    -fx-text-fill: #0b4275;
 }
 
+.text-field {
+    background-color: #f6fafd;
+    -fx-text-fill: #0b4275;
+    -fx-border-color: transparent;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0, 1;
+}
 .text-field:focused {
-    -fx-border-color: #ff0000;
+    -fx-border-color: #409df4;
+}
+
+.title {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.card {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
+}
+
+.button {
+    -fx-background-color: #0b4275;
+    -fx-text-fill: #f6fafd;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 15;
+}
+
+.button.secondaryButton {
+    -fx-background-color: #c1d7f0;
+    -fx-text-fill: #0b4275;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 15;
+    -fx-opacity: 0.9;
+}
+
+.indicatorePosizione {
+    -fx-background-color: #409df4;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 15;
 }

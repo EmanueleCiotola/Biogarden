@@ -1,19 +1,19 @@
 package com.unina.biogarden.gui.controller;
-
 import com.unina.biogarden.router.Router;
 import com.unina.biogarden.service.LoginService;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
 import javafx.scene.Node;
 
 
+
 public class LoginController {
-    @FXML private VBox loginPage;
+    @FXML private StackPane loginPage;
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
@@ -21,7 +21,6 @@ public class LoginController {
     private LoginService loginService;
 
     public void initialize() {
-        loginPage.setFocusTraversable(true);
         Platform.runLater(() -> loginPage.requestFocus());
         loginPage.setOnMouseClicked(event -> {
             Node target = (Node) event.getTarget();

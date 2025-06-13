@@ -12,13 +12,19 @@ public class LoginService {
     public Utente login(String username, String password) {
         if (username.isEmpty()) {
             SnackbarController.show("Devi inserire un'email per continuare.");
+            return null;
         } else if (password.isEmpty()) {
             SnackbarController.show("Devi inserire una password per continuare.");
-        } else if (dao.verificaCredenziali(username, password) != null) {
+            return null;
+        }
+
+        Utente utente = dao.verificaCredenziali(username, password);
+        if (utente != null) {
             Router.getInstance().navigateTo("homePage");
+            return utente;
         } else {
             SnackbarController.show("Credenziali non valide.");
+            return null;
         }
-        return null;
     }
 }

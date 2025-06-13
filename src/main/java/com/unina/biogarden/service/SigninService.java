@@ -21,4 +21,43 @@ public class SigninService {
         }
         return null;
     }
+    
+    public Boolean isPrimoBloccoValido(String nome, String cognome) {
+        if (nome.isEmpty()) {
+            SnackbarController.show("Devi inserire un nome per continuare.");
+        } else if (cognome.isEmpty()) {
+            SnackbarController.show("Devi inserire un cognome per continuare.");
+        } else {
+            return true;
+        }
+        return false;
+    }
+    
+    public Boolean isSecondoBloccoValido(String codiceFiscale, String username) {
+        if (!isCodiceFiscaleValido(codiceFiscale)) return false;
+        else if (!isUsernameValido(username)) return false;
+        return true;
+    }
+    private boolean isCodiceFiscaleValido(String codiceFiscale) {
+        if (codiceFiscale.isEmpty()) {
+            SnackbarController.show("Il codice fiscale non può essere vuoto.");
+        } else if (codiceFiscale.length() != 16) {
+            SnackbarController.show("Il codice fiscale deve contenere 16 caratteri.");
+        } else if (!codiceFiscale.matches("^[A-Z0-9]{16}$")) {
+            SnackbarController.show("Il codice fiscale può contenere solo lettere e numeri.");
+        } else return true;
+        return false;
+    }
+    private boolean isUsernameValido(String username) {
+        if (username.isEmpty()) {
+            SnackbarController.show("Devi inserire uno username per continuare.");
+        } else if (!username.matches("^[\\p{L}0-9._-]+$")) {
+            SnackbarController.show("Lo username può contenere solo lettere, numeri, punti, trattini bassi e trattini.");
+        } else if (!dao.isUsernameLibero(username)) {
+            SnackbarController.show("L'username inserito è già in uso.");
+        } else return true;
+        return false;
+    }
+
+    
 }

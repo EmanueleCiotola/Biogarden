@@ -3,6 +3,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +21,8 @@ public class Main extends Application {
         stage.setTitle("UNINA BioGarder");
         stage.setScene(scene);
         stage.show();
+
+        Font.loadFont(getClass().getResourceAsStream("/com/unina/biogarden/gui/asset/font/IBMPlexSans-VariableFont_wdth,wght.ttf"), 14);
         scene.getStylesheets().add(getClass().getResource("/com/unina/biogarden/gui/style/style.css").toExternalForm());
 
         StackPane rootStack = (StackPane) scene.lookup("#rootStack");
