@@ -27,21 +27,31 @@ public class Router {
 
     public void navigateTo(String fxml) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/unina/biogarden/gui/view/" + fxml + ".fxml"));
-            Node newView = loader.load();
-
-            if (rootStack.getChildren().isEmpty()) {
-                rootStack.getChildren().setAll(newView);
-            } else {
-                Node oldView = rootStack.getChildren().get(0);
-                fadeOut(oldView, () -> {
-                    rootStack.getChildren().setAll(newView);
-                    fadeIn(newView);
-                });
-            }
+            Node newView = creaNuovaView(fxml);
+            if (rootStack.getChildren().isEmpty()) animaPrimaView(newView);
+            else animaView(newView);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private Node creaNuovaView(String fxml) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/unina/biogarden/gui/view/" + fxml + ".fxml"));
+        Node newView = loader.load();
+        newView.setOpacity(0);
+        return newView;
+    }
+    private void animaPrimaView(Node newView) throws Exception {
+        rootStack.getChildren().setAll(newView);
+        fadeIn(newView);
+    }
+    private void animaView(Node newView) throws Exception {
+        Node oldView = rootStack.getChildren().get(0);
+        rootStack.getChildren().add(newView);
+
+        fadeOut(oldView, () -> {
+            rootStack.getChildren().remove(oldView);
+            fadeIn(newView);
+        });
     }
 
     public void switchBlocks(Node from, Node to) {
