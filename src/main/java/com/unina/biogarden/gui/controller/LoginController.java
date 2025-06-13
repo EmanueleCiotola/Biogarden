@@ -35,15 +35,13 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        loginService.login(username, password);
+        if (loginService.login(username, password) != null) {
+            Router.getInstance().navigateTo("homePage");
+        }
     }
 
     @FXML
-    private void goToSignin() {
-        try {
-            Router.getInstance().navigateTo("signinPage");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void goToSignup() {
+        Router.getInstance().navigateTo("signupPage");
     }
 }

@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="signinPage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.SigninController">
+<StackPane fx:id="signupPage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.SignupController">
    <children>
       <GridPane alignment="CENTER" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" style="-fx-background-color: linear-gradient(to right, #0b4275 40%, #f6fafd 40%);" styleClass="card">
          <columnConstraints>
@@ -42,7 +42,7 @@
             </VBox>
             <VBox alignment="CENTER" maxHeight="350.0" styleClass="root" GridPane.columnIndex="1">
                <children>
-                  <Label text="Signin">
+                  <Label text="Signup">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -75,7 +75,7 @@
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="confermaPrimoBloccoSigninButton" onAction="#handleConfermaPrimoBloccoSigninButton" text="Avanti">
+                        <Button fx:id="confermaPrimoBloccoSignupButton" onAction="#handleConfermaPrimoBloccoSignup" text="Avanti">
                            <VBox.margin>
                               <Insets top="25.0" />
                            </VBox.margin>
@@ -115,7 +115,7 @@
                         </TextField>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button fx:id="indietroTerzoBloccoSignin" mnemonicParsing="false" onAction="#handleIndietroSecondoBloccoSignin" styleClass="secondaryButton" text="Indietro">
+                              <Button fx:id="indietroTerzoBloccoSignupButton" mnemonicParsing="false" onAction="#handleIndietroSecondoBloccoSignup" styleClass="secondaryButton" text="Indietro">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -123,7 +123,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="confermaSecondoBloccoSigninButton" onAction="#handleConfermaSecondoBloccoSigninButton" text="Avanti">
+                              <Button fx:id="confermaSecondoBloccoSignup" onAction="#handleConfermaSecondoBloccoSignup" text="Avanti">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -165,7 +165,7 @@
                         </PasswordField>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button fx:id="indietroTerzoBloccoSignin" mnemonicParsing="false" onAction="#handleIndietroTerzoBloccoSignin" styleClass="secondaryButton" text="Indietro">
+                              <Button fx:id="indietroTerzoBloccoSignupButton" mnemonicParsing="false" onAction="#handleIndietroTerzoBloccoSignup" styleClass="secondaryButton" text="Indietro">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -173,7 +173,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="signinButton" onAction="#handleSignin" text="Registrati">
+                              <Button fx:id="signupButton" onAction="#handleSignup" text="Registrati">
                                  <VBox.margin>
                                     <Insets top="25.0" />
                                  </VBox.margin>

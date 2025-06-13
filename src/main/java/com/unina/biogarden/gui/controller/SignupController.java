@@ -1,9 +1,7 @@
 package com.unina.biogarden.gui.controller;
 
-import com.unina.biogarden.dao.utente.UtenteDao;
-import com.unina.biogarden.dao.utente.UtenteDaoImpl;
 import com.unina.biogarden.router.Router;
-import com.unina.biogarden.service.SigninService;
+import com.unina.biogarden.service.SignupService;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -14,79 +12,77 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
 import javafx.scene.Node;
 
-public class SigninController {
-    @FXML private StackPane signinPage;
+public class SignupController {
+    @FXML private StackPane signupPage;
     @FXML private VBox primoBlocco;
     @FXML private TextField nomeField;
     @FXML private TextField cognomeField;
-    @FXML private Button confermaPrimoBloccoSigninButton;
+    @FXML private Button confermaPrimoBloccoSignupButton;
     @FXML private VBox secondoBlocco;
     @FXML private TextField codiceFiscaleField;
     @FXML private TextField usernameField;
-    @FXML private Button indietroSecondoBloccoSignin;
-    @FXML private Button confermaSecondoBloccoSigninButton;
+    @FXML private Button indietroSecondoBloccoSignupButton;
+    @FXML private Button confermaSecondoBloccoSignupButton;
     @FXML private VBox terzoBlocco;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField ripetiPasswordField;
-    @FXML private Button indietroTerzoBloccoSignin;
-    @FXML private Button signinButton;
+    @FXML private Button indietroTerzoBloccoSignupButton;
+    @FXML private Button signupButton;
 
-    private SigninService signinService;
+    private SignupService signupService;
 
     public void initialize() {
-        Platform.runLater(() -> signinPage.requestFocus());
-        signinPage.setOnMouseClicked(event -> {
+        Platform.runLater(() -> signupPage.requestFocus());
+        signupPage.setOnMouseClicked(event -> {
             Node target = (Node) event.getTarget();
-            if (!target.isFocusTraversable()) signinPage.requestFocus();
+            if (!target.isFocusTraversable()) signupPage.requestFocus();
         });
 
-        signinService = new SigninService();
+        signupService = new SignupService();
     }
 
     @FXML
-    private void handleConfermaPrimoBloccoSigninButton() {
+    private void handleConfermaPrimoBloccoSignup() {
         String nome = nomeField.getText().trim();
         String cognome = cognomeField.getText().trim();
-        //TODO: implementare logica per il primo blocco
 
-        if (signinService.isPrimoBloccoValido(nome, cognome)) {
+        if (signupService.isPrimoBloccoValido(nome, cognome)) {
             Router.getInstance().switchBlocks(primoBlocco, secondoBlocco);
         }
     }
     @FXML
-    private void handleIndietroSecondoBloccoSignin() {
+    private void handleIndietroSecondoBloccoSignup() {
         Router.getInstance().switchBlocks(secondoBlocco, primoBlocco);
     }
     
     @FXML
-    private void handleConfermaSecondoBloccoSigninButton() {
+    private void handleConfermaSecondoBloccoSignup() {
         String codiceFiscale = codiceFiscaleField.getText().trim().toUpperCase();
         String username = usernameField.getText().trim();
         
-        if (signinService.isSecondoBloccoValido(codiceFiscale, username)) {
+        if (signupService.isSecondoBloccoValido(codiceFiscale, username)) {
             Router.getInstance().switchBlocks(secondoBlocco, terzoBlocco);
         }
     }
     @FXML
-    private void handleIndietroTerzoBloccoSignin() {
+    private void handleIndietroTerzoBloccoSignup() {
         Router.getInstance().switchBlocks(terzoBlocco, secondoBlocco);
     }
 
     @FXML
-    private void handleSignin() {
-        String username = usernameField.getText();
+    private void handleSignup() {
         String password = passwordField.getText();
+        String ripetiPassword = ripetiPasswordField.getText();
 
-        // TODO
-        signinService.signin(username, password);
+        if (signupService.isTerzoBloccoValido(password, ripetiPassword)) {
+            if (signupService.signup(password) != null) {
+                Router.getInstance().navigateTo("homePage");
+            }
+        }
     }
 
     @FXML
     private void goToLogin() {
-        try {
-            Router.getInstance().navigateTo("loginPage");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Router.getInstance().navigateTo("loginPage");
     }
 }

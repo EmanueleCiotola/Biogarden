@@ -13,10 +13,15 @@ public class UtenteDaoImpl implements UtenteDao {
     }
 
     @Override
-    public Boolean isUsernameLibero(String username) {
-        System.out.println("Verifica se l'username è libero: " + username);
+    public boolean isUsernameLibero(String username) {
         //todo: implementare logica di verifica dell'esistenza dell'username
         if (!username.equals("admin")) return true;
         return false;
+    }
+
+    @Override
+    public Utente registraUtente(Utente utente) {
+        //todo: implementare logica di registrazione dell'utente
+        return utente;
     }
 }

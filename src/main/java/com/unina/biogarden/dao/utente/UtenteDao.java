@@ -5,5 +5,7 @@ import com.unina.biogarden.dto.Utente;
 public interface UtenteDao {
     Utente verificaCredenziali(String username, String password);
 
-    Boolean isUsernameLibero(String username);
+    boolean isUsernameLibero(String username);
+
+    Utente registraUtente(Utente utente);
 }

@@ -90,7 +90,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Hyperlink onAction="#goToSignin" styleClass="textLinkColor" text="Registrati">
+                        <Hyperlink onAction="#goToSignup" styleClass="textLinkColor" text="Registrati">
                            <font>
                               <Font size="13.0" />
                            </font>
