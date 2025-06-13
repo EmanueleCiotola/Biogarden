@@ -1,11 +1,11 @@
 package com.unina.biogarden;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 
 import com.unina.biogarden.router.Router;

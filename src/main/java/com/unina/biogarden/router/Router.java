@@ -1,9 +1,9 @@
 package com.unina.biogarden.router;
 
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import javafx.scene.Node;
+import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
 public class Router {

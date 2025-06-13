@@ -11,6 +11,7 @@ module com.unina.biogarden {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires javafx.base;
 
     opens com.unina.biogarden to javafx.fxml;
     exports com.unina.biogarden;

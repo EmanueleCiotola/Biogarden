@@ -44,7 +44,7 @@
                <children>
                   <VBox alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
                      <children>
-                        <Label text="Login" styleClass="title">
+                        <Label styleClass="title" text="Login">
                          
                         </Label>
                         <Label text="Username">

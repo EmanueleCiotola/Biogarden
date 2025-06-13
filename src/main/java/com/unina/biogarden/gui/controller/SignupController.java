@@ -1,18 +1,17 @@
 package com.unina.biogarden.gui.controller;
 
-import com.unina.biogarden.dto.Utente;
+import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.router.Router;
-import com.unina.biogarden.service.SignupService;
 import com.unina.biogarden.util.Sessione;
+import com.unina.biogarden.service.SignupService;
+import com.unina.biogarden.dto.Utente;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
-import javafx.scene.Node;
 
 public class SignupController {
     @FXML private StackPane signupPage;
@@ -34,12 +33,7 @@ public class SignupController {
     private SignupService signupService;
 
     public void initialize() {
-        Platform.runLater(() -> signupPage.requestFocus());
-        signupPage.setOnMouseClicked(event -> {
-            Node target = (Node) event.getTarget();
-            if (!target.isFocusTraversable()) signupPage.requestFocus();
-        });
-
+        FocusUtil.removeInitialFocus(signupPage);
         signupService = new SignupService();
     }
 

@@ -1,11 +1,11 @@
 package com.unina.biogarden.service;
 
+import com.unina.biogarden.dto.Utente;
 import com.unina.biogarden.dao.utente.UtenteDao;
 import com.unina.biogarden.dao.utente.UtenteDaoImpl;
-import com.unina.biogarden.dto.Utente;
-import com.unina.biogarden.exception.DatabaseException;
 import com.unina.biogarden.gui.controller.SnackbarController;
 import com.unina.biogarden.util.ErrorMessages;
+import com.unina.biogarden.exception.DatabaseException;
 
 public class SignupService {
     private UtenteDao dao = new UtenteDaoImpl();
