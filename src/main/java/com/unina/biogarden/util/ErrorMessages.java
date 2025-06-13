@@ -1,6 +1,7 @@
 package com.unina.biogarden.util;
 
 public enum ErrorMessages {
+    ERRORE_GENERICO("Si è verificato un errore, riprova più tardi."),
     CREDENZIALI_NON_VALIDE("Credenziali non valide."),
     NOME_VUOTO("Devi inserire un nome per continuare."),
     COGNOME_VUOTO("Devi inserire un cognome per continuare."),

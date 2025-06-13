@@ -61,7 +61,7 @@ public class Router {
         FadeTransition ft = new FadeTransition(Duration.millis(250), node);
         ft.setFromValue(1.0);
         ft.setToValue(0.0);
-        ft.setOnFinished(event -> onFinished.run());
+        ft.setOnFinished(_ -> onFinished.run());
         ft.play();
     }
 
