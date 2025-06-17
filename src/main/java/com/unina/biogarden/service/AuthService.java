@@ -1,14 +1,47 @@
 package com.unina.biogarden.service;
 
-import com.unina.biogarden.dto.Utente;
 import com.unina.biogarden.dao.utente.UtenteDao;
 import com.unina.biogarden.dao.utente.UtenteDaoImpl;
+import com.unina.biogarden.dto.Utente;
 import com.unina.biogarden.gui.controller.SnackbarController;
 import com.unina.biogarden.util.ErrorMessages;
+import com.unina.biogarden.util.Sessione;
+import com.unina.biogarden.exception.InvalidCredentialsException;
 import com.unina.biogarden.exception.DatabaseException;
 
-public class SignupService {
+public class AuthService {
+    private static final AuthService instance = new AuthService();
     private UtenteDao dao = new UtenteDaoImpl();
+
+    private AuthService() {}
+    public static AuthService getInstance() {
+        return instance;
+    }
+
+    public Utente login(String username, String password) {
+        if (!areCampiValidi(username, password)) return null;
+        return eseguiLogin(username, password);
+    }
+    private boolean areCampiValidi(String username, String password) {
+        if (username.isEmpty()) {
+            SnackbarController.show(ErrorMessages.USERNAME_VUOTO.getMessage());
+        } else if (password.isEmpty()) {
+            SnackbarController.show(ErrorMessages.PASSWORD_VUOTA.getMessage());
+        } else return true;
+        return false;
+    }
+    private Utente eseguiLogin(String username, String password) {
+        try {
+            Utente utente = dao.verificaCredenziali(username, password);
+            if (utente != null) Sessione.getInstance().setUtenteCorrente(utente);
+            return utente;
+        } catch (InvalidCredentialsException e) {
+            SnackbarController.show(ErrorMessages.CREDENZIALI_NON_VALIDE.getMessage());
+        } catch (DatabaseException e) {
+            SnackbarController.show(ErrorMessages.ERRORE_GENERICO.getMessage());
+        }
+        return null;
+    }
 
     public boolean isPrimoBloccoValido(String nome, String cognome) {
         if (nome.isEmpty()) {
@@ -80,9 +113,11 @@ public class SignupService {
         return utente;
     }
 
-    public Utente signup(Utente utente) {
+    public Utente signup(Utente utenteDaRegistrare) {
         try {
-            return dao.registraUtente(utente);
+            Utente utente = dao.registraUtente(utenteDaRegistrare);
+            if (utente != null) Sessione.getInstance().setUtenteCorrente(utente);
+            return utente;
         } catch (DatabaseException e) {
             SnackbarController.show(ErrorMessages.ERRORE_GENERICO.getMessage());
             return null;

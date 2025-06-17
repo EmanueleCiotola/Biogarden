@@ -4,19 +4,6 @@
     -fx-text-fill: #0b4275;
 }
 
-.text-field {
-    background-color: #f6fafd;
-    -fx-text-fill: #0b4275;
-    -fx-border-color: transparent;
-    -fx-border-width: 2;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-background-insets: 0, 1;
-}
-.text-field:focused {
-    -fx-border-color: #409df4;
-}
-
 .title {
     -fx-font-size: 24;
     -fx-font-weight: bold;
@@ -34,6 +21,13 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-padding: 5 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
+}
+.button:focused, .button:hover {
+    -fx-background-color: #409df4;
+}
+.button:armed  {
+    -fx-effect: dropshadow(gaussian, #409df4, 12, 0.3, 0, 0);
 }
 
 .button.secondaryButton {
@@ -43,11 +37,34 @@
     -fx-background-radius: 5;
     -fx-padding: 5 15;
     -fx-opacity: 0.9;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
+}
+.button.secondaryButton:focused, .button.secondaryButton:hover {
+    -fx-border-color: #409df4;
+}
+.button.secondaryButton:armed  {
+    -fx-effect: dropshadow(gaussian, #409df4, 12, 0.3, 0, 0);
 }
 
-.indicatorePosizione {
-    -fx-background-color: #409df4;
-    -fx-border-radius: 5;
+.text-field {
+    background-color: #f6fafd;
+    -fx-text-fill: #0b4275;
     -fx-background-radius: 5;
-    -fx-padding: 5 15;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0, 1;
+}
+.text-field:focused {
+    -fx-border-color: #409df4;
+}
+
+.hyperlink {
+    -fx-text-fill: #409df4;
+}
+.hyperlink:armed {
+    -fx-border-color: #409df4;
 }

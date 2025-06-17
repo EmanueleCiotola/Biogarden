@@ -27,7 +27,7 @@ public class Main extends Application {
 
         StackPane rootStack = (StackPane) scene.lookup("#rootStack");
         Router.getInstance().setRootStack(rootStack);
-        Router.getInstance().navigateTo("loginPage");
+        Router.getInstance().navigateTo("authPage");
     }
 
     public static void main(String[] args) {

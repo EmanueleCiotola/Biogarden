@@ -3,18 +3,24 @@ package com.unina.biogarden.util;
 import com.unina.biogarden.dto.Utente;
 
 public class Sessione {
-    private static Utente utenteCorrente;
+    private static final Sessione instance = new Sessione();
+    private Utente utenteCorrente;
 
-    public static void setUtenteCorrente(Utente u) {
-        utenteCorrente = u;
+    private Sessione() {}
+    public static Sessione getInstance() {
+        return instance;
     }
 
-    public static Utente getUtenteCorrente() {
-        return utenteCorrente;
+    public void setUtenteCorrente(Utente u) {
+        this.utenteCorrente = u;
     }
 
-    public static void logout() {
-        utenteCorrente = null;
+    public Utente getUtenteCorrente() {
+        return this.utenteCorrente;
+    }
+
+    public void logout() {
+        this.utenteCorrente = null;
     }
 }
 

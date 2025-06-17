@@ -5,13 +5,16 @@ import com.unina.biogarden.router.Router;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 public class HomeController {
+    @FXML
+    private Button BackToLoginButton;
+
     @FXML private StackPane homePageStackPane;
     @FXML private Label emailLabel;
-    private String email;
 
      public void initialize() {
         homePageStackPane.setFocusTraversable(true);
@@ -23,12 +26,11 @@ public class HomeController {
     }
 
     public void postInitialize() {
-        // email = mainController.getEmailUtente();
-        emailLabel.setText("Benvenuto, " + email);
+        emailLabel.setText("Benvenuto");
     }
 
     @FXML
     public void goBackToHome() {
-        Router.getInstance().navigateTo("loginPage");
+        Router.getInstance().navigateTo("authPage");
     }
 }

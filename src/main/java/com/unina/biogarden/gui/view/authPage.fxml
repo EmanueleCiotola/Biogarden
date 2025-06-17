@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="signupPage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.SignupController">
+<StackPane fx:id="authPage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.AuthController">
    <children>
       <GridPane alignment="CENTER" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" style="-fx-background-color: linear-gradient(to right, #0b4275 40%, #f6fafd 40%);" styleClass="card">
          <columnConstraints>
@@ -28,19 +28,76 @@
             <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <VBox alignment="CENTER" styleClass="logo-row">
+            <ImageView cache="true" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asset/icon/logo.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <VBox fx:id="loginContainer" alignment="CENTER" maxHeight="350.0" styleClass="root" GridPane.columnIndex="1">
                <children>
-                  <ImageView cache="true" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../asset/icon/logo.png" />
-                     </image>
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                  </ImageView>
+                  <VBox alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
+                     <children>
+                        <Label styleClass="title" text="Login">
+                        </Label>
+                        <Label text="Username">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="usernameLoginField" promptText="Inserisici il tuo username" style="-fx-max-width: 250;" styleClass="textField">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <Label text="Password">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="20.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="passwordLoginField" promptText="Inserisci la tua password" style="-fx-max-width: 250;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </PasswordField>
+                        <Button fx:id="loginButton" onAction="#handleLogin" text="Accedi">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label text="Non hai un account?">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Hyperlink onAction="#goToSignup" styleClass="textLinkColor" text="Registrati">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Hyperlink>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" maxHeight="350.0" styleClass="root" GridPane.columnIndex="1">
+            <VBox fx:id="signupContainer" alignment="CENTER" maxHeight="350.0" styleClass="root" GridPane.columnIndex="1" managed="false" visible="false">
                <children>
                   <Label text="Signup">
                      <font>
@@ -57,7 +114,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="nomeField" promptText="Inserisci il tuo nome" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="nomeSignupField" promptText="Inserisci il tuo nome" style="-fx-max-width: 250;" styleClass="textField">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -70,7 +127,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="cognomeField" promptText="Inserisci il tuo cognome" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="cognomeSignupField" promptText="Inserisci il tuo cognome" style="-fx-max-width: 250;" styleClass="textField">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -95,7 +152,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="codiceFiscaleField" promptText="Inserisci il tuo codice fiscale" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="codiceFiscaleSignupField" promptText="Inserisci il tuo codice fiscale" style="-fx-max-width: 250;" styleClass="textField">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -108,7 +165,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField" promptText="Inserisci il tuo username" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="usernameSignupField" promptText="Inserisci il tuo username" style="-fx-max-width: 250;" styleClass="textField">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -145,7 +202,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="passwordField" promptText="Inserisci la tua password" style="-fx-max-width: 250;">
+                        <PasswordField fx:id="passwordSignupField" promptText="Inserisci la tua password" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -158,7 +215,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="ripetiPasswordField" promptText="Ripeti la tua password" style="-fx-max-width: 250;">
+                        <PasswordField fx:id="ripetiPasswordSignupField" promptText="Ripeti la tua password" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
