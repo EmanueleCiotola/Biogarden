@@ -28,9 +28,9 @@
             <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView cache="true" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView cache="true" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" smooth="true">
                <image>
-                  <Image url="@../asset/icon/logo.png" />
+                  <Image url="@../asset/icon/logoBianco.png" />
                </image>
                <viewport>
                   <Rectangle2D />
