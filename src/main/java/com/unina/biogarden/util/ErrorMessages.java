@@ -8,6 +8,7 @@ public enum ErrorMessages {
     CODICE_FISCALE_VUOTO("Devi inserire un codice fiscale per continuare."),
     CODICE_FISCALE_LUNGHEZZA("Il codice fiscale deve contenere 16 caratteri."),
     CODICE_FISCALE_FORMATO("Il codice fiscale può contenere solo lettere e numeri."),
+    CODICE_FISCALE_OCCUPATO("Il codice fiscale inserito è già in uso."),
     USERNAME_VUOTO("Devi inserire uno username per continuare."),
     USERNAME_FORMATO("Lo username può contenere solo lettere, numeri, punti, trattini bassi e trattini."),
     USERNAME_OCCUPATO("L'username inserito è già in uso."),

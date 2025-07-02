@@ -6,8 +6,8 @@ import com.unina.biogarden.dto.Utente;
 import com.unina.biogarden.gui.controller.SnackbarController;
 import com.unina.biogarden.util.ErrorMessages;
 import com.unina.biogarden.util.Sessione;
-import com.unina.biogarden.exception.InvalidCredentialsException;
-import com.unina.biogarden.exception.DatabaseException;
+import com.unina.biogarden.util.exception.InvalidCredentialsException;
+import com.unina.biogarden.util.exception.DatabaseException;
 
 public class AuthService {
     private static final AuthService instance = new AuthService();
@@ -18,32 +18,26 @@ public class AuthService {
         return instance;
     }
 
-    public Utente login(String username, String password) {
-        if (!areCampiValidi(username, password)) return null;
-        return eseguiLogin(username, password);
+    public Utente login(String username, String password) throws InvalidCredentialsException, DatabaseException {
+        validaCampiLogin(username, password);
+        return richiediLogin(username, password);
     }
-    private boolean areCampiValidi(String username, String password) {
+    private void validaCampiLogin(String username, String password) throws InvalidCredentialsException {
         if (username.isEmpty()) {
-            SnackbarController.show(ErrorMessages.USERNAME_VUOTO.getMessage());
+            throw new InvalidCredentialsException(ErrorMessages.USERNAME_VUOTO.getMessage());
         } else if (password.isEmpty()) {
-            SnackbarController.show(ErrorMessages.PASSWORD_VUOTA.getMessage());
-        } else return true;
-        return false;
-    }
-    private Utente eseguiLogin(String username, String password) {
-        try {
-            Utente utente = dao.verificaCredenziali(username, password);
-            if (utente != null) Sessione.getInstance().setUtenteCorrente(utente);
-            return utente;
-        } catch (InvalidCredentialsException e) {
-            SnackbarController.show(ErrorMessages.CREDENZIALI_NON_VALIDE.getMessage());
-        } catch (DatabaseException e) {
-            SnackbarController.show(ErrorMessages.ERRORE_GENERICO.getMessage());
+            throw new InvalidCredentialsException(ErrorMessages.PASSWORD_VUOTA.getMessage());
         }
-        return null;
+    }
+    private Utente richiediLogin(String username, String password) throws InvalidCredentialsException, DatabaseException {
+        Utente utente = dao.verificaCredenziali(username, password);
+        if (utente != null) Sessione.getInstance().setUtenteCorrente(utente);
+        return utente;
     }
 
-    public boolean isPrimoBloccoValido(String nome, String cognome) {
+
+
+    public boolean isPrimoBloccoSignupValido(String nome, String cognome) {
         if (nome.isEmpty()) {
             SnackbarController.show(ErrorMessages.NOME_VUOTO.getMessage());
         } else if (cognome.isEmpty()) {
@@ -52,7 +46,7 @@ public class AuthService {
         return false;
     }
 
-    public boolean isSecondoBloccoValido(String codiceFiscale, String username) {
+    public boolean isSecondoBloccoSignupValido(String codiceFiscale, String username) {
         if (!isCodiceFiscaleValido(codiceFiscale)) return false;
         else if (!isUsernameValido(username)) return false;
         return true;
@@ -64,6 +58,8 @@ public class AuthService {
             SnackbarController.show(ErrorMessages.CODICE_FISCALE_LUNGHEZZA.getMessage());
         } else if (!codiceFiscale.matches("^[A-Z0-9]{16}$")) {
             SnackbarController.show(ErrorMessages.CODICE_FISCALE_FORMATO.getMessage());
+        } else if (!dao.isCodFiscLibero(codiceFiscale)) {
+            SnackbarController.show(ErrorMessages.CODICE_FISCALE_OCCUPATO.getMessage());
         } else return true;
         return false;
     }
@@ -78,7 +74,7 @@ public class AuthService {
         return false;
     }
 
-    public boolean isTerzoBloccoValido(String password, String ripetiPassword) {
+    public boolean isTerzoBloccoSignupValido(String password, String ripetiPassword) {
         if (!isPasswordValida(password)) return false;
         else if (!isRipetizionePasswordValida(password, ripetiPassword)) return false;
         return true;

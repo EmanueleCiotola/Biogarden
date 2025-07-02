@@ -19,15 +19,15 @@ public class AuthController {
     @FXML private TextField usernameLoginField;
     @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
-    @FXML private VBox primoBlocco;
+    @FXML private VBox primoBloccoSignup;
     @FXML private TextField nomeSignupField;
     @FXML private TextField cognomeSignupField;
     @FXML private Button confermaPrimoBloccoSignupButton;
-    @FXML private VBox secondoBlocco;
+    @FXML private VBox secondoBloccoSignup;
     @FXML private TextField codiceFiscaleSignupField;
     @FXML private TextField usernameSignupField;
     @FXML private Button confermaSecondoBloccoSignup;
-    @FXML private VBox terzoBlocco;
+    @FXML private VBox terzoBloccoSignup;
     @FXML private PasswordField passwordSignupField;
     @FXML private PasswordField ripetiPasswordSignupField;
     @FXML private Button indietroTerzoBloccoSignupButton;
@@ -45,8 +45,12 @@ public class AuthController {
         String username = usernameLoginField.getText();
         String password = passwordLoginField.getText();
         
-        Utente utente = authService.login(username, password);
-        if (utente != null) Router.getInstance().navigateTo("homePage");
+        try {            
+            Utente utente = authService.login(username, password);
+            if (utente != null) Router.getInstance().navigateTo("homePage");
+        } catch (Exception e) {
+            SnackbarController.show(e.getMessage());
+        }
     }
     @FXML
     public void goToSignup() {
@@ -59,14 +63,14 @@ public class AuthController {
         String nome = nomeSignupField.getText().trim();
         String cognome = cognomeSignupField.getText().trim();
 
-        if (authService.isPrimoBloccoValido(nome, cognome)) {
-            Router.getInstance().switchBlocks(primoBlocco, secondoBlocco);
+        if (authService.isPrimoBloccoSignupValido(nome, cognome)) {
+            Router.getInstance().switchBlocks(primoBloccoSignup, secondoBloccoSignup);
             FocusUtil.setFocusTo(authPage);
         }
     }
     @FXML
     private void handleIndietroSecondoBloccoSignup() {
-        Router.getInstance().switchBlocks(secondoBlocco, primoBlocco);
+        Router.getInstance().switchBlocks(secondoBloccoSignup, primoBloccoSignup);
         FocusUtil.setFocusTo(authPage);
     }
     
@@ -75,14 +79,14 @@ public class AuthController {
         String codiceFiscale = codiceFiscaleSignupField.getText().trim().toUpperCase();
         String username = usernameSignupField.getText().trim();
         
-        if (authService.isSecondoBloccoValido(codiceFiscale, username)) {
-            Router.getInstance().switchBlocks(secondoBlocco, terzoBlocco);
+        if (authService.isSecondoBloccoSignupValido(codiceFiscale, username)) {
+            Router.getInstance().switchBlocks(secondoBloccoSignup, terzoBloccoSignup);
             FocusUtil.setFocusTo(authPage);
         }
     }
     @FXML
     private void handleIndietroTerzoBloccoSignup() {
-        Router.getInstance().switchBlocks(terzoBlocco, secondoBlocco);
+        Router.getInstance().switchBlocks(terzoBloccoSignup, secondoBloccoSignup);
         FocusUtil.setFocusTo(authPage);
     }
 
@@ -91,7 +95,7 @@ public class AuthController {
         String password = passwordSignupField.getText();
         String ripetiPassword = ripetiPasswordSignupField.getText();
 
-        if (authService.isTerzoBloccoValido(password, ripetiPassword)) {
+        if (authService.isTerzoBloccoSignupValido(password, ripetiPassword)) {
             Utente utente = costruisciUtente();
             Utente registrato = authService.signup(utente);
             if (registrato != null) Router.getInstance().navigateTo("homePage");

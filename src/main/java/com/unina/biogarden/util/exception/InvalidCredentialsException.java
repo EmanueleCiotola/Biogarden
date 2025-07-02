@@ -1,4 +1,4 @@
-package com.unina.biogarden.exception;
+package com.unina.biogarden.util.exception;
 
 public class InvalidCredentialsException extends Exception {
     public InvalidCredentialsException(String message) {

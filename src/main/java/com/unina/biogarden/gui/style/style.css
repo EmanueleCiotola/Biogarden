@@ -21,6 +21,8 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-padding: 5 15;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
 }
 .button:focused, .button:hover {
@@ -64,7 +66,8 @@
 
 .hyperlink {
     -fx-text-fill: #409df4;
+    -fx-underline: false;
 }
-.hyperlink:armed {
-    -fx-border-color: #409df4;
+.hyperlink:focussed, .hyperlink:hover, .hyperlink:armed {
+    -fx-underline: true;
 }
