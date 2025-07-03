@@ -29,8 +29,7 @@ public class UtenteDaoImpl implements UtenteDao {
     }
 
     @Override
-    public Utente registraUtente(Utente utente) throws DatabaseException {
+    public void registraUtente(Utente utente) throws DatabaseException {
         //todo: implementare logica di registrazione dell'utente
-        return utente;
     }
 }

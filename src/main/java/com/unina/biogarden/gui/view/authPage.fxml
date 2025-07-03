@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -35,10 +36,13 @@
             </ImageView>
             <VBox fx:id="loginContainer" alignment="CENTER" maxHeight="350.0" GridPane.columnIndex="1">
                <children>
+                  <Label styleClass="title" text="Accesso">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
                   <VBox alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
                      <children>
-                        <Label styleClass="title" text="Login">
-                        </Label>
                         <Label text="Username">
                            <VBox.margin>
                               <Insets bottom="5.0" top="25.0" />
@@ -47,7 +51,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameLoginField" promptText="Inserisici il tuo username" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="usernameLoginField" promptText="Inserisici il tuo username" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -94,14 +98,14 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="signupContainer" alignment="CENTER" maxHeight="350.0" GridPane.columnIndex="1" managed="false" visible="false">
+            <VBox fx:id="signupContainer" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false" GridPane.columnIndex="1">
                <children>
-                  <Label text="Signup">
+                  <Label text="Registrazione">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <VBox fx:id="primoBloccoSignup" alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
+                  <VBox fx:id="bloccoNomeCognomeSignup" alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
                      <children>
                         <Label text="Nome">
                            <VBox.margin>
@@ -111,7 +115,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="nomeSignupField" promptText="Inserisci il tuo nome" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="nomeSignupField" promptText="Inserisci il tuo nome" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -124,12 +128,12 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="cognomeSignupField" promptText="Inserisci il tuo cognome" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="cognomeSignupField" promptText="Inserisci il tuo cognome" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="confermaPrimoBloccoSignupButton" onAction="#handleConfermaPrimoBloccoSignup" text="Avanti">
+                        <Button fx:id="confermaBloccoNomeCognomeSignupButton" onAction="#handleConfermaBloccoNomeCognomeSignup" text="Avanti">
                            <VBox.margin>
                               <Insets top="25.0" />
                            </VBox.margin>
@@ -139,7 +143,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox fx:id="secondoBloccoSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
+                  <VBox fx:id="bloccoCodFiscUsernameSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
                      <children>
                         <Label text="Codice fiscale">
                            <VBox.margin>
@@ -149,7 +153,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="codiceFiscaleSignupField" promptText="Inserisci il tuo codice fiscale" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="codiceFiscaleSignupField" promptText="Inserisci il tuo codice fiscale" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -162,14 +166,14 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameSignupField" promptText="Inserisci il tuo username" style="-fx-max-width: 250;" styleClass="textField">
+                        <TextField fx:id="usernameSignupField" promptText="Inserisci il tuo username" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button fx:id="indietroTerzoBloccoSignupButton" mnemonicParsing="false" onAction="#handleIndietroSecondoBloccoSignup" styleClass="secondaryButton" text="Indietro">
+                              <Button fx:id="indietroDaBloccoCodFiscUsernameSignupButton" mnemonicParsing="false" onAction="#handleIndietroBloccoCodFiscUsernameSignup" styleClass="secondaryButton" text="Indietro">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -177,7 +181,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="confermaSecondoBloccoSignup" onAction="#handleConfermaSecondoBloccoSignup" text="Avanti">
+                              <Button fx:id="confermaBloccoCodFiscUsernameSignupButton" onAction="#handleConfermaBloccoCodFiscUsernameSignup" text="Avanti">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -189,7 +193,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="terzoBloccoSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
+                  <VBox fx:id="bloccoPasswordSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
                      <children>
                         <Label text="Password">
                            <VBox.margin>
@@ -199,7 +203,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="passwordSignupField" promptText="Inserisci la tua password" style="-fx-max-width: 250;">
+                        <PasswordField fx:id="passwordSignupField" promptText="Inserisci una password" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -212,14 +216,14 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="ripetiPasswordSignupField" promptText="Ripeti la tua password" style="-fx-max-width: 250;">
+                        <PasswordField fx:id="ripetiPasswordSignupField" promptText="Ripeti la password" style="-fx-max-width: 250;">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </PasswordField>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button fx:id="indietroTerzoBloccoSignupButton" mnemonicParsing="false" onAction="#handleIndietroTerzoBloccoSignup" styleClass="secondaryButton" text="Indietro">
+                              <Button fx:id="indietroDaBloccoPasswordSignupButton" mnemonicParsing="false" onAction="#handleIndietroDaBloccoPasswordSignup" styleClass="secondaryButton" text="Indietro">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -227,7 +231,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="signupButton" onAction="#handleSignup" text="Registrati">
+                              <Button fx:id="confermaBloccoPasswordSignupButton" onAction="#handleConfermaBloccoPasswordSignup" text="Registrati">
                                  <VBox.margin>
                                     <Insets top="25.0" />
                                  </VBox.margin>

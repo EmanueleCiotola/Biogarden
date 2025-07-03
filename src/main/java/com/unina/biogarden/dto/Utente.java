@@ -5,6 +5,7 @@ public abstract class Utente {
     private String cognome;
     private String codFisc;
     private String username;
+    private String password;
 
     public Utente() {}
     public Utente(String nome, String cognome, String codiceFiscale, String username) {
@@ -28,10 +29,10 @@ public abstract class Utente {
         this.cognome = cognome;
     }
     
-    public String getCodFisc() {
+    public String getCodiceFiscale() {
         return codFisc;
     }
-    public void setCodFisc(String codiceFiscale) {
+    public void setCodiceFiscale(String codiceFiscale) {
         this.codFisc = codiceFiscale;
     }
     
@@ -40,5 +41,12 @@ public abstract class Utente {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

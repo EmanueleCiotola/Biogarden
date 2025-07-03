@@ -71,3 +71,30 @@
 .hyperlink:focussed, .hyperlink:hover, .hyperlink:armed {
     -fx-underline: true;
 }
+
+.radio-button .radio {
+    -fx-background-color: white;          /* colore cerchio esterno */
+    -fx-border-color: gray;                /* bordo cerchio */
+    -fx-border-width: 2;
+    -fx-background-radius: 12;             /* arrotondamento */
+    -fx-padding: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1); /* ombra */
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: #409df4;        /* colore cerchio interno quando selezionato */
+    -fx-border-color: #0b4275;
+}
+
+.radio-button:selected .radio > .radio-dot {
+    -fx-background-color: white;          /* colore puntino interno */
+}
+
+.radio-button:hover .radio {
+    -fx-border-color: #409df4;
+}
+
+.radio-button:focused .radio {
+    -fx-border-color: #409df4;
+    -fx-effect: dropshadow(gaussian, #3f51b5, 4, 0, 0, 0);
+}

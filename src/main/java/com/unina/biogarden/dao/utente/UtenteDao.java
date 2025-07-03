@@ -10,5 +10,5 @@ public interface UtenteDao {
     boolean isUsernameLibero(String username);
     boolean isCodFiscLibero(String codFisc);
 
-    Utente registraUtente(Utente utente) throws DatabaseException;
+    void registraUtente(Utente utente) throws DatabaseException;
 }
