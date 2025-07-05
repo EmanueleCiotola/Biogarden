@@ -3,6 +3,9 @@ package com.unina.biogarden.util;
 public enum ErrorMessages {
     ERRORE_GENERICO("Si è verificato un errore, riprova più tardi."),
     CREDENZIALI_NON_VALIDE("Credenziali non valide."),
+    PIVA_VUOTA("Devi inserire una partita IVA per continuare."),
+    PIVA_LUNGHEZZA("La partita IVA deve contenere 11 caratteri."),
+    PIVA_FORMATO("La partita IVA può contenere solo numeri."),
     NOME_VUOTO("Devi inserire un nome per continuare."),
     COGNOME_VUOTO("Devi inserire un cognome per continuare."),
     CODICE_FISCALE_VUOTO("Devi inserire un codice fiscale per continuare."),
@@ -27,7 +30,8 @@ public enum ErrorMessages {
         this.message = message;
     }
 
-    public String getMessage() {
+    @Override
+    public String toString() {
         return message;
     }
 }

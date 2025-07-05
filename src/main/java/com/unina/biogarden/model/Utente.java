@@ -1,4 +1,4 @@
-package com.unina.biogarden.dto;
+package com.unina.biogarden.model;
 
 public abstract class Utente {
     private String nome;

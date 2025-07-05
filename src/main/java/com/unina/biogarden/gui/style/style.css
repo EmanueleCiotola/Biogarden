@@ -8,7 +8,6 @@
     -fx-font-size: 24;
     -fx-font-weight: bold;
 }
-
 .card {
     -fx-border-radius: 20;
     -fx-background-radius: 20;
@@ -24,12 +23,14 @@
     -fx-border-width: 2;
     -fx-border-color: transparent;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
+    -fx-cursor: hand;
 }
-.button:focused, .button:hover {
+.button:hover, .button:focused {
     -fx-background-color: #409df4;
 }
 .button:armed  {
-    -fx-effect: dropshadow(gaussian, #409df4, 12, 0.3, 0, 0);
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
 }
 
 .button.secondaryButton {
@@ -44,11 +45,12 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
 }
-.button.secondaryButton:focused, .button.secondaryButton:hover {
+.button.secondaryButton:hover, .button.secondaryButton:focused{
     -fx-border-color: #409df4;
 }
 .button.secondaryButton:armed  {
-    -fx-effect: dropshadow(gaussian, #409df4, 12, 0.3, 0, 0);
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
 }
 
 .text-field {
@@ -57,44 +59,57 @@
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-border-width: 2;
-    -fx-border-color: transparent;
+    -fx-border-color: #0b4275;
     -fx-background-insets: 0, 1;
+    -fx-prompt-text-fill: rgba(11, 66, 117, .5);
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
+    -fx-highlight-fill: #409df4;
+    -fx-highlight-text-fill: #f6fafd;
 }
 .text-field:focused {
     -fx-border-color: #409df4;
+}
+.text-field:disabled {
+    -fx-background-color: #f6fafd;
+    -fx-border-color: rgba(11, 66, 117, 0.3);
+    -fx-prompt-text-fill: rgba(11, 66, 117, 0.2);
+    -fx-cursor: default;
+    -fx-opacity: 0.8;
 }
 
 .hyperlink {
     -fx-text-fill: #409df4;
     -fx-underline: false;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
-.hyperlink:focussed, .hyperlink:hover, .hyperlink:armed {
+.hyperlink:hover, .hyperlink:focused {
     -fx-underline: true;
 }
+.hyperlink:armed {
+    -fx-underline: true;
+    -fx-focus-color: #409df4;
+    -fx-faint-focus-color: #409df4;
+}
 
+.radio-button {
+    -fx-text-fill: #0b4275;
+    -fx-cursor: hand;
+    -fx-padding: 2 0;
+    -fx-font-size: 14px;
+}
 .radio-button .radio {
-    -fx-background-color: white;          /* colore cerchio esterno */
-    -fx-border-color: gray;                /* bordo cerchio */
-    -fx-border-width: 2;
-    -fx-background-radius: 12;             /* arrotondamento */
-    -fx-padding: 4;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1); /* ombra */
-}
-
-.radio-button:selected .radio {
-    -fx-background-color: #409df4;        /* colore cerchio interno quando selezionato */
+    -fx-background-color: #c1d7f0;
     -fx-border-color: #0b4275;
+    -fx-border-width: 2;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
 }
-
-.radio-button:selected .radio > .radio-dot {
-    -fx-background-color: white;          /* colore puntino interno */
-}
-
-.radio-button:hover .radio {
+.radio-button:hover .radio, .radio-button:focused .radio, .radio-button:selected .radio {
     -fx-border-color: #409df4;
 }
-
-.radio-button:focused .radio {
-    -fx-border-color: #409df4;
-    -fx-effect: dropshadow(gaussian, #3f51b5, 4, 0, 0, 0);
+.radio-button:selected .dot {
+    -fx-background-color: #409df4;
+    -fx-translate-y: -1;
 }

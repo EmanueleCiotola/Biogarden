@@ -1,4 +1,4 @@
-package com.unina.biogarden.dto;
+package com.unina.biogarden.model;
 
 public class UtenteColtivatore extends Utente {
     private double saldo;

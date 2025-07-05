@@ -1,6 +1,6 @@
-package com.unina.biogarden.dao.utente;
+package com.unina.biogarden.dao;
 
-import com.unina.biogarden.dto.Utente;
+import com.unina.biogarden.model.Utente;
 import com.unina.biogarden.util.exception.DatabaseException;
 import com.unina.biogarden.util.exception.InvalidCredentialsException;
 

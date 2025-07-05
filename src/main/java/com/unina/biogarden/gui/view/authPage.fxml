@@ -36,11 +36,7 @@
             </ImageView>
             <VBox fx:id="loginContainer" alignment="CENTER" maxHeight="350.0" GridPane.columnIndex="1">
                <children>
-                  <Label styleClass="title" text="Accesso">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
+                  <Label styleClass="title" text="Accesso" />
                   <VBox alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
                      <children>
                         <Label text="Username">
@@ -100,12 +96,61 @@
             </VBox>
             <VBox fx:id="signupContainer" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false" GridPane.columnIndex="1">
                <children>
-                  <Label text="Registrazione">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <VBox fx:id="bloccoNomeCognomeSignup" alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
+                  <Label styleClass="title" text="Registrazione" />
+                  <VBox fx:id="bloccoPartitaIvaSignup" alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Che tipo di account vuoi creare?">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <RadioButton fx:id="coltivatoreRadio" selected="true" text="Coltivatore" toggleGroup="$sceltaTipoUtenteSignupToggle">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="sceltaTipoUtenteSignupToggle" />
+                                 </toggleGroup>
+                                 <HBox.margin>
+                                    <Insets right="25.0" />
+                                 </HBox.margin>
+                              </RadioButton>
+                              <RadioButton fx:id="proprietarioRadio" text="Proprietario" toggleGroup="$sceltaTipoUtenteSignupToggle">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="2.0" bottom="2.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Partita IVA (solo per proprietari)">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="20.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="partitaIvaSignupField" promptText="Inserisci il numero di partita IVA" maxWidth="250.0" disable="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="confermaBloccoPartitaIvaSignupButton" onAction="#handleConfermaBloccoPartitaIvaSignup" text="Avanti">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="bloccoNomeCognomeSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
                      <children>
                         <Label text="Nome">
                            <VBox.margin>
@@ -133,14 +178,26 @@
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="confermaBloccoNomeCognomeSignupButton" onAction="#handleConfermaBloccoNomeCognomeSignup" text="Avanti">
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button fx:id="indietroDaBloccoPartitaIvaSignupButton" onAction="#handleIndietroBloccoPartitaIvaSignup" styleClass="secondaryButton" text="Indietro">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="confermaBloccoNomeCognomeSignupButton" onAction="#handleConfermaBloccoNomeCognomeSignup" text="Avanti">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
                            <VBox.margin>
                               <Insets top="25.0" />
                            </VBox.margin>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
+                        </HBox>
                      </children>
                   </VBox>
                   <VBox fx:id="bloccoCodFiscUsernameSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
@@ -173,7 +230,7 @@
                         </TextField>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button fx:id="indietroDaBloccoCodFiscUsernameSignupButton" mnemonicParsing="false" onAction="#handleIndietroBloccoCodFiscUsernameSignup" styleClass="secondaryButton" text="Indietro">
+                              <Button fx:id="indietroDaBloccoCodFiscUsernameSignupButton" onAction="#handleIndietroBloccoCodFiscUsernameSignup" styleClass="secondaryButton" text="Indietro">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -223,7 +280,7 @@
                         </PasswordField>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button fx:id="indietroDaBloccoPasswordSignupButton" mnemonicParsing="false" onAction="#handleIndietroDaBloccoPasswordSignup" styleClass="secondaryButton" text="Indietro">
+                              <Button fx:id="indietroDaBloccoPasswordSignupButton" onAction="#handleIndietroDaBloccoPasswordSignup" styleClass="secondaryButton" text="Indietro">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

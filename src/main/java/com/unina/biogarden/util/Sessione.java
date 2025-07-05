@@ -1,6 +1,6 @@
 package com.unina.biogarden.util;
 
-import com.unina.biogarden.dto.Utente;
+import com.unina.biogarden.model.Utente;
 
 public class Sessione {
     private static final Sessione instance = new Sessione();
