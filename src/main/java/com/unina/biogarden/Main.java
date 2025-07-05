@@ -16,8 +16,8 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/unina/biogarden/gui/view/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
         stage.setMaximized(true);
-        stage.setMinWidth(300);
-        stage.setMinHeight(525);
+        stage.setMinWidth(700);
+        stage.setMinHeight(500);
         stage.setTitle("UNINA BioGarder");
         stage.setScene(scene);
         stage.show();
