@@ -54,7 +54,7 @@
 }
 
 .text-field {
-    background-color: #f6fafd;
+    -fx-background-color: #f6fafd;
     -fx-text-fill: #0b4275;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
@@ -106,10 +106,13 @@
     -fx-background-radius: 100;
     -fx-border-radius: 100;
 }
-.radio-button:hover .radio, .radio-button:focused .radio, .radio-button:selected .radio {
+.radio-button:focused .radio {
     -fx-border-color: #409df4;
 }
 .radio-button:selected .dot {
-    -fx-background-color: #409df4;
+    -fx-background-color: #0b4275;
     -fx-translate-y: -1;
+}
+.radio-button:selected:focused .dot {
+    -fx-background-color: #409df4;
 }
