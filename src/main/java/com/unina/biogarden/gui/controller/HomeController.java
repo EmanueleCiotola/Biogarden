@@ -1,6 +1,6 @@
 package com.unina.biogarden.gui.controller;
 
-import com.unina.biogarden.router.Router;
+import com.unina.biogarden.util.Router;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -10,13 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 public class HomeController {
-    @FXML
-    private Button BackToLoginButton;
+    @FXML private Button BackToLoginButton;
 
     @FXML private StackPane homePageStackPane;
     @FXML private Label emailLabel;
 
-     public void initialize() {
+    public void initialize() {
         homePageStackPane.setFocusTraversable(true);
         Platform.runLater(() -> homePageStackPane.requestFocus());
         homePageStackPane.setOnMouseClicked(event -> {

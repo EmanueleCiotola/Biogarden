@@ -4,7 +4,7 @@ import com.unina.biogarden.util.exception.InvalidCredentialsException;
 import com.unina.biogarden.dao.UtenteDao;
 import com.unina.biogarden.model.Utente;
 import com.unina.biogarden.model.UtenteProprietario;
-import com.unina.biogarden.util.ErrorMessages;
+import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.exception.DatabaseException;
 
 public class UtenteDaoImpl implements UtenteDao {
@@ -13,7 +13,7 @@ public class UtenteDaoImpl implements UtenteDao {
         //todo: implementare logica di verifica delle credenziali
         if (username.equals("admin") && password.equals("admin")) {
             return  new UtenteProprietario("admin", "admin", "ADMN12345678ADMN", "Admin_1", "12345678910");
-        } else throw new InvalidCredentialsException(ErrorMessages.CREDENZIALI_NON_VALIDE);
+        } else throw new InvalidCredentialsException(ErrorMessage.CREDENZIALI_NON_VALIDE);
     }
 
     @Override

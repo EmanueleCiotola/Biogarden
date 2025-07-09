@@ -1,9 +1,9 @@
 package com.unina.biogarden.util.exception;
 
-import com.unina.biogarden.util.ErrorMessages;
+import com.unina.biogarden.util.ErrorMessage;
 
 public class DatabaseException extends Exception {
-    public DatabaseException(ErrorMessages message) {
+    public DatabaseException(ErrorMessage message) {
         super(message.toString());
     }
 }

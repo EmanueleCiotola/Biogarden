@@ -1,6 +1,6 @@
 package com.unina.biogarden.util;
 
-public enum ErrorMessages {
+public enum ErrorMessage {
     ERRORE_GENERICO("Si è verificato un errore, riprova più tardi."),
     CREDENZIALI_NON_VALIDE("Credenziali non valide."),
     PIVA_VUOTA("Devi inserire una partita IVA per continuare."),
@@ -26,7 +26,7 @@ public enum ErrorMessages {
 
     private final String message;
 
-    ErrorMessages(String message) {
+    ErrorMessage(String message) {
         this.message = message;
     }
 

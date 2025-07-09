@@ -1,14 +1,15 @@
-package com.unina.biogarden.router;
+package com.unina.biogarden.util;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.Node;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
 public class Router {
     private static Router instance;
-    private StackPane rootStack;
+    private Pane rootStack;
+    private Pane contentContainer;
 
     private Router() {}
 
@@ -17,19 +18,34 @@ public class Router {
         return instance;
     }
 
-    public void setRootStack(StackPane rootStack) {
+    public void setRootStack(Pane rootStack) {
         this.rootStack = rootStack;
     }
-
-    public static StackPane getRootStack() {
-        return getInstance().rootStack;
+    public void setContentContainer(Pane container) {
+        this.contentContainer = container;
     }
 
-    public void navigateTo(String fxml) {
+    public static Pane getRootStack() {
+        return getInstance().rootStack;
+    }
+    public static Pane getContentContainer() {
+        return getInstance().contentContainer;
+    }
+
+    public void navigateTo(String fxmlName) {
+        loadIntoContainer(rootStack, fxmlName);
+    }
+    public void loadContent(String fxmlName) {
+        loadIntoContainer(contentContainer, fxmlName);
+    }
+    private void loadIntoContainer(Pane container, String fxmlName) {
         try {
-            Node newView = creaNuovaView(fxml);
-            if (rootStack.getChildren().isEmpty()) animaPrimaView(newView);
-            else animaView(newView);
+            Node newView = creaNuovaView(fxmlName);
+            if (container.getChildren().isEmpty()) {
+                animaPrimaView(container, newView);
+            } else {
+                animaView(container, newView);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,20 +56,20 @@ public class Router {
         newView.setOpacity(0);
         return newView;
     }
-    private void animaPrimaView(Node newView) throws Exception {
-        rootStack.getChildren().setAll(newView);
+    private void animaPrimaView(Pane container, Node newView) throws Exception {
+        container.getChildren().setAll(newView);
         fadeIn(newView);
     }
-    private void animaView(Node newView) throws Exception {
-        Node oldView = rootStack.getChildren().get(0);
-        rootStack.getChildren().add(newView);
+    private void animaView(Pane container, Node newView) throws Exception {
+        Node oldView = container.getChildren().get(0);
+        container.getChildren().add(newView);
 
         fadeOut(oldView, () -> {
-            rootStack.getChildren().remove(oldView);
+            container.getChildren().remove(oldView);
             fadeIn(newView);
         });
     }
-
+    
     public void switchBlocks(Node from, Node to) {
         fadeOut(from, () -> {
             from.setVisible(false);

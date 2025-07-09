@@ -9,7 +9,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-import com.unina.biogarden.router.Router;
+import com.unina.biogarden.util.Router;
 
 public class SnackbarController {
 

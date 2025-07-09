@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox fx:id="signupContainer" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" fx:controller="com.unina.biogarden.gui.controller.SignupController">
+    <children>
+        <Label styleClass="title" text="Registrazione" />
+        <VBox fx:id="bloccoPartitaIvaSignup" alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" text="Che tipo di account vuoi creare?">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="25.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER">
+                    <children>
+                        <RadioButton fx:id="coltivatoreRadio" selected="true" text="Coltivatore" toggleGroup="$sceltaTipoUtenteSignupToggle">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="sceltaTipoUtenteSignupToggle" />
+                            </toggleGroup>
+                            <HBox.margin>
+                                <Insets right="25.0" />
+                            </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="proprietarioRadio" text="Proprietario" toggleGroup="$sceltaTipoUtenteSignupToggle">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </RadioButton>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="2.0" bottom="2.0" />
+                    </VBox.margin>
+                </HBox>
+                <Label alignment="CENTER" contentDisplay="CENTER" text="Partita IVA (solo per proprietari)">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="partitaIvaSignupField" promptText="Inserisci il numero di partita IVA" maxWidth="250.0" disable="true">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <Button fx:id="confermaBloccoPartitaIvaSignupButton" onAction="#handleConfermaBloccoPartitaIvaSignup" text="Avanti">
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+        <VBox fx:id="bloccoNomeCognomeSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
+            <children>
+                <Label text="Nome">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="25.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="nomeSignupField" promptText="Inserisci il tuo nome" style="-fx-max-width: 250;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <Label text="Cognome">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="cognomeSignupField" promptText="Inserisci il tuo cognome" style="-fx-max-width: 250;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER">
+                    <children>
+                        <Button fx:id="indietroDaBloccoPartitaIvaSignupButton" onAction="#handleIndietroBloccoPartitaIvaSignup" styleClass="secondaryButton" text="Indietro">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="confermaBloccoNomeCognomeSignupButton" onAction="#handleConfermaBloccoNomeCognomeSignup" text="Avanti">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+        <VBox fx:id="bloccoCodFiscUsernameSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
+            <children>
+                <Label text="Codice fiscale">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="25.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="codiceFiscaleSignupField" promptText="Inserisci il tuo codice fiscale" style="-fx-max-width: 250;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <Label text="Username">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="usernameSignupField" promptText="Inserisci il tuo username" style="-fx-max-width: 250;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER">
+                    <children>
+                        <Button fx:id="indietroDaBloccoCodFiscUsernameSignupButton" onAction="#handleIndietroBloccoCodFiscUsernameSignup" styleClass="secondaryButton" text="Indietro">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="confermaBloccoCodFiscUsernameSignupButton" onAction="#handleConfermaBloccoCodFiscUsernameSignup" text="Avanti">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+        <VBox fx:id="bloccoPasswordSignup" alignment="CENTER" managed="false" maxHeight="250.0" maxWidth="400.0" visible="false">
+            <children>
+                <Label text="Password">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="25.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <PasswordField fx:id="passwordSignupField" promptText="Inserisci una password" style="-fx-max-width: 250;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </PasswordField>
+                <Label text="Ripeti password">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <PasswordField fx:id="ripetiPasswordSignupField" promptText="Ripeti la password" style="-fx-max-width: 250;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </PasswordField>
+                <HBox alignment="CENTER">
+                    <children>
+                        <Button fx:id="indietroDaBloccoPasswordSignupButton" onAction="#handleIndietroDaBloccoPasswordSignup" styleClass="secondaryButton" text="Indietro">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="confermaBloccoPasswordSignupButton" onAction="#handleConfermaBloccoPasswordSignup" text="Registrati">
+                            <VBox.margin>
+                                <Insets top="25.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+        <HBox alignment="CENTER">
+            <children>
+                <Label text="Hai già un account?">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <Hyperlink onAction="#goToLogin" styleClass="textLinkColor" text="Accedi">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Hyperlink>
+            </children>
+            <VBox.margin>
+                <Insets top="15.0" />
+            </VBox.margin>
+        </HBox>
+    </children>
+</VBox>

@@ -2,4 +2,4 @@
 
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="rootStack" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="root" />
+<StackPane fx:id="rootStack" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="root" fx:controller="com.unina.biogarden.gui.controller.MainController" />

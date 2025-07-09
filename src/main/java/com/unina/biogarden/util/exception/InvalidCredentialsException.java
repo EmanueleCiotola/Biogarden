@@ -1,9 +1,9 @@
 package com.unina.biogarden.util.exception;
 
-import com.unina.biogarden.util.ErrorMessages;
+import com.unina.biogarden.util.ErrorMessage;
 
 public class InvalidCredentialsException extends Exception {
-    public InvalidCredentialsException(ErrorMessages message) {
+    public InvalidCredentialsException(ErrorMessage message) {
         super(message.toString());
     }
 }

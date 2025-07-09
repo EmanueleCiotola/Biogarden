@@ -4,11 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import java.io.IOException;
-
-import com.unina.biogarden.router.Router;
 
 public class Main extends Application {
     @Override
@@ -24,10 +21,6 @@ public class Main extends Application {
 
         Font.loadFont(getClass().getResourceAsStream("/com/unina/biogarden/gui/asset/font/IBMPlexSans-VariableFont_wdth,wght.ttf"), 14);
         scene.getStylesheets().add(getClass().getResource("/com/unina/biogarden/gui/style/style.css").toExternalForm());
-
-        StackPane rootStack = (StackPane) scene.lookup("#rootStack");
-        Router.getInstance().setRootStack(rootStack);
-        Router.getInstance().navigateTo("authPage");
     }
 
     public static void main(String[] args) {
