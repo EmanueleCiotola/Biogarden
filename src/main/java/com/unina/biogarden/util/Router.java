@@ -13,11 +13,12 @@ import javafx.animation.PauseTransition;
 public class Router {
     private static final String FXML_VIEW_PATH = "/com/unina/biogarden/gui/view/";
     private static final Duration FADE_DURATION = Duration.millis(250);
-    private static final int SNACKBAR_DURATION = 3;
+    private static final int SNACKBAR_DURATION = 2;
 
     private static Router instance;
     private Pane rootStack;
     private Pane contentContainer;
+    private Node currentSnackbar;
 
     private Router() {}
 
@@ -84,8 +85,13 @@ public class Router {
 
     public Node showSnackbar(String messaggio) {
         try {
+            if (currentSnackbar != null) {
+                removeSnackbar(currentSnackbar); // Rimuovi snackbar ancora presenti
+            }
+
             Node snackbar = creaSnackbar(messaggio);
             rootStack.getChildren().add(snackbar);
+            currentSnackbar = snackbar;
             fadeIn(snackbar);
 
             rimozioneProgrammataSnackbar(snackbar);
@@ -110,10 +116,15 @@ public class Router {
         pause.play();
     }
     public void removeSnackbar(Node snackbar) {
-        if (rootStack.getChildren().contains(snackbar)) {
-            fadeOut(snackbar, () -> rootStack.getChildren().remove(snackbar));
-        }
+    if (rootStack.getChildren().contains(snackbar)) {
+        fadeOut(snackbar, () -> {
+            rootStack.getChildren().remove(snackbar);
+            if (snackbar == currentSnackbar) {
+                currentSnackbar = null;
+            }
+        });
     }
+}
 
     public void switchBlocks(Node from, Node to) {
         fadeOut(from, () -> {
