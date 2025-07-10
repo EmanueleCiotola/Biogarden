@@ -20,7 +20,7 @@
          <children>
             <ImageView cache="true" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" smooth="true">
                <image>
-                  <Image url="@../asset/icon/logoBianco.png" />
+                  <Image url="@../../asset/icon/logoBianco.png" />
                </image>
             </ImageView>
             <StackPane fx:id="authContentContainer" alignment="CENTER" maxHeight="350.0" GridPane.columnIndex="1" />

@@ -1,12 +1,16 @@
 package com.unina.biogarden.util;
 
 import javafx.fxml.FXMLLoader;
+import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.Node;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
 public class Router {
+    private static final String FXML_VIEW_PATH = "/com/unina/biogarden/gui/view/";
+    private static final Duration FADE_DURATION = Duration.millis(250);
+
     private static Router instance;
     private Pane rootStack;
     private Pane contentContainer;
@@ -14,7 +18,9 @@ public class Router {
     private Router() {}
 
     public static Router getInstance() {
-        if (instance == null) instance = new Router();
+        if (instance == null) {
+            instance = new Router();
+        }
         return instance;
     }
 
@@ -50,15 +56,17 @@ public class Router {
             e.printStackTrace();
         }
     }
-    private Node creaNuovaView(String fxml) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/unina/biogarden/gui/view/" + fxml + ".fxml"));
+    private Node creaNuovaView(String fxmlName) throws Exception {
+        String fxmlPath = FXML_VIEW_PATH + fxmlName + ".fxml";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        
         Node newView = loader.load();
         newView.setOpacity(0);
         return newView;
     }
     private void animaPrimaView(Pane container, Node newView) throws Exception {
         container.getChildren().setAll(newView);
-        fadeIn(newView);
+        Platform.runLater(() -> { fadeIn(newView); }); // Il runLater evita effetto scattino dovuto al rendering anticipato
     }
     private void animaView(Pane container, Node newView) throws Exception {
         Node oldView = container.getChildren().get(0);
@@ -84,17 +92,20 @@ public class Router {
     }
 
     private void fadeOut(Node node, Runnable onFinished) {
-        FadeTransition ft = new FadeTransition(Duration.millis(250), node);
-        ft.setFromValue(1.0);
-        ft.setToValue(0.0);
-        ft.setOnFinished(_ -> onFinished.run());
-        ft.play();
+        createFadeTransition(node, 1.0, 0.0, onFinished).play();
     }
-
     private void fadeIn(Node node) {
-        FadeTransition ft = new FadeTransition(Duration.millis(250), node);
-        ft.setFromValue(0.0);
-        ft.setToValue(1.0);
-        ft.play();
+        createFadeTransition(node, 0.0, 1.0, null).play();
+    }
+    private FadeTransition createFadeTransition(Node node, double fromValue, double toValue, Runnable onFinished) {
+        FadeTransition transition = new FadeTransition(FADE_DURATION, node);
+        transition.setFromValue(fromValue);
+        transition.setToValue(toValue);
+        
+        if (onFinished != null) {
+            transition.setOnFinished(_ -> onFinished.run());
+        }
+        
+        return transition;
     }
 }
