@@ -8,14 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Button;
 
 public class LoginController {
     @FXML private VBox loginContainer;
     @FXML private TextField usernameLoginField;
     @FXML private PasswordField passwordLoginField;
-    @FXML private Button loginButton;
-    
+
     private LoginService loginService;
 
     public void initialize() {
@@ -32,7 +30,7 @@ public class LoginController {
             Router.getInstance().navigateTo("homePage");
         } catch (Exception e) {
             FocusUtil.setFocusTo(loginContainer);
-            SnackbarController.show(e.getMessage());
+            Router.getInstance().showSnackbar(e.getMessage());
         }
     }
 

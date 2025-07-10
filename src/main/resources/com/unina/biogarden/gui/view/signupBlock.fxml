@@ -62,7 +62,7 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
-                <Button fx:id="confermaBloccoPartitaIvaSignupButton" onAction="#handleConfermaBloccoPartitaIvaSignup" text="Avanti">
+                <Button onAction="#handleConfermaBloccoPartitaIvaSignup" text="Avanti">
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
@@ -99,7 +99,7 @@
                 </TextField>
                 <HBox alignment="CENTER">
                     <children>
-                        <Button fx:id="indietroDaBloccoPartitaIvaSignupButton" onAction="#handleIndietroBloccoPartitaIvaSignup" styleClass="secondaryButton" text="Indietro">
+                        <Button onAction="#handleIndietroBloccoPartitaIvaSignup" styleClass="secondaryButton" text="Indietro">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -107,7 +107,7 @@
                                 <Insets right="15.0" />
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="confermaBloccoNomeCognomeSignupButton" onAction="#handleConfermaBloccoNomeCognomeSignup" text="Avanti">
+                        <Button onAction="#handleConfermaBloccoNomeCognomeSignup" text="Avanti">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -149,7 +149,7 @@
                 </TextField>
                 <HBox alignment="CENTER">
                     <children>
-                        <Button fx:id="indietroDaBloccoCodFiscUsernameSignupButton" onAction="#handleIndietroBloccoCodFiscUsernameSignup" styleClass="secondaryButton" text="Indietro">
+                        <Button onAction="#handleIndietroBloccoCodFiscUsernameSignup" styleClass="secondaryButton" text="Indietro">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -157,7 +157,7 @@
                                 <Insets right="15.0" />
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="confermaBloccoCodFiscUsernameSignupButton" onAction="#handleConfermaBloccoCodFiscUsernameSignup" text="Avanti">
+                        <Button onAction="#handleConfermaBloccoCodFiscUsernameSignup" text="Avanti">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -199,7 +199,7 @@
                 </PasswordField>
                 <HBox alignment="CENTER">
                     <children>
-                        <Button fx:id="indietroDaBloccoPasswordSignupButton" onAction="#handleIndietroDaBloccoPasswordSignup" styleClass="secondaryButton" text="Indietro">
+                        <Button onAction="#handleIndietroDaBloccoPasswordSignup" styleClass="secondaryButton" text="Indietro">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -207,7 +207,7 @@
                                 <Insets right="15.0" />
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="confermaBloccoPasswordSignupButton" onAction="#handleConfermaBloccoPasswordSignup" text="Registrati">
+                        <Button onAction="#handleConfermaBloccoPasswordSignup" text="Registrati">
                             <VBox.margin>
                                 <Insets top="25.0" />
                             </VBox.margin>

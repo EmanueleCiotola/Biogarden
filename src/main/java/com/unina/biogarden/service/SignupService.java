@@ -17,7 +17,7 @@ public class SignupService {
     private static final String REGEX_PASSWORD_HAS_SPECIAL = ".*[\\p{P}\\p{S}].*";
 
     private static final SignupService instance = new SignupService();
-    private UtenteDao dao = new UtenteDaoImpl();
+    private final UtenteDao dao = new UtenteDaoImpl();
 
     private SignupService() {}
     public static SignupService getInstance() {

@@ -14,7 +14,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Button;
 
 public class SignupController {
     @FXML private VBox signupContainer;
@@ -23,22 +22,15 @@ public class SignupController {
     @FXML private RadioButton coltivatoreRadio;
     @FXML private RadioButton proprietarioRadio;
     @FXML private TextField partitaIvaSignupField;
-    @FXML private Button indietroDaBloccoPartitaIvaSignupButton;
-    @FXML private Button confermaBloccoPartitaIvaSignupButton;
     @FXML private VBox bloccoNomeCognomeSignup;
     @FXML private TextField nomeSignupField;
     @FXML private TextField cognomeSignupField;
-    @FXML private Button confermaBloccoNomeCognomeSignupButton;
     @FXML private VBox bloccoCodFiscUsernameSignup;
     @FXML private TextField codiceFiscaleSignupField;
     @FXML private TextField usernameSignupField;
-    @FXML private Button indietroDaBloccoCodFiscUsernameSignupButton;
-    @FXML private Button confermaBloccoCodFiscUsernameSignupButton;
     @FXML private VBox bloccoPasswordSignup;
     @FXML private PasswordField passwordSignupField;
     @FXML private PasswordField ripetiPasswordSignupField;
-    @FXML private Button indietroDaBloccoPasswordSignupButton;
-    @FXML private Button confermaBloccoPasswordSignupButton;
 
     private SignupService signupService;
     private String partitaIvaTemporanea;
@@ -48,9 +40,7 @@ public class SignupController {
         FocusUtil.setFocusTo(signupContainer);
         signupService = SignupService.getInstance();
 
-        sceltaTipoUtenteSignupToggle.selectedToggleProperty().addListener((_, _, selectedToggle) -> {
-            onTipoUtenteChanged(selectedToggle);
-        });
+        sceltaTipoUtenteSignupToggle.selectedToggleProperty().addListener((_, _, selectedToggle) -> onTipoUtenteChanged(selectedToggle));
     }
     private void onTipoUtenteChanged(Toggle selectedToggle) {
         if (selectedToggle == proprietarioRadio) {
@@ -73,7 +63,7 @@ public class SignupController {
             FocusUtil.setFocusTo(signupContainer);
         } catch (Exception e) {
             FocusUtil.setFocusTo(signupContainer);
-            SnackbarController.show(e.getMessage());
+            Router.getInstance().showSnackbar(e.getMessage());
         }
     }
     private Utente creaUtenteDaToggle(Toggle selectedToggle) throws Exception {
@@ -104,7 +94,7 @@ public class SignupController {
             FocusUtil.setFocusTo(signupContainer);
         } catch (Exception e) {
             FocusUtil.setFocusTo(signupContainer);
-            SnackbarController.show(e.getMessage());
+            Router.getInstance().showSnackbar(e.getMessage());
         }
     }
     @FXML private void handleIndietroBloccoPartitaIvaSignup() {
@@ -126,7 +116,7 @@ public class SignupController {
             FocusUtil.setFocusTo(signupContainer);
         } catch (Exception e) {
             FocusUtil.setFocusTo(signupContainer);
-            SnackbarController.show(e.getMessage());
+            Router.getInstance().showSnackbar(e.getMessage());
         }
     }
     @FXML private void handleIndietroBloccoCodFiscUsernameSignup() {
@@ -146,7 +136,7 @@ public class SignupController {
             Router.getInstance().navigateTo("homePage");
         } catch (Exception e) {
             FocusUtil.setFocusTo(signupContainer);
-            SnackbarController.show(e.getMessage());
+            Router.getInstance().showSnackbar(e.getMessage());
         }
     }
     @FXML private void handleIndietroDaBloccoPasswordSignup() {

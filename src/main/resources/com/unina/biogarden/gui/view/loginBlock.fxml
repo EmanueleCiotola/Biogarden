@@ -41,7 +41,7 @@
                         <Font size="14.0" />
                     </font>
                 </PasswordField>
-                <Button fx:id="loginButton" onAction="#handleLogin" text="Accedi">
+                <Button onAction="#handleLogin" text="Accedi">
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>

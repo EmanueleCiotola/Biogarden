@@ -1,15 +1,19 @@
 package com.unina.biogarden.util;
 
+import com.unina.biogarden.gui.controller.SnackbarController;
+
 import javafx.fxml.FXMLLoader;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.Node;
-import javafx.animation.FadeTransition;
 import javafx.util.Duration;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 
 public class Router {
     private static final String FXML_VIEW_PATH = "/com/unina/biogarden/gui/view/";
     private static final Duration FADE_DURATION = Duration.millis(250);
+    private static final int SNACKBAR_DURATION = 3;
 
     private static Router instance;
     private Pane rootStack;
@@ -66,10 +70,10 @@ public class Router {
     }
     private void animaPrimaView(Pane container, Node newView) throws Exception {
         container.getChildren().setAll(newView);
-        Platform.runLater(() -> { fadeIn(newView); }); // Il runLater evita effetto scattino dovuto al rendering anticipato
+        Platform.runLater(() -> fadeIn(newView)); // Il runLater evita effetto scattino dovuto al rendering anticipato
     }
     private void animaView(Pane container, Node newView) throws Exception {
-        Node oldView = container.getChildren().get(0);
+        Node oldView = container.getChildren().getFirst();
         container.getChildren().add(newView);
 
         fadeOut(oldView, () -> {
@@ -77,7 +81,40 @@ public class Router {
             fadeIn(newView);
         });
     }
-    
+
+    public Node showSnackbar(String messaggio) {
+        try {
+            Node snackbar = creaSnackbar(messaggio);
+            rootStack.getChildren().add(snackbar);
+            fadeIn(snackbar);
+
+            rimozioneProgrammataSnackbar(snackbar);
+
+            return snackbar;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private Node creaSnackbar(String messaggio) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_VIEW_PATH + "snackbar.fxml"));
+        Node node = loader.load();
+        SnackbarController controller = loader.getController();
+        controller.setMessage(messaggio);
+
+        return node;
+    }
+    private void rimozioneProgrammataSnackbar(Node snackbar) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(SNACKBAR_DURATION));
+        pause.setOnFinished(_ -> removeSnackbar(snackbar));
+        pause.play();
+    }
+    public void removeSnackbar(Node snackbar) {
+        if (rootStack.getChildren().contains(snackbar)) {
+            fadeOut(snackbar, () -> rootStack.getChildren().remove(snackbar));
+        }
+    }
+
     public void switchBlocks(Node from, Node to) {
         fadeOut(from, () -> {
             from.setVisible(false);

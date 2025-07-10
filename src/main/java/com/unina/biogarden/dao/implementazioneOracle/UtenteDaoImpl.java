@@ -19,14 +19,12 @@ public class UtenteDaoImpl implements UtenteDao {
     @Override
     public boolean isUsernameLibero(String username) {
         //todo: implementare logica di verifica dell'esistenza dell'username
-        if (!username.equals("admin")) return true;
-        return false;
+        return !username.equals("admin");
     }
     @Override
     public boolean isCodFiscLibero(String codFisc) {
         //todo: implementare logica di verifica dell'esistenza del codice fiscale
-        if (!codFisc.equals("1234abcd1234abcd")) return true;
-        return false;
+        return !codFisc.equals("1234abcd1234abcd");
     }
 
     @Override

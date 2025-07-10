@@ -11,7 +11,7 @@ import com.unina.biogarden.util.exception.DatabaseException;
 
 public class LoginService {
     private static final LoginService instance = new LoginService();
-    private UtenteDao dao = new UtenteDaoImpl();
+    private final UtenteDao dao = new UtenteDaoImpl();
 
     private LoginService() {}
     public static LoginService getInstance() {
