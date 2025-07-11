@@ -1,11 +1,17 @@
 .root { -fx-background-color: #f6fafd; }
 .label, .text {
-    -fx-font-family: "IBM Plex Sans";
+    -fx-font-family: "IBM Plex Sans Regular";
     -fx-text-fill: #0b4275;
+}
+.dark .label, .dark .text {
+    -fx-text-fill: #f6fafd;
 }
 
 .title {
+    -fx-font-weight: bold;
     -fx-font-size: 24;
+}
+.subtitle {
     -fx-font-weight: bold;
 }
 .card {
@@ -115,4 +121,30 @@
 }
 .radio-button:selected:focused .dot {
     -fx-background-color: #409df4;
+}
+
+.separator:vertical .line {
+    -fx-background-color: rgba(193, 215, 240, 0.5);
+    -fx-border-color: transparent;
+    -fx-background-radius: 10;
+    -fx-pref-width: 2px;
+
+}
+.separator:horizontal .line {
+    -fx-background-color: rgba(193, 215, 240, 0.5);
+    -fx-border-color: transparent;
+    -fx-background-radius: 10;
+    -fx-pref-height: 2px;
+}
+
+.cardUtente {
+    -fx-border-radius: 30;
+    -fx-border-color: #c1d7f080;
+    -fx-padding: 15 20;
+}
+
+.menu {
+    -fx-background-color: #0b4275;
+    -fx-padding: 30;
+    -fx-background-radius: 30;
 }
