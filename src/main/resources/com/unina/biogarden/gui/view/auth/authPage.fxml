@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<StackPane fx:id="authPage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.AuthController">
+<StackPane fx:id="authPage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.auth.AuthController">
    <children>
       <GridPane alignment="CENTER" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" style="-fx-background-color: linear-gradient(to right, #0b4275 40%, #f6fafd 40%);" styleClass="card">
          <columnConstraints>
@@ -20,7 +20,7 @@
          <children>
             <ImageView cache="true" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" smooth="true">
                <image>
-                  <Image url="@../../asset/icon/logo/logoBianco.png" />
+                  <Image url="@../../../asset/icon/logo/logoBianco.png" />
                </image>
             </ImageView>
             <StackPane fx:id="authContentContainer" alignment="CENTER" maxHeight="350.0" GridPane.columnIndex="1" />

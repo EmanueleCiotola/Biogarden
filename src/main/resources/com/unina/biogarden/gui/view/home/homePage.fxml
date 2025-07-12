@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-border-radius: 30;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.HomeController">
+<BorderPane id="homePage" fx:id="homePage" style="-fx-border-radius: 30;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.HomeController">
    <left>
-      <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" maxWidth="300.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </BorderPane.margin>
@@ -24,7 +25,7 @@
                <children>
                   <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../asset/icon/account.png" />
+                        <Image url="@../../../asset/icon/account.png" />
                      </image>
                   </ImageView>
                   <Separator orientation="VERTICAL">
@@ -56,72 +57,31 @@
                   </VBox>
                </children>
                <VBox.margin>
-                  <Insets bottom="25.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
             <VBox VBox.vgrow="ALWAYS">
                <children>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" text="Dashboard">
+                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToDashboard" text="Dashboard">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../asset/icon/dashboard.png" />
+                              <Image url="@../../../asset/icon/dashboard.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Hyperlink>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" text="Report lotti">
+                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToPlotReport" text="Report lotti">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../asset/icon/report.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Hyperlink>
-                  <Separator prefWidth="190.0">
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Separator>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" text="Tutti i progetti">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../asset/icon/project.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Hyperlink>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" text="Tutte le attività">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../asset/icon/activity.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Hyperlink>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" text="Tutti i lotti">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../asset/icon/location.png" />
+                              <Image url="@../../../asset/icon/report.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -131,44 +91,61 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Separator>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" text="Aggiungi progetto">
+                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllProjects" text="Tutti i progetti">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../asset/icon/newProject.png" />
+                              <Image url="@../../../asset/icon/project.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Hyperlink>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" text="Aggiungi attività">
+                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllActivities" text="Tutte le attività">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../asset/icon/newActivity.png" />
+                              <Image url="@../../../asset/icon/activity.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Hyperlink>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" text="Aggiungi lotto">
+                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllPlots" text="Tutti i lotti">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../asset/icon/newLocation.png" />
+                              <Image url="@../../../asset/icon/location.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Hyperlink>
                </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" top="25.0" />
+               </VBox.margin>
             </VBox>
+            <HBox alignment="CENTER" styleClass="cardUtente">
+               <children>
+                  <Label text="Hai finito qui?">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#handleLogout" text="Logout">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Hyperlink>
+               </children>
+            </HBox>
          </children>
          <styleClass>
             <String fx:value="dark" />
@@ -177,6 +154,14 @@
       </VBox>
    </left>
    <center>
-      <StackPane fx:id="homeContentContainer" BorderPane.alignment="CENTER" />
+      <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+         <content>
+            <StackPane fx:id="homeContentContainer">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </StackPane>
+         </content>
+      </ScrollPane>
    </center>
 </BorderPane>

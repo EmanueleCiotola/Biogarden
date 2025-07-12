@@ -33,5 +33,4 @@ public class LoginService {
         Utente utente = dao.verificaCredenziali(username, password);
         Sessione.getInstance().setUtenteCorrente(utente);
     }
-
 }

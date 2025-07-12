@@ -16,4 +16,8 @@ module com.unina.biogarden {
     exports com.unina.biogarden;
     opens com.unina.biogarden.gui.controller to javafx.fxml;
     exports com.unina.biogarden.gui.controller;
+    opens com.unina.biogarden.gui.controller.auth to javafx.fxml;
+    exports com.unina.biogarden.gui.controller.auth;
+    opens com.unina.biogarden.gui.controller.home to javafx.fxml;  
+    exports com.unina.biogarden.gui.controller.home;
 }

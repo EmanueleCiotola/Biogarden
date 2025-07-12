@@ -1,4 +1,21 @@
 .root { -fx-background-color: #f6fafd; }
+
+.scroll-pane {
+    -fx-background-color: #f6fafd;
+    -fx-background: #f6fafd;
+    -fx-border-width: 0;
+}
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.scroll-bar .track {
+    -fx-background-color: #transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(139, 147, 155, 0.5);
+    -fx-background-radius: 10;
+}
+
 .label, .text {
     -fx-font-family: "IBM Plex Sans Regular";
     -fx-text-fill: #0b4275;
@@ -14,14 +31,35 @@
 .subtitle {
     -fx-font-weight: bold;
 }
+.homeBlockTitle, .homeBlockTitle > .label, .homeBlockTitle > .text {
+    -fx-font-weight: bold;
+    -fx-font-size: 24;
+    -fx-text-fill: #f6fafd;
+    -fx-background-color: #0b4275;
+    -fx-padding: 15 0;
+    -fx-background-radius: 30;
+}
+.italic {
+    -fx-font-style: italic;
+}
+
 .card {
-    -fx-border-radius: 20;
+    -fx-background-color: #c1d7f0;
+    -fx-padding: 25 30 20 30;
     -fx-background-radius: 20;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
 }
 
+.buttonCard {
+    -fx-background-color: rgba(193, 215, 240, .5) !important;
+    -fx-text-fill: #0b4275 !important;
+    -fx-background-radius: 20 !important;
+    -fx-padding: 25 30 20 30 !important;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3) !important;
+}
+
 .button {
-    -fx-background-color: #0b4275;
+    -fx-background-color: #c1d7f0;
     -fx-text-fill: #f6fafd;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
@@ -124,23 +162,30 @@
 }
 
 .separator:vertical .line {
-    -fx-background-color: rgba(193, 215, 240, 0.5);
+    -fx-background-color: rgba(11, 66, 117, .5);
     -fx-border-color: transparent;
     -fx-background-radius: 10;
     -fx-pref-width: 2px;
 
 }
 .separator:horizontal .line {
-    -fx-background-color: rgba(193, 215, 240, 0.5);
+    -fx-background-color: rgba(11, 66, 117, .5);
     -fx-border-color: transparent;
     -fx-background-radius: 10;
     -fx-pref-height: 2px;
 }
+.dark .separator:vertical .line {
+    -fx-background-color: rgba(193, 215, 240, .5);
+}
+.dark .separator:horizontal .line {
+    -fx-background-color: rgba(193, 215, 240, .5);
+}
 
 .cardUtente {
+    -fx-border-width: 2;
     -fx-border-radius: 30;
     -fx-border-color: #c1d7f080;
-    -fx-padding: 15 20;
+    -fx-padding: 10 15;
 }
 
 .menu {

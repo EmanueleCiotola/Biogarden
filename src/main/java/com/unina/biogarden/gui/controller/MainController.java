@@ -10,6 +10,6 @@ public class MainController {
 
     public void initialize() {
         Router.getInstance().setRootStack(rootStack);
-        Router.getInstance().navigateTo("authPage");
+        Router.getInstance().navigateTo("auth/authPage");
     }
 }

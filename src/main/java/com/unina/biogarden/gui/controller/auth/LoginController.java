@@ -1,4 +1,4 @@
-package com.unina.biogarden.gui.controller;
+package com.unina.biogarden.gui.controller.auth;
 
 import com.unina.biogarden.service.LoginService;
 import com.unina.biogarden.util.FocusUtil;
@@ -27,15 +27,15 @@ public class LoginController {
         
         try {            
             loginService.login(username, password);
-            Router.getInstance().navigateTo("homePage");
+            Router.getInstance().navigateTo("home/homePage");
         } catch (Exception e) {
             FocusUtil.setFocusTo(loginContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
 
-    @FXML public void goToSignup() {
-        Router.getInstance().loadContent("signupBlock");
+    @FXML private void goToSignup() {
+        Router.getInstance().loadContent("auth/signupBlock");
     }
     
 }

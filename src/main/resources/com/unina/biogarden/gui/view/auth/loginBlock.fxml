@@ -10,7 +10,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="loginContainer" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" fx:controller="com.unina.biogarden.gui.controller.LoginController">
+<VBox fx:id="loginContainer" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" fx:controller="com.unina.biogarden.gui.controller.auth.LoginController">
     <children>
         <Label styleClass="title" text="Accesso" />
         <VBox alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
@@ -60,7 +60,7 @@
                 </Label>
                 <Hyperlink onAction="#goToSignup" styleClass="textLinkColor" text="Registrati">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="14.0" />
                     </font>
                 </Hyperlink>
             </children>
