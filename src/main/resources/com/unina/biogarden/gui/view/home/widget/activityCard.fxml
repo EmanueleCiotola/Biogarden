@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER_LEFT" prefHeight="265.0" prefWidth="275.0" styleClass="card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.widget.ActivityCardController">
+   <children>
+      <Label fx:id="nomeProgettoLabel" styleClass="subtitle" text="Titolo progetto">
+         <padding>
+            <Insets bottom="25.0" />
+         </padding>
+      </Label>
+      <BorderPane>
+         <left>
+            <Label text="Svolta da:" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Label fx:id="infoColtivatoreLabel" styleClass="italic" text="Info coltivatore" BorderPane.alignment="CENTER" />
+         </right>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </BorderPane>
+      <BorderPane>
+         <left>
+            <Label text="Identificativo lotto:" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Label fx:id="idLottoLabel" styleClass="italic" text="nLotto" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+      <Separator>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+         </VBox.margin>
+      </Separator>
+      <BorderPane>
+         <left>
+            <Label text="Data inizio:" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Label fx:id="dataInizioLabel" styleClass="italic" text="Data" BorderPane.alignment="CENTER" />
+         </right>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </BorderPane>
+      <BorderPane>
+         <left>
+            <Label text="Data fine:" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Label fx:id="dataFineLabel" styleClass="italic" text="Data" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+      <Separator>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="15.0" left="10.0" right="10.0" top="20.0" />
+         </VBox.margin>
+      </Separator>
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Label fx:id="tipoLabel" alignment="CENTER" styleClass="subtitle" text="TIPO" />
+            <Label fx:id="statoLabel" alignment="CENTER" styleClass="subtitle" text="STATO" textFill="#8b939b" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

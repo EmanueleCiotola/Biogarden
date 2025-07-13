@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="homePage" fx:id="homePage" style="-fx-border-radius: 30;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.HomeController">
+<BorderPane fx:id="homePage" style="-fx-border-radius: 30;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.HomeController">
    <left>
       <VBox alignment="TOP_CENTER" maxWidth="275.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>

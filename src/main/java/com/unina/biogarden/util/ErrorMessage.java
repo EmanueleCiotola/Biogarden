@@ -22,7 +22,10 @@ public enum ErrorMessage {
     PASSWORD_NUMERO("La password deve contenere almeno un numero."),
     PASSWORD_CARATTERE_SPECIALE("La password deve contenere almeno un carattere speciale."),
     PASSWORD_RIPETUTA_VUOTA("Devi ripetere la password per continuare."),
-    PASSWORD_NON_COINCIDONO("Le password non coincidono.");
+    PASSWORD_NON_COINCIDONO("Le password non coincidono."),
+    NESSUN_PROGETTO_TROVATO("Nessun progetto trovato per l’utente."),
+    NESSUNA_ATTIVITA_TROVATA("Nessuna attività trovata per l’utente."),
+    NESSUN_LOTTO_TROVATO("Nessun lotto trovato per l’utente.");
 
     private final String message;
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="110.0" prefWidth="275.0" styleClass="card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.widget.PlotCardController">
+    <left>
+        <Label text="Superficie:" />
+    </left>
+    <right>
+        <Label fx:id="mqLabel" styleClass="italic" text="mQ" />
+    </right>
+    <padding>
+        <Insets bottom="20.0" top="25.0" />
+    </padding>
+    <top>
+        <Label fx:id="idLottoLabel" styleClass="subtitle" text="Nome lotto" BorderPane.alignment="TOP_LEFT">
+            <BorderPane.margin>
+                <Insets bottom="25.0" />
+            </BorderPane.margin>
+        </Label>
+    </top>
+</BorderPane>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="165.0" prefWidth="275.0" styleClass="card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.widget.ProjectCardController">
+    <left>
+    <HBox BorderPane.alignment="CENTER">
+        <children>
+            <Label text="Dal " />
+            <Label fx:id="dataInizioLabel" styleClass="italic" text="data" />
+        </children>
+    </HBox>
+    </left>
+    <right>
+    <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+        <children>
+            <Label text="Al " />
+            <Label fx:id="dataFineLabel" styleClass="italic" text="data" />
+        </children>
+    </HBox>
+    </right>
+    <padding>
+    <Insets bottom="20.0" top="25.0" />
+    </padding>
+    <top>
+    <Label fx:id="nomeProgettoLabel" styleClass="subtitle" text="Titolo progetto" BorderPane.alignment="TOP_LEFT">
+        <BorderPane.margin>
+            <Insets bottom="25.0" />
+        </BorderPane.margin>
+    </Label>
+    </top>
+    <bottom>
+    <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+        <children>
+            <Separator>
+                <opaqueInsets>
+                <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                <Insets bottom="15.0" left="10.0" right="10.0" top="20.0" />
+                </VBox.margin>
+            </Separator>
+            <Label fx:id="statoLabel" alignment="CENTER" styleClass="subtitle" text="STATO" textFill="#8b939b" />
+        </children>
+    </VBox>
+    </bottom>
+</BorderPane>

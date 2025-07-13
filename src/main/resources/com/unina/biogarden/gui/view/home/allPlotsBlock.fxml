@@ -9,34 +9,13 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox spacing="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AllPlotsController">
    <children>
       <StackPane styleClass="homeBlockTitle">
          <children>
             <Label alignment="TOP_LEFT" text="Dashboard" />
          </children>
       </StackPane>
-      <FlowPane hgap="20.0" prefWrapLength="800.0" vgap="20.0">
-         <children>
-            <BorderPane prefHeight="110.0" prefWidth="275.0" styleClass="card">
-               <left>
-                  <Label text="Superficie:" />
-               </left>
-               <right>
-                  <Label styleClass="italic" text="mQ" />
-               </right>
-               <padding>
-                  <Insets bottom="20.0" top="25.0" />
-               </padding>
-               <top>
-                  <Label styleClass="subtitle" text="Nome lotto" BorderPane.alignment="TOP_LEFT">
-                     <BorderPane.margin>
-                        <Insets bottom="25.0" />
-                     </BorderPane.margin>
-                  </Label>
-               </top>
-            </BorderPane>
-         </children>
-      </FlowPane>
+      <FlowPane fx:id="plotsCardContainer" hgap="20.0" prefWrapLength="800.0" vgap="20.0" />
    </children>
 </VBox>
