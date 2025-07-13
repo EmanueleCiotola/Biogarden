@@ -36,19 +36,22 @@
                         <Insets left="15.0" right="15.0" />
                      </padding>
                   </Separator>
-                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                  <VBox alignment="CENTER_LEFT">
                      <children>
-                        <Label styleClass="subtitle" text="Username">
+                        <Label fx:id="usernameLabel" styleClass="subtitle" text="Username">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Nome e cognome">
+                        <Label fx:id="fullNameLabel" text="Nome e cognome">
                            <font>
                               <Font size="13.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets top="1.0" />
+                           </VBox.margin>
                         </Label>
-                        <Label text="Codice fiscale">
+                        <Label fx:id="fiscalCodeLabel" text="Codice fiscale">
                            <font>
                               <Font size="13.0" />
                            </font>

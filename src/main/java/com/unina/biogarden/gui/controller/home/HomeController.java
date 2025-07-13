@@ -1,22 +1,40 @@
 package com.unina.biogarden.gui.controller.home;
 
+import com.unina.biogarden.model.Utente;
+import com.unina.biogarden.service.HomeService;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
-import com.unina.biogarden.util.Sessione;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
 
 public class HomeController {
     @FXML private BorderPane homePage;
     @FXML private StackPane homeContentContainer;
+    @FXML private Label usernameLabel;
+    @FXML private Label fullNameLabel;
+    @FXML private Label fiscalCodeLabel;
+
+    private HomeService homeService;
 
     public void initialize() {
         Router.getInstance().setContentContainer(homeContentContainer);
         goToDashboard();
 
         FocusUtil.setupDefocusOnClick(homePage);
+
+        homeService = HomeService.getInstance();
+        setUserInfo();
+    }
+
+    private void setUserInfo() {
+        Utente user = homeService.getCurrentUser();
+        
+        usernameLabel.setText(user.getUsername());
+        fullNameLabel.setText(user.getNome() + " " + user.getCognome());
+        fiscalCodeLabel.setText(user.getCodiceFiscale());
     }
 
     @FXML private void goToDashboard() {
@@ -35,7 +53,7 @@ public class HomeController {
         Router.getInstance().loadContent("home/allPlotsBlock");
     }
     @FXML private void handleLogout() {
-        Sessione.getInstance().logout();
+        homeService.logout();
         Router.getInstance().navigateTo("auth/authPage");
     }
 }
