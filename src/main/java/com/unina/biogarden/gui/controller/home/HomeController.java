@@ -8,20 +8,28 @@ import com.unina.biogarden.util.Router;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 
-public class HomeController {
+public class HomeController {    
     @FXML private BorderPane homePage;
     @FXML private StackPane homeContentContainer;
     @FXML private Label usernameLabel;
     @FXML private Label fullNameLabel;
     @FXML private Label fiscalCodeLabel;
+    @FXML private Hyperlink dashboardLink;
+    @FXML private Hyperlink plotReportLink;
+    @FXML private Hyperlink allProjectsLink;
+    @FXML private Hyperlink allActivitiesLink;
+    @FXML private Hyperlink allPlotsLink;
 
+    private Hyperlink currentActiveLink;
     private HomeService homeService;
 
     public void initialize() {
         Router.getInstance().setContentContainer(homeContentContainer);
         goToDashboard();
+        setActiveLink(dashboardLink);
 
         FocusUtil.setupDefocusOnClick(homePage);
 
@@ -37,20 +45,35 @@ public class HomeController {
         fiscalCodeLabel.setText(user.getCodiceFiscale());
     }
 
+    private void setActiveLink(Hyperlink link) {
+        if (currentActiveLink != null) {
+            currentActiveLink.setDisable(false);
+        }
+
+        FocusUtil.setFocusTo(homePage);
+
+        link.setDisable(true);
+        currentActiveLink = link;
+    }
     @FXML private void goToDashboard() {
         Router.getInstance().loadContent("home/dashboardBlock");
+        setActiveLink(dashboardLink);
     }
     @FXML private void goToPlotReport() {
         Router.getInstance().loadContent("home/plotReportBlock");
+        setActiveLink(plotReportLink);
     }
     @FXML private void goToAllProjects() {
         Router.getInstance().loadContent("home/allProjectsBlock");
+        setActiveLink(allProjectsLink);
     }
     @FXML private void goToAllActivities() {
         Router.getInstance().loadContent("home/allActivitiesBlock");
+        setActiveLink(allActivitiesLink);
     }
     @FXML private void goToAllPlots() {
         Router.getInstance().loadContent("home/allPlotsBlock");
+        setActiveLink(allPlotsLink);
     }
     @FXML private void handleLogout() {
         homeService.logout();

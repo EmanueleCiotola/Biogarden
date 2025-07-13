@@ -9,7 +9,7 @@
     -fx-background-color: transparent;
 }
 .scroll-bar .track {
-    -fx-background-color: #transparent;
+    -fx-background-color: transparent;
 }
 .scroll-bar .thumb {
     -fx-background-color: rgba(139, 147, 155, 0.5);
@@ -127,6 +127,7 @@
     -fx-underline: false;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+    -fx-font-size: 14;
 }
 .hyperlink:hover, .hyperlink:focused {
     -fx-underline: true;
@@ -135,6 +136,11 @@
     -fx-underline: true;
     -fx-focus-color: #409df4;
     -fx-faint-focus-color: #409df4;
+}
+.hyperlink:disabled {
+    -fx-background-color: rgba(64, 157, 244, 0.1);
+    -fx-background-radius: 5;
+    -fx-opacity: 1;
 }
 
 .radio-button {

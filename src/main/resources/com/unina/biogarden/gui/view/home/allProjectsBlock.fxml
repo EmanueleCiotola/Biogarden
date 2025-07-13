@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane styleClass="homeBlockTitle">
+         <children>
+            <Label alignment="TOP_LEFT" text="I tuoi progetti" />
+         </children>
+      </StackPane>
+      <FlowPane hgap="20.0" prefWrapLength="800.0" vgap="20.0">
+         <children>
+            <BorderPane prefHeight="165.0" prefWidth="275.0" styleClass="card">
+               <left>
+                  <HBox BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Dal " />
+                        <Label styleClass="italic" text="data">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </left>
+               <right>
+                  <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Al " />
+                        <Label styleClass="italic" text="data">
+                                 
+                              </Label>
+                     </children>
+                  </HBox>
+               </right>
+               <padding>
+                  <Insets bottom="20.0" top="25.0" />
+               </padding>
+               <top>
+                  <Label styleClass="subtitle" text="Titolo progetto" BorderPane.alignment="TOP_LEFT">
+                     <BorderPane.margin>
+                        <Insets bottom="25.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
+               <bottom>
+                  <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                     <children>
+                        <Separator>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="10.0" right="10.0" top="20.0" />
+                           </VBox.margin>
+                        </Separator>
+                        <Label alignment="CENTER" styleClass="subtitle" text="STATO" textFill="#8b939b" />
+                     </children>
+                  </VBox>
+               </bottom>
+            </BorderPane>
+         </children>
+      </FlowPane>
+   </children>
+</VBox>

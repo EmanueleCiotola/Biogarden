@@ -229,7 +229,7 @@
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <Hyperlink onAction="#goToLogin" styleClass="textLinkColor" text="Accedi">
+                <Hyperlink onAction="#goToLogin" text="Accedi">
                     <font>
                         <Font size="14.0" />
                     </font>

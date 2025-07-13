@@ -16,7 +16,7 @@
 
 <BorderPane id="homePage" fx:id="homePage" style="-fx-border-radius: 30;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.HomeController">
    <left>
-      <VBox alignment="TOP_CENTER" maxWidth="300.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" maxWidth="275.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </BorderPane.margin>
@@ -65,7 +65,7 @@
             </HBox>
             <VBox VBox.vgrow="ALWAYS">
                <children>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToDashboard" text="Dashboard">
+                  <Hyperlink fx:id="dashboardLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToDashboard" text="Dashboard">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -77,7 +77,7 @@
                         </ImageView>
                      </graphic>
                   </Hyperlink>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToPlotReport" text="Report lotti">
+                  <Hyperlink fx:id="plotReportLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToPlotReport" text="Report lotti">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -94,7 +94,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Separator>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllProjects" text="Tutti i progetti">
+                  <Hyperlink fx:id="allProjectsLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllProjects" text="Tutti i progetti">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -106,7 +106,7 @@
                         </ImageView>
                      </graphic>
                   </Hyperlink>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllActivities" text="Tutte le attività">
+                  <Hyperlink fx:id="allActivitiesLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllActivities" text="Tutte le attività">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -118,7 +118,7 @@
                         </ImageView>
                      </graphic>
                   </Hyperlink>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllPlots" text="Tutti i lotti">
+                  <Hyperlink fx:id="allPlotsLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllPlots" text="Tutti i lotti">
                      <font>
                         <Font size="14.0" />
                      </font>
