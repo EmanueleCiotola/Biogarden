@@ -39,7 +39,6 @@ public class AllPlotsController {
             // TODO: handle exception
         } catch (Exception e) {
             FocusUtil.setFocusTo(plotsCardContainer);
-            System.out.println("Error loading plots: " + e.getMessage() + e.getCause());
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
