@@ -6,78 +6,44 @@ import com.unina.biogarden.gui.controller.home.widget.PlotCardController;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.service.HomeService;
 import com.unina.biogarden.util.ErrorMessage;
-import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
+import com.unina.biogarden.util.exception.DatabaseException;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 
-public class AllPlotsController {
+public class AllPlotsController extends BaseListController<Lotto> {
     private static final String PLOT_CARD_PATH = "/com/unina/biogarden/gui/view/home/widget/PlotCard.fxml";
-    
+
     @FXML private FlowPane plotsCardContainer;
     @FXML private Label emptyMessageLabel;
 
     private HomeService homeService;
-    List<Lotto> allPlots;
 
     public void initialize() {
         homeService = HomeService.getInstance();
 
-        caricaLotti();
-        caricaSezioneLottiSeDisponibile(allPlots);
+        init(plotsCardContainer, emptyMessageLabel);
     }
 
-    private void caricaLotti() {
-        try {
-            allPlots = homeService.getLottiUtente();
-        } catch (Exception e) {
-            FocusUtil.setFocusTo(plotsCardContainer);
-            Router.getInstance().showSnackbar(e.getMessage());
-        }
+    @Override
+    protected String getCardFXMLPath() {
+        return PLOT_CARD_PATH;
     }
 
-    private void caricaSezioneLottiSeDisponibile(List<Lotto> lottiDaMostrare) {
-        if (lottiDaMostrare.isEmpty()) {
-            mostraMessaggioListaVuota();
-        } else {
-            nascondiMessaggioListaVuota();
-            mostraLotti(lottiDaMostrare);
-        }
+    @Override
+    protected List<Lotto> caricaElementi() throws DatabaseException {
+        return homeService.getLottiUtente();
     }
 
-    private void mostraLotti(List<Lotto> lotti) {
-        try {    
-            for (Lotto lotto : lotti) {
-                Parent card = creaCardLotti(lotto);
-                plotsCardContainer.getChildren().add(card);
-            }
-        } catch (Exception e) {
-            Router.getInstance().showSnackbar(ErrorMessage.CARICAMENTO_LOTTI.toString());
-        }
+    @Override
+    protected void setupCardController(Object controller, Lotto lotto) {
+        ((PlotCardController) controller).setData(lotto);
     }
 
-    private Parent creaCardLotti(Lotto lotto) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(PLOT_CARD_PATH));
-        Parent card = loader.load();
-        PlotCardController controller = loader.getController();
-        controller.setData(lotto);
-        return card;
-    }
-
-    @FXML private void mostraMessaggioListaVuota() {
-        plotsCardContainer.setVisible(false);
-        plotsCardContainer.setManaged(false);
-        emptyMessageLabel.setVisible(true);
-        emptyMessageLabel.setManaged(true);
-    }
-    @FXML private void nascondiMessaggioListaVuota() {
-        plotsCardContainer.setVisible(true);
-        plotsCardContainer.setManaged(true);
-        emptyMessageLabel.setVisible(false);
-        emptyMessageLabel.setManaged(false);
+    @Override
+    protected void mostraErrore() {
+        Router.getInstance().showSnackbar(ErrorMessage.CARICAMENTO_LOTTI.toString());
     }
 }

@@ -1,5 +1,5 @@
 module com.unina.biogarden {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
     requires transitive javafx.graphics;
