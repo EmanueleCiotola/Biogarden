@@ -83,11 +83,6 @@ public class AllProjectsController {
     }
 
     @FXML private void renderCheckboxes() {
-        if (allPlots.isEmpty()) {
-            hideFilters();
-            return;
-        }
-
         for (Lotto lotto : allPlots) {
             String idLotto = lotto.getIdLotto();
 
