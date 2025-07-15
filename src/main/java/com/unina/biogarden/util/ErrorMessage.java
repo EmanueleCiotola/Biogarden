@@ -23,9 +23,9 @@ public enum ErrorMessage {
     PASSWORD_CARATTERE_SPECIALE("La password deve contenere almeno un carattere speciale."),
     PASSWORD_RIPETUTA_VUOTA("Devi ripetere la password per continuare."),
     PASSWORD_NON_COINCIDONO("Le password non coincidono."),
-    NESSUN_PROGETTO_TROVATO("Nessun progetto trovato per l’utente."),
-    NESSUNA_ATTIVITA_TROVATA("Nessuna attività trovata per l’utente."),
-    NESSUN_LOTTO_TROVATO("Nessun lotto trovato per l’utente.");
+    CARICAMENTO_PROGETTI("Errore nel caricamento dei progetti. Riprova più tardi."),
+    CARICAMENTO_ATTIVITA("Errore nel caricamento delle attività. Riprova più tardi."),
+    CARICAMENTO_LOTTI("Errore nel caricamento dei lotti. Riprova più tardi.");
 
     private final String message;
 

@@ -5,9 +5,9 @@ import java.util.List;
 import com.unina.biogarden.gui.controller.home.widget.ActivityCardController;
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.service.HomeService;
+import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
-import com.unina.biogarden.util.exception.IllegalSessionException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,30 +22,45 @@ public class AllActivitiesController {
     @FXML private Label emptyMessageLabel;
 
     private HomeService homeService;
+    List<Attivita> allActivities;
 
     public void initialize() {
         homeService = HomeService.getInstance();
 
-        loadActivities();
+        caricaAttivita();
+        caricaSezioneAttivitaSeDisponibile(allActivities);
     }
 
-    @FXML private void loadActivities() {
+    private void caricaAttivita() {
         try {
-            hideEmptyListMessage();
-            List<Attivita> attivitaList = homeService.getAttivitaUtente();
-
-            for (Attivita attivita : attivitaList) {
-                Parent card = createActivityCard(attivita);
-                activitiesCardContainer.getChildren().add(card);
-            }
-        } catch (IllegalSessionException e) {
-            showEmptyListMessage();
+            allActivities = homeService.getAttivitaUtente();
         } catch (Exception e) {
             FocusUtil.setFocusTo(activitiesCardContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
-    private Parent createActivityCard(Attivita attivita) throws Exception {
+
+    private void caricaSezioneAttivitaSeDisponibile(List<Attivita> attivitaDaMostrare) {
+        if (attivitaDaMostrare.isEmpty()) {
+            mostraMessaggioListaVuota();
+        } else {
+            nascondiMessaggioListaVuota();
+            mostraAttivita(attivitaDaMostrare);
+        }
+    }
+
+    private void mostraAttivita(List<Attivita> attivita) {
+        try {    
+            for (Attivita s_attivita : attivita) {
+                Parent card = creaCardAttivita(s_attivita);
+                activitiesCardContainer.getChildren().add(card);
+            }
+        } catch (Exception e) {
+            Router.getInstance().showSnackbar(ErrorMessage.CARICAMENTO_ATTIVITA.toString());
+        }
+    }
+
+    private Parent creaCardAttivita(Attivita attivita) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(ACTIVITY_CARD_PATH));
         Parent card = loader.load();
         ActivityCardController controller = loader.getController();
@@ -53,13 +68,13 @@ public class AllActivitiesController {
         return card;
     }
 
-    @FXML private void showEmptyListMessage() {
+    @FXML private void mostraMessaggioListaVuota() {
         activitiesCardContainer.setVisible(false);
         activitiesCardContainer.setManaged(false);
         emptyMessageLabel.setVisible(true);
         emptyMessageLabel.setManaged(true);
     }
-    @FXML private void hideEmptyListMessage() {
+    @FXML private void nascondiMessaggioListaVuota() {
         activitiesCardContainer.setVisible(true);
         activitiesCardContainer.setManaged(true);
         emptyMessageLabel.setVisible(false);

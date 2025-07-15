@@ -4,6 +4,7 @@ import com.unina.biogarden.gui.controller.home.widget.ProjectCardController;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.service.HomeService;
+import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
 
@@ -26,7 +27,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class AllProjectsController {
-    
     private static final String PROJECT_CARD_PATH = "/com/unina/biogarden/gui/view/home/widget/ProjectCard.fxml";
     
     @FXML private FlowPane projectsCardContainer;
@@ -45,35 +45,35 @@ public class AllProjectsController {
     public void initialize() {
         homeService = HomeService.getInstance();
 
-        loadCheckboxes();
-        loadFilterSection();
+        caricaCheckBox();
+        caricaSezioneFiltriSeDisponibile();
 
-        loadProjects();
-        renderProjects(allProjects);
+        caricaProgetti();
+        caricaSezioneProgettiSeDisponibile(allProjects);
     }
 
-    private void loadCheckboxes() {
+    private void caricaCheckBox() {
         try {
             allPlots = homeService.getLottiUtente();
-            buildProgettoToLottiMap();
+            mappaProgettoSuLotti();
         } catch (Exception e) {
             FocusUtil.setFocusTo(projectsCardContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
-    private void buildProgettoToLottiMap() {
+    private void mappaProgettoSuLotti() {
         for (Lotto lotto : allPlots) {
             progettoToLotti.computeIfAbsent(lotto.getIdProgetto(), _ -> new HashSet<>()).add(lotto.getIdLotto()); // Aggiunge l'id del lotto al set dei lotti associati a un progetto, creando automaticamente il set se non esiste ancora
         }
     }
-    private void loadFilterSection() {
+    private void caricaSezioneFiltriSeDisponibile() {
         if (allPlots.isEmpty()) {
-            hideFilters();
+            nascondiSezioneFiltri();
         } else {
-            renderCheckboxes();
+            mostraCheckbox();
         }
     }
-    private void loadProjects() {
+    private void caricaProgetti() {
         try {
             allProjects = homeService.getProgettiUtente();
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class AllProjectsController {
         }
     }
 
-    @FXML private void renderCheckboxes() {
+    @FXML private void mostraCheckbox() {
         for (Lotto lotto : allPlots) {
             String idLotto = lotto.getIdLotto();
 
@@ -107,8 +107,8 @@ public class AllProjectsController {
     }
     private void aggiornaVistaFiltrata() {
         aggiornaFiltroLabel();
-        List<Progetto> progettiDaMostrare = filtriAttivi.isEmpty() ? allProjects : applyFilters();
-        mostraProgetti(progettiDaMostrare);
+        List<Progetto> progettiDaMostrare = filtriAttivi.isEmpty() ? allProjects : applicaFiltri();
+        caricaSezioneProgettiSeDisponibile(progettiDaMostrare);
     }
     private void aggiornaFiltroLabel() {
         if (filtriAttivi.isEmpty()) {
@@ -118,15 +118,15 @@ public class AllProjectsController {
         }
     }
     
-    private void mostraProgetti(List<Progetto> progettiDaMostrare) {
+    private void caricaSezioneProgettiSeDisponibile(List<Progetto> progettiDaMostrare) {
         if (progettiDaMostrare.isEmpty()) {
-            showEmptyListMessage();
+            mostraMessaggioListaVuota();
         } else {
-            hideEmptyListMessage();
-            renderProjects(progettiDaMostrare);
+            nascondiMessaggioListaVuota();
+            mostraProgetti(progettiDaMostrare);
         }
     }
-    private List<Progetto> applyFilters() {
+    private List<Progetto> applicaFiltri() {
         List<Progetto> progettiFiltrati = new ArrayList<>();
         for (Progetto progetto : allProjects) {
             Set<String> lottiDelProgetto = progettoToLotti.getOrDefault(progetto.getIdProgetto(), Collections.emptySet()); // Prende i lotti associati al progetto, in caso non ce ne siano restituisce set vuoto (ma non nullo)
@@ -136,19 +136,19 @@ public class AllProjectsController {
         }
         return progettiFiltrati;
     }
-    private void renderProjects(List<Progetto> progetti) {
+    private void mostraProgetti(List<Progetto> progetti) {
         try {
             projectsCardContainer.getChildren().clear();
     
             for (Progetto progetto : progetti) {
-                Parent card = createProjectCard(progetto);
+                Parent card = creaCardProgetto(progetto);
                 projectsCardContainer.getChildren().add(card);
             }
         } catch (Exception e) {
-            Router.getInstance().showSnackbar("Errore nel caricamento dei progetti. Riprova più tardi.");
+            Router.getInstance().showSnackbar(ErrorMessage.CARICAMENTO_PROGETTI.toString());
         }
     }
-    private Parent createProjectCard(Progetto progetto) throws Exception {
+    private Parent creaCardProgetto(Progetto progetto) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(PROJECT_CARD_PATH));
         Parent card = loader.load();
         ProjectCardController controller = loader.getController();
@@ -156,17 +156,17 @@ public class AllProjectsController {
         return card;
     }
 
-    private void hideFilters() {
+    private void nascondiSezioneFiltri() {
         spazioFiltri.setVisible(false);
         spazioFiltri.setManaged(false);
     }
-    private void showEmptyListMessage() {
+    private void mostraMessaggioListaVuota() {
         projectsCardContainer.setVisible(false);
         projectsCardContainer.setManaged(false);
         emptyMessageLabel.setVisible(true);
         emptyMessageLabel.setManaged(true);
     }
-    private void hideEmptyListMessage() {
+    private void nascondiMessaggioListaVuota() {
         projectsCardContainer.setVisible(true);
         projectsCardContainer.setManaged(true);
         emptyMessageLabel.setVisible(false);

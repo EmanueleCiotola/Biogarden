@@ -8,9 +8,7 @@ import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.model.Utente;
-import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.Sessione;
-import com.unina.biogarden.util.exception.IllegalSessionException;
 import com.unina.biogarden.util.exception.DatabaseException;
 
 public class HomeService {

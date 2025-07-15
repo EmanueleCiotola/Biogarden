@@ -5,9 +5,9 @@ import java.util.List;
 import com.unina.biogarden.gui.controller.home.widget.PlotCardController;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.service.HomeService;
+import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
-import com.unina.biogarden.util.exception.IllegalSessionException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,30 +22,45 @@ public class AllPlotsController {
     @FXML private Label emptyMessageLabel;
 
     private HomeService homeService;
+    List<Lotto> allPlots;
 
     public void initialize() {
         homeService = HomeService.getInstance();
 
-        loadActivities();
+        caricaLotti();
+        caricaSezioneLottiSeDisponibile(allPlots);
     }
 
-    @FXML private void loadActivities() {
+    private void caricaLotti() {
         try {
-            hideEmptyListMessage();
-            List<Lotto> attivitaList = homeService.getLottiUtente();
-
-            for (Lotto lotto : attivitaList) {
-                Parent card = createPlotCard(lotto);
-                plotsCardContainer.getChildren().add(card);
-            }
-        } catch (IllegalSessionException e) {
-            showEmptyListMessage();
+            allPlots = homeService.getLottiUtente();
         } catch (Exception e) {
             FocusUtil.setFocusTo(plotsCardContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
-    private Parent createPlotCard(Lotto lotto) throws Exception {
+
+    private void caricaSezioneLottiSeDisponibile(List<Lotto> lottiDaMostrare) {
+        if (lottiDaMostrare.isEmpty()) {
+            mostraMessaggioListaVuota();
+        } else {
+            nascondiMessaggioListaVuota();
+            mostraLotti(lottiDaMostrare);
+        }
+    }
+
+    private void mostraLotti(List<Lotto> lotti) {
+        try {    
+            for (Lotto lotto : lotti) {
+                Parent card = creaCardLotti(lotto);
+                plotsCardContainer.getChildren().add(card);
+            }
+        } catch (Exception e) {
+            Router.getInstance().showSnackbar(ErrorMessage.CARICAMENTO_LOTTI.toString());
+        }
+    }
+
+    private Parent creaCardLotti(Lotto lotto) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(PLOT_CARD_PATH));
         Parent card = loader.load();
         PlotCardController controller = loader.getController();
@@ -53,13 +68,13 @@ public class AllPlotsController {
         return card;
     }
 
-    @FXML private void showEmptyListMessage() {
+    @FXML private void mostraMessaggioListaVuota() {
         plotsCardContainer.setVisible(false);
         plotsCardContainer.setManaged(false);
         emptyMessageLabel.setVisible(true);
         emptyMessageLabel.setManaged(true);
     }
-    @FXML private void hideEmptyListMessage() {
+    @FXML private void nascondiMessaggioListaVuota() {
         plotsCardContainer.setVisible(true);
         plotsCardContainer.setManaged(true);
         emptyMessageLabel.setVisible(false);
