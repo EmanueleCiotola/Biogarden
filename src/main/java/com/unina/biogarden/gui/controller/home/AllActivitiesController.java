@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 
-public class AllActivitiesController extends BaseListController<Attivita> {
+public class AllActivitiesController extends BaseCardListController<Attivita> {
     private static final String ACTIVITY_CARD_PATH = "/com/unina/biogarden/gui/view/home/widget/ActivityCard.fxml";
 
     @FXML private FlowPane activitiesCardContainer;

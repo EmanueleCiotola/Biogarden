@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class AllProjectsController extends BaseListController<Progetto> {
+public class AllProjectsController extends BaseCardListController<Progetto> {
     private static final String PROJECT_CARD_PATH = "/com/unina/biogarden/gui/view/home/widget/ProjectCard.fxml";
     
     @FXML private FlowPane projectsCardContainer;

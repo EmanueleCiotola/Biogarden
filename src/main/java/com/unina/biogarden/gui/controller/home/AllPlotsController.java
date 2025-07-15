@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 
-public class AllPlotsController extends BaseListController<Lotto> {
+public class AllPlotsController extends BaseCardListController<Lotto> {
     private static final String PLOT_CARD_PATH = "/com/unina/biogarden/gui/view/home/widget/PlotCard.fxml";
 
     @FXML private FlowPane plotsCardContainer;

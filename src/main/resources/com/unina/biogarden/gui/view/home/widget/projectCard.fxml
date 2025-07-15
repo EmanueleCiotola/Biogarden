@@ -11,7 +11,7 @@
     <left>
     <HBox BorderPane.alignment="CENTER">
         <children>
-            <Label text="Dal " />
+            <Label styleClass="small" text="Dal " />
             <Label fx:id="dataInizioLabel" styleClass="italic" text="data" />
         </children>
     </HBox>
@@ -19,7 +19,7 @@
     <right>
     <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
         <children>
-            <Label text="Al " />
+            <Label styleClass="small" text="Al " />
             <Label fx:id="dataFineLabel" styleClass="italic" text="data" />
         </children>
     </HBox>

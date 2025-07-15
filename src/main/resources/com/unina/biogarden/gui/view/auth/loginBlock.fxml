@@ -8,61 +8,35 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox fx:id="loginContainer" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.auth.LoginController">
     <children>
         <Label styleClass="title" text="Accesso" />
         <VBox alignment="CENTER" maxHeight="250.0" maxWidth="400.0">
             <children>
-                <Label text="Username">
+                <Label styleClass="small" text="Username">
                     <VBox.margin>
                         <Insets bottom="5.0" top="25.0" />
                     </VBox.margin>
-                    <font>
-                        <Font size="13.0" />
-                    </font>
                 </Label>
-                <TextField fx:id="usernameLoginField" promptText="Inserisici il tuo username" style="-fx-max-width: 250;">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </TextField>
-                <Label text="Password">
+                <TextField fx:id="usernameLoginField" promptText="Inserisici il tuo username" style="-fx-max-width: 250;" />
+                <Label styleClass="small" text="Password">
                     <VBox.margin>
                         <Insets bottom="5.0" top="20.0" />
                     </VBox.margin>
-                    <font>
-                        <Font size="13.0" />
-                    </font>
                 </Label>
-                <PasswordField fx:id="passwordLoginField" promptText="Inserisci la tua password" style="-fx-max-width: 250;">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </PasswordField>
+                <PasswordField fx:id="passwordLoginField" promptText="Inserisci la tua password" style="-fx-max-width: 250;" />
                 <Button onAction="#handleLogin" text="Accedi">
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
                 </Button>
             </children>
         </VBox>
         <HBox alignment="CENTER">
             <children>
-                <Label text="Non hai un account?">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#goToSignup" text="Registrati">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Hyperlink>
+                <Label styleClass="small" text="Non hai un account?" />
+                <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#goToSignup" text="Registrati" />
             </children>
             <VBox.margin>
                 <Insets top="15.0" />

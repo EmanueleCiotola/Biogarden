@@ -16,7 +16,7 @@
       </Label>
       <BorderPane>
          <left>
-            <Label text="Svolta da:" BorderPane.alignment="CENTER" />
+            <Label styleClass="small" text="Svolta da:" BorderPane.alignment="CENTER" />
          </left>
          <right>
             <Label fx:id="infoColtivatoreLabel" styleClass="italic" text="Info coltivatore" BorderPane.alignment="CENTER" />
@@ -27,7 +27,7 @@
       </BorderPane>
       <BorderPane>
          <left>
-            <Label text="Identificativo lotto:" BorderPane.alignment="CENTER" />
+            <Label styleClass="small" text="Identificativo lotto:" BorderPane.alignment="CENTER" />
          </left>
          <right>
             <Label fx:id="idLottoLabel" styleClass="italic" text="nLotto" BorderPane.alignment="CENTER" />
@@ -43,7 +43,7 @@
       </Separator>
       <BorderPane>
          <left>
-            <Label text="Data inizio:" BorderPane.alignment="CENTER" />
+            <Label styleClass="small" text="Data inizio:" BorderPane.alignment="CENTER" />
          </left>
          <right>
             <Label fx:id="dataInizioLabel" styleClass="italic" text="Data" BorderPane.alignment="CENTER" />
@@ -54,7 +54,7 @@
       </BorderPane>
       <BorderPane>
          <left>
-            <Label text="Data fine:" BorderPane.alignment="CENTER" />
+            <Label styleClass="small" text="Data fine:" BorderPane.alignment="CENTER" />
          </left>
          <right>
             <Label fx:id="dataFineLabel" styleClass="italic" text="Data" BorderPane.alignment="CENTER" />

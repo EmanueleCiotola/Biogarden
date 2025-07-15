@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import java.util.List;
 
 
-public abstract class BaseListController<T> {
+public abstract class BaseCardListController<T> {
     protected Pane cardContainer;
     protected Label emptyMessageLabel;
 

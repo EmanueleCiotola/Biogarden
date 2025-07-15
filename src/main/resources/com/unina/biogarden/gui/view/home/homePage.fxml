@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="homePage" style="-fx-border-radius: 30;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.HomeController">
    <left>
@@ -38,24 +37,13 @@
                   </Separator>
                   <VBox alignment="CENTER_LEFT">
                      <children>
-                        <Label fx:id="usernameLabel" styleClass="subtitle" text="Username">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="fullNameLabel" text="Nome e cognome">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
+                        <Label fx:id="usernameLabel" styleClass="subtitle" text="Username" />
+                        <Label fx:id="fullNameLabel" styleClass="small" text="Nome e cognome">
                            <VBox.margin>
                               <Insets top="1.0" />
                            </VBox.margin>
                         </Label>
-                        <Label fx:id="fiscalCodeLabel" text="Codice fiscale">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
+                        <Label fx:id="fiscalCodeLabel" styleClass="small" text="Codice fiscale" />
                      </children>
                   </VBox>
                </children>
@@ -66,9 +54,6 @@
             <VBox VBox.vgrow="ALWAYS">
                <children>
                   <Hyperlink fx:id="plotReportLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToPlotReport" text="Report lotti">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -83,9 +68,6 @@
                      </VBox.margin>
                   </Separator>
                   <Hyperlink fx:id="allProjectsLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllProjects" text="Tutti i progetti">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -95,9 +77,6 @@
                      </graphic>
                   </Hyperlink>
                   <Hyperlink fx:id="allActivitiesLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllActivities" text="Tutte le attività">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -107,9 +86,6 @@
                      </graphic>
                   </Hyperlink>
                   <Hyperlink fx:id="allPlotsLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllPlots" text="Tutti i lotti">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -125,16 +101,8 @@
             </VBox>
             <HBox alignment="CENTER" styleClass="cardUtente">
                <children>
-                  <Label text="Hai finito qui?">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#handleLogout" text="Logout">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Hyperlink>
+                  <Label styleClass="small" text="Hai finito qui?" />
+                  <Hyperlink alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#handleLogout" text="Logout" />
                </children>
             </HBox>
          </children>

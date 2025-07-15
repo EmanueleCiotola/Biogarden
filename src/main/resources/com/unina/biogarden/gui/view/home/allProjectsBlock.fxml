@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AllProjectsController">
    <children>
@@ -26,22 +25,14 @@
          <children>
             <HBox alignment="TOP_CENTER" spacing="15.0">
                <children>
-                  <Label text="Filtra per lotto:">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
+                  <Label styleClass="small" text="Filtra per lotto:" />
                   <TilePane fx:id="projectsCheckboxContainer" alignment="CENTER_LEFT" hgap="15.0" prefColumns="0" prefRows="0" tileAlignment="TOP_LEFT" vgap="10.0" HBox.hgrow="ALWAYS" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </HBox>
-            <Label fx:id="filterLabel" style="-fx-text-fill: #8b939b;" text="Nessun filtro applicato.">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
+            <Label fx:id="filterLabel" style="-fx-text-fill: #8b939b;" styleClass="small" text="Nessun filtro applicato." />
          </children>
       </VBox>
       <FlowPane fx:id="projectsCardContainer" hgap="20.0" prefWrapLength="800.0" vgap="20.0" />
