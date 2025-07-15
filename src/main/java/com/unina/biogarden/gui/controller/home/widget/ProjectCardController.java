@@ -12,7 +12,7 @@ public class ProjectCardController {
     @FXML private Label statoLabel;
 
     public void setData(Progetto progetto) {
-        nomeProgettoLabel.setText(progetto.getNomeProgetto());
+        nomeProgettoLabel.setText(progetto.getIdProgetto());
         dataInizioLabel.setText(progetto.getDataInizio().toString());
         dataFineLabel.setText(progetto.getDataFine().toString());
         statoLabel.setText(progetto.getStato());

@@ -1,5 +1,6 @@
 package com.unina.biogarden.gui.controller.home;
 
+import java.util.List;
 
 import com.unina.biogarden.gui.controller.home.widget.ActivityCardController;
 import com.unina.biogarden.model.Attivita;
@@ -11,13 +12,14 @@ import com.unina.biogarden.util.exception.IllegalSessionException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.FlowPane;
-import java.util.*;
+import javafx.scene.control.Label;
 import javafx.scene.Parent;
 
 public class AllActivitiesController {
     private static final String ACTIVITY_CARD_PATH = "/com/unina/biogarden/gui/view/home/widget/ActivityCard.fxml";
-
+    
     @FXML private FlowPane activitiesCardContainer;
+    @FXML private Label emptyMessageLabel;
 
     private HomeService homeService;
 
@@ -29,6 +31,7 @@ public class AllActivitiesController {
 
     @FXML private void loadActivities() {
         try {
+            hideEmptyListMessage();
             List<Attivita> attivitaList = homeService.getAttivitaUtente();
 
             for (Attivita attivita : attivitaList) {
@@ -36,7 +39,7 @@ public class AllActivitiesController {
                 activitiesCardContainer.getChildren().add(card);
             }
         } catch (IllegalSessionException e) {
-            // TODO: handle exception
+            showEmptyListMessage();
         } catch (Exception e) {
             FocusUtil.setFocusTo(activitiesCardContainer);
             Router.getInstance().showSnackbar(e.getMessage());
@@ -48,5 +51,18 @@ public class AllActivitiesController {
         ActivityCardController controller = loader.getController();
         controller.setData(attivita);
         return card;
+    }
+
+    @FXML private void showEmptyListMessage() {
+        activitiesCardContainer.setVisible(false);
+        activitiesCardContainer.setManaged(false);
+        emptyMessageLabel.setVisible(true);
+        emptyMessageLabel.setManaged(true);
+    }
+    @FXML private void hideEmptyListMessage() {
+        activitiesCardContainer.setVisible(true);
+        activitiesCardContainer.setManaged(true);
+        emptyMessageLabel.setVisible(false);
+        emptyMessageLabel.setManaged(false);
     }
 }

@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_LEFT" spacing="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AllProjectsController">
+<VBox alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AllProjectsController">
    <children>
       <StackPane styleClass="homeBlockTitle">
          <children>
             <Label alignment="TOP_LEFT" text="I tuoi progetti" />
          </children>
+         <VBox.margin>
+            <Insets bottom="50.0" />
+         </VBox.margin>
       </StackPane>
+      <VBox fx:id="spazioFiltri" VBox.vgrow="NEVER">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+         <children>
+            <HBox alignment="TOP_CENTER" spacing="15.0">
+               <children>
+                  <Label text="Filtra per lotto:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TilePane fx:id="projectsCheckboxContainer" alignment="CENTER_LEFT" hgap="15.0" prefColumns="0" prefRows="0" tileAlignment="TOP_LEFT" vgap="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Label fx:id="filterLabel" style="-fx-text-fill: #8b939b;" text="Nessun filtro applicato.">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
       <FlowPane fx:id="projectsCardContainer" hgap="20.0" prefWrapLength="800.0" vgap="20.0" />
+      <Label fx:id="emptyMessageLabel" managed="false" style="-fx-font-size: 13px; -fx-text-fill: #8b939b;" text="Nessun elemento da mostrare." visible="false" />
    </children>
 </VBox>

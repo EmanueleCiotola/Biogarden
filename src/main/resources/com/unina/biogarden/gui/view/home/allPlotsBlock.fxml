@@ -13,9 +13,10 @@
    <children>
       <StackPane styleClass="homeBlockTitle">
          <children>
-            <Label alignment="TOP_LEFT" text="Dashboard" />
+            <Label alignment="TOP_LEFT" text="I tuoi lotti" />
          </children>
       </StackPane>
       <FlowPane fx:id="plotsCardContainer" hgap="20.0" prefWrapLength="800.0" vgap="20.0" />
+      <Label fx:id="emptyMessageLabel" visible="false" managed="false" style="-fx-font-size: 13px; -fx-text-fill: #8b939b;" text="Nessun elemento da mostrare." />
    </children>
 </VBox>

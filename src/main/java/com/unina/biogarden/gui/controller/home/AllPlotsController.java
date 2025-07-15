@@ -13,11 +13,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.control.Label;
 
 public class AllPlotsController {
     private static final String PLOT_CARD_PATH = "/com/unina/biogarden/gui/view/home/widget/PlotCard.fxml";
-
+    
     @FXML private FlowPane plotsCardContainer;
+    @FXML private Label emptyMessageLabel;
 
     private HomeService homeService;
 
@@ -29,6 +31,7 @@ public class AllPlotsController {
 
     @FXML private void loadActivities() {
         try {
+            hideEmptyListMessage();
             List<Lotto> attivitaList = homeService.getLottiUtente();
 
             for (Lotto lotto : attivitaList) {
@@ -36,7 +39,7 @@ public class AllPlotsController {
                 plotsCardContainer.getChildren().add(card);
             }
         } catch (IllegalSessionException e) {
-            // TODO: handle exception
+            showEmptyListMessage();
         } catch (Exception e) {
             FocusUtil.setFocusTo(plotsCardContainer);
             Router.getInstance().showSnackbar(e.getMessage());
@@ -48,5 +51,18 @@ public class AllPlotsController {
         PlotCardController controller = loader.getController();
         controller.setData(lotto);
         return card;
+    }
+
+    @FXML private void showEmptyListMessage() {
+        plotsCardContainer.setVisible(false);
+        plotsCardContainer.setManaged(false);
+        emptyMessageLabel.setVisible(true);
+        emptyMessageLabel.setManaged(true);
+    }
+    @FXML private void hideEmptyListMessage() {
+        plotsCardContainer.setVisible(true);
+        plotsCardContainer.setManaged(true);
+        emptyMessageLabel.setVisible(false);
+        emptyMessageLabel.setManaged(false);
     }
 }

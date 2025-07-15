@@ -3,20 +3,20 @@ package com.unina.biogarden.model;
 import java.time.LocalDate;
 
 public class Progetto {
-    private String nomeProgetto;
+    private String idProgetto;
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private String stato;
 
-    public Progetto(String nomeProgetto, LocalDate dataInizio, LocalDate dataFine, String stato) {
-        this.nomeProgetto = nomeProgetto;
+    public Progetto(String idProgetto, LocalDate dataInizio, LocalDate dataFine, String stato) {
+        this.idProgetto = idProgetto;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.stato = stato;
     }
 
-    public String getNomeProgetto() {
-        return nomeProgetto;
+    public String getIdProgetto() {
+        return idProgetto;
     }
     public LocalDate getDataInizio() {
         return dataInizio;

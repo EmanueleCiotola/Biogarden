@@ -51,34 +51,7 @@ public class CardsDaoImpl implements CardsDao {
 
         return lista;
     }
-    @Override
-    public ArrayList<Progetto> get3ProgettiByCodiceFiscale(String cf) throws DatabaseException {
-        ArrayList<Progetto> lista = new ArrayList<>();
-
-        lista.add(new Progetto(
-            "Progetto Orto Urbano",
-            LocalDate.of(2025, 5, 1),
-            LocalDate.of(2025, 10, 31),
-            "In corso"
-        ));
-
-        lista.add(new Progetto(
-            "Progetto Compostaggio",
-            LocalDate.of(2025, 3, 15),
-            LocalDate.of(2025, 8, 15),
-            "Completata"
-        ));
-
-        lista.add(new Progetto(
-            "Progetto Lorem Ipsum",
-            LocalDate.of(2025, 3, 15),
-            LocalDate.of(2025, 8, 15),
-            "Completata"
-        ));
-
-        return lista;
-    }
-
+    
     @Override
     public ArrayList<Attivita> getAttivitaByCodiceFiscale(String codiceFiscale) throws DatabaseException {
         ArrayList<Attivita> lista = new ArrayList<>();
@@ -113,98 +86,95 @@ public class CardsDaoImpl implements CardsDao {
         "Pianificata"
         ));
 
-        return lista;
-    }
-      @Override
-    public ArrayList<Attivita> get3AttivitaByCodiceFiscale(String cf) throws DatabaseException {
-        ArrayList<Attivita> lista = new ArrayList<>();
-
         lista.add(new Attivita(
-            "Irrigazione estiva",
-            "Mario Rossi",
-            "LOT123",
-            LocalDate.of(2025, 6, 10),
-            LocalDate.of(2025, 6, 20),
-            "Irrigazione",
-            "Completata"
+        "Irrigazione estiva",
+        "Mario Rossi",
+        "LOT123",
+        LocalDate.of(2025, 6, 10),
+        LocalDate.of(2025, 6, 20),
+        "Irrigazione",
+        "Completata"
         ));
 
         lista.add(new Attivita(
-            "Raccolta pomodori",
-            "Anna Verdi",
-            "LOT456",
-            LocalDate.of(2025, 7, 1),
-            LocalDate.of(2025, 7, 3),
-            "Raccolta",
-            "In corso"
+        "Raccolta pomodori",
+        "Anna Verdi",
+        "LOT456",
+        LocalDate.of(2025, 7, 1),
+        LocalDate.of(2025, 7, 3),
+        "Raccolta",
+        "In corso"
         ));
 
         lista.add(new Attivita(
-            "Pulizia appezzamento",
-            "Luigi Bianchi",
-            "LOT789",
-            LocalDate.of(2025, 7, 5),
-            LocalDate.of(2025, 7, 10),
-            "Manutenzione",
-            "Pianificata"
+        "Pulizia appezzamento",
+        "Luigi Bianchi",
+        "LOT789",
+        LocalDate.of(2025, 7, 5),
+        LocalDate.of(2025, 7, 10),
+        "Manutenzione",
+        "Pianificata"
         ));
 
         return lista;
     }
-
+    
     @Override
     public ArrayList<Lotto> getLottiByCodiceFiscale(String codiceFiscale) throws DatabaseException {
         ArrayList<Lotto> lista = new ArrayList<>();
 
         lista.add(new Lotto(
-        "LOT100",
-        19.4f
+        "1",
+        19.4f,
+        "Progetto Orto Urbano"
         ));
 
         lista.add(new Lotto(
-        "LOT200",
-        25.0f
+        "25",
+        25.0f,
+        "PRO456"
         ));
 
         lista.add(new Lotto(
-            "LOT100",
-            19.4f
+            "3151",
+            19.4f,
+            "Progetto Orto Urbano"
         ));
 
         lista.add(new Lotto(
-            "LOT200",
-            25.0f
+            "2",
+            25.0f,
+            "PRO456"
         ));
 
         lista.add(new Lotto(
-            "LOT100",
-            19.4f
+            "35",
+            19.4f,
+            "PRO123"
         ));
 
         lista.add(new Lotto(
-            "LOT200",
-            25.0f
-        ));
-
-        return lista;
-    }
-    @Override
-    public ArrayList<Lotto> get3LottiByCodiceFiscale(String codiceFiscale) throws DatabaseException {
-        ArrayList<Lotto> lista = new ArrayList<>();
-
-        lista.add(new Lotto(
-            "LOT100",
-            19.4f
+            "531",
+            25.0f,
+            "PRO456"
         ));
 
         lista.add(new Lotto(
-            "LOT200",
-            25.0f
+            "4",
+            19.4f,
+            "Progetto Orto Urbano"
         ));
 
         lista.add(new Lotto(
-            "LOT100",
-            19.4f
+            "31353",
+            25.0f,
+            "PRO456"
+        ));
+
+        lista.add(new Lotto(
+            "634",
+            19.4f,
+            "PRO123"
         ));
 
         return lista;

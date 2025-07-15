@@ -17,7 +17,6 @@ public class HomeController {
     @FXML private Label usernameLabel;
     @FXML private Label fullNameLabel;
     @FXML private Label fiscalCodeLabel;
-    @FXML private Hyperlink dashboardLink;
     @FXML private Hyperlink plotReportLink;
     @FXML private Hyperlink allProjectsLink;
     @FXML private Hyperlink allActivitiesLink;
@@ -28,8 +27,8 @@ public class HomeController {
 
     public void initialize() {
         Router.getInstance().setContentContainer(homeContentContainer);
-        goToDashboard();
-        setActiveLink(dashboardLink);
+        goToPlotReport();
+        setActiveLink(plotReportLink);
 
         FocusUtil.setupDefocusOnClick(homePage);
 
@@ -54,10 +53,6 @@ public class HomeController {
 
         link.setDisable(true);
         currentActiveLink = link;
-    }
-    @FXML private void goToDashboard() {
-        Router.getInstance().loadContent("home/dashboardBlock");
-        setActiveLink(dashboardLink);
     }
     @FXML private void goToPlotReport() {
         Router.getInstance().loadContent("home/plotReportBlock");
