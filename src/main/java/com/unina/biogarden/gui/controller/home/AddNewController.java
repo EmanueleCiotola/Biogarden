@@ -9,6 +9,6 @@ public class AddNewController {
         Router.getInstance().loadContent("home/addProjectBlock");
     }
     @FXML private void handleAddActivity() {
-        // TODO
+        Router.getInstance().loadContent("home/addActivityBlock");
     }
 }

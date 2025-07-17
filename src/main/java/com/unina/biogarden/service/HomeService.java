@@ -2,8 +2,8 @@ package com.unina.biogarden.service;
 
 import java.util.List;
 
-import com.unina.biogarden.dao.CardsDao;
-import com.unina.biogarden.dao.implementazioneOracle.CardsDaoImpl;
+import com.unina.biogarden.dao.TasksDao;
+import com.unina.biogarden.dao.implementazioneOracle.TasksDaoImpl;
 import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.model.Lotto;
@@ -13,7 +13,7 @@ import com.unina.biogarden.util.exception.DatabaseException;
 
 public class HomeService {
     private static final HomeService instance = new HomeService();
-    private final CardsDao cardsDao = new CardsDaoImpl();
+    private final TasksDao cardsDao = new TasksDaoImpl();
 
     private HomeService() {}
     public static HomeService getInstance() {

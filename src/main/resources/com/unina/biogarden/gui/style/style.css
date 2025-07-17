@@ -241,11 +241,6 @@
     -fx-background-color: #409df4;
 }
 
-
-
-
-
-
 .date-picker {
     -fx-background-color: #f6fafd;
     -fx-text-fill: #0b4275;
@@ -271,9 +266,6 @@
 }
 .date-picker .arrow {
     -fx-background-color: #0b4275;
-}
-.date-picker:focused .arrow {
-    -fx-background-color: #409df4;
 }
 .date-picker-popup {
     -fx-background-color: #f6fafd;
@@ -303,8 +295,6 @@
     -fx-text-fill: rgba(11, 66, 117, 0.3);
     -fx-opacity: 1;
 }
-
-
 .date-picker-popup .left-button,
 .date-picker-popup .right-button {
     -fx-padding: 3 10;
@@ -315,4 +305,48 @@
 .date-picker-popup .right-button .right-arrow {
     -fx-background-color: #f6fafd;
     -fx-effect: none; /* Rimuove ombra freccia */
+}
+
+.choice-box {
+    -fx-background-color: #f6fafd;
+    -fx-border-color: #0b4275;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-width: 2;
+    -fx-font-size: 14;
+    -fx-text-fill: #0b4275;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-cursor: hand;
+}
+.choice-box > .arrow-button {
+    -fx-background-color: transparent;
+}
+.choice-box:focused {
+    -fx-border-color: #409df4;
+}
+
+.spinner {
+    -fx-background-color: #f6fafd;
+    -fx-border-color: #0b4275;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-font-size: 14;
+    -fx-text-fill: #0b4275;
+}
+.spinner:focused {
+    -fx-border-color: #409df4;
+}
+.spinner > .text-field {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+.spinner > .increment-arrow-button, 
+.spinner > .decrement-arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-min-width: 30;
+    -fx-max-width: 30;
+    -fx-cursor: hand;
 }

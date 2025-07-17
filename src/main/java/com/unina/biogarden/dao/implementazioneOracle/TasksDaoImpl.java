@@ -3,13 +3,13 @@ package com.unina.biogarden.dao.implementazioneOracle;
 import java.time.LocalDate;
 import java.util.*;
 
-import com.unina.biogarden.dao.CardsDao;
+import com.unina.biogarden.dao.TasksDao;
 import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.util.exception.DatabaseException;
 
-public class CardsDaoImpl implements CardsDao {
+public class TasksDaoImpl implements TasksDao {
     @Override
     public ArrayList<Progetto> getProgettiByCodiceFiscale(String codiceFiscale) throws DatabaseException {
         ArrayList<Progetto> lista = new ArrayList<>();
@@ -181,5 +181,39 @@ public class CardsDaoImpl implements CardsDao {
     @Override
     public void addProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {}
     @Override
-    public void addActivity(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {}
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate) throws DatabaseException {}
+
+    @Override
+    public List<String> getNomiProgettiProprietario(String idProprietario) throws DatabaseException {
+        List<String> progetti = new ArrayList<>();
+        progetti.add("Progetto 1");
+        progetti.add("Progetto 2");
+        progetti.add("Progetto 3");
+        return progetti;
+    }
+    @Override
+    public List<String> getNomiLottiProprietario(String idProprietario) throws DatabaseException {
+        List<String> lotti = new ArrayList<>();
+        lotti.add("Lotto numero 1");
+        lotti.add("Lotto numero 2");
+        lotti.add("Lotto numero 3");
+        return lotti;
+    }
+    @Override
+    public List<String> getInfoColtivatoriDisponibili() throws DatabaseException {
+        List<String> coltivatori = new ArrayList<>();
+        coltivatori.add("Luca Guida, CODFISC");
+        coltivatori.add("Mario Rosa, CODFISC");
+        coltivatori.add("Giulia Fontanella, CODFISC");
+        return coltivatori;
+    }
+
+    @Override
+    public List<String> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException {
+        List<String> colture = new ArrayList<>();
+        colture.add("Coltura 1: Pomodori");
+        colture.add("Coltura 2: Insalata");
+        colture.add("Coltura 3: Pomodori");
+        return colture;
+    }
 }

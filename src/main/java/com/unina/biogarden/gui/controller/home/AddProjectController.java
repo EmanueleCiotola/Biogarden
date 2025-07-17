@@ -20,8 +20,7 @@ public class AddProjectController {
 
     AddNewService addNewService;
 
-    @FXML
-    private void initialize() {
+    public void initialize() {
         addNewService = AddNewService.getInstance();
 
         projectEndDatePicker.setDayCellFactory(_ -> new DateCell() {
@@ -51,6 +50,7 @@ public class AddProjectController {
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
+    
     @FXML private void handleGoBackToAddNewBlock() {
         Router.getInstance().loadContent("home/addNewBlock");
     }

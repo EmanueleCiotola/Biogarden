@@ -8,11 +8,16 @@ import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.util.exception.DatabaseException;
 
-public interface CardsDao {
+public interface TasksDao {
     public ArrayList<Progetto> getProgettiByCodiceFiscale(String codiceFiscale) throws DatabaseException;
     public ArrayList<Attivita> getAttivitaByCodiceFiscale(String codiceFiscale) throws DatabaseException;
     public ArrayList<Lotto> getLottiByCodiceFiscale(String codiceFiscale) throws DatabaseException;
 
     public void addProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException;
-    public void addActivity(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException;
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate) throws DatabaseException;
+
+    public List<String> getNomiProgettiProprietario(String idProprietario) throws DatabaseException;
+    public List<String> getNomiLottiProprietario(String idProprietario) throws DatabaseException;
+    public List<String> getInfoColtivatoriDisponibili() throws DatabaseException;
+    public List<String> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException;
 }

@@ -28,7 +28,10 @@ public enum ErrorMessage {
     CARICAMENTO_LOTTI("Errore nel caricamento dei lotti. Riprova più tardi."),
     DATA_INIZIO_NULLA("Devi inserire una data di inizio per continuare."),
     DATA_FINE_NULLA("Devi inserire una data di fine per continuare."),
-    DATA_FINE_PRECEDE_DATA_INIZIO("La data di fine non può precedere la data di inizio.");
+    DATA_FINE_PRECEDE_DATA_INIZIO("La data di fine non può precedere la data di inizio."),
+    NESSUN_PROGETTO_TROVATo("Non hai nessun progetto."),
+    NESSUN_LOTTO_TROVATO("Non hai nessun lotto."),
+    NESSUNA_COLTURA_TROVATA("Non sono state trovate colture su questo lotto in questo progetto.");
 
     private final String message;
 

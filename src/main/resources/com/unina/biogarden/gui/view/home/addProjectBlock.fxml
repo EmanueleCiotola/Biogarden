@@ -43,7 +43,7 @@
             <Button onAction="#handleAddNewProject" text="Accedi" />
          </children>
          <VBox.margin>
-            <Insets top="25.0" />
+            <Insets top="30.0" />
          </VBox.margin>
       </HBox>
    </children>
