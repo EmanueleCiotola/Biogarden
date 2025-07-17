@@ -17,18 +17,19 @@ public class HomeController {
     @FXML private Label usernameLabel;
     @FXML private Label fullNameLabel;
     @FXML private Label fiscalCodeLabel;
-    @FXML private Hyperlink plotReportLink;
     @FXML private Hyperlink allProjectsLink;
     @FXML private Hyperlink allActivitiesLink;
     @FXML private Hyperlink allPlotsLink;
+    @FXML private Hyperlink plotReportLink;
+    @FXML private Hyperlink addNewLink;
 
     private Hyperlink currentActiveLink;
     private HomeService homeService;
 
     public void initialize() {
         Router.getInstance().setContentContainer(homeContentContainer);
-        goToPlotReport();
-        setActiveLink(plotReportLink);
+        goToAllProjects();
+        setActiveLink(allProjectsLink);
 
         FocusUtil.setupDefocusOnClick(homePage);
 
@@ -37,11 +38,15 @@ public class HomeController {
     }
 
     private void setUserInfo() {
-        Utente user = homeService.getCurrentUser();
-        
-        usernameLabel.setText(user.getUsername());
-        fullNameLabel.setText(user.getNome() + " " + user.getCognome());
-        fiscalCodeLabel.setText(user.getCodiceFiscale());
+        try {
+            Utente user = homeService.getCurrentUser();
+            
+            usernameLabel.setText(user.getUsername());
+            fullNameLabel.setText(user.getNome() + " " + user.getCognome());
+            fiscalCodeLabel.setText(user.getCodiceFiscale());
+        } catch (Exception e) {
+             Router.getInstance().showSnackbar(e.getMessage());
+        }
     }
 
     private void setActiveLink(Hyperlink link) {
@@ -53,10 +58,6 @@ public class HomeController {
 
         link.setDisable(true);
         currentActiveLink = link;
-    }
-    @FXML private void goToPlotReport() {
-        Router.getInstance().loadContent("home/plotReportBlock");
-        setActiveLink(plotReportLink);
     }
     @FXML private void goToAllProjects() {
         Router.getInstance().loadContent("home/allProjectsBlock");
@@ -70,8 +71,20 @@ public class HomeController {
         Router.getInstance().loadContent("home/allPlotsBlock");
         setActiveLink(allPlotsLink);
     }
+    @FXML private void goToPlotReport() {
+        Router.getInstance().loadContent("home/plotReportBlock");
+        setActiveLink(plotReportLink);
+    }
+    @FXML private void goToAddNew() {
+        Router.getInstance().loadContent("home/addNewBlock");
+        setActiveLink(addNewLink);
+    }
     @FXML private void handleLogout() {
-        homeService.logout();
-        Router.getInstance().navigateTo("auth/authPage");
+        try {
+            homeService.logout();
+            Router.getInstance().navigateTo("auth/authPage");
+        } catch (Exception e) {
+            Router.getInstance().showSnackbar(e.getMessage());
+        }
     }
 }

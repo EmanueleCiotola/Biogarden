@@ -9,7 +9,7 @@
    <children>
       <StackPane styleClass="homeBlockTitle">
          <children>
-            <Label alignment="TOP_LEFT" text="Le attività sui tuoi progetti" />
+            <Label alignment="TOP_LEFT" text="Attività dei tuoi progetti" />
          </children>
       </StackPane>
       <FlowPane fx:id="activitiesCardContainer" hgap="20.0" prefWrapLength="275.0" vgap="20.0" />

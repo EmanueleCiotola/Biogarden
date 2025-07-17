@@ -53,20 +53,6 @@
             </HBox>
             <VBox VBox.vgrow="ALWAYS">
                <children>
-                  <Hyperlink fx:id="plotReportLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToPlotReport" text="Report lotti">
-                     <graphic>
-                        <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../asset/icon/report.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Hyperlink>
-                  <Separator prefWidth="190.0">
-                     <VBox.margin>
-                        <Insets bottom="15.0" top="15.0" />
-                     </VBox.margin>
-                  </Separator>
                   <Hyperlink fx:id="allProjectsLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAllProjects" text="Tutti i progetti">
                      <graphic>
                         <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
@@ -94,9 +80,32 @@
                         </ImageView>
                      </graphic>
                   </Hyperlink>
+                  <Separator prefWidth="190.0">
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <Hyperlink fx:id="plotReportLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToPlotReport" text="Report lotti">
+                     <graphic>
+                        <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../asset/icon/report.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Hyperlink>
+                  <Hyperlink fx:id="addNewLink" alignment="TOP_LEFT" graphicTextGap="5.0" onAction="#goToAddNew" text="Crea nuovo">
+                     <graphic>
+                        <ImageView fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../asset/icon/add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Hyperlink>
                </children>
                <VBox.margin>
-                  <Insets bottom="30.0" top="35.0" />
+                  <Insets bottom="25.0" top="35.0" />
                </VBox.margin>
             </VBox>
             <HBox alignment="CENTER" styleClass="cardUtente">

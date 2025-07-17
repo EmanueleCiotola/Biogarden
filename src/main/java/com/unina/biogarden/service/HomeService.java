@@ -20,10 +20,10 @@ public class HomeService {
         return instance;
     }
     
-    public Utente getCurrentUser() {
+    public Utente getCurrentUser() throws DatabaseException {
         return Sessione.getInstance().getUtenteCorrente();
     }
-    public void logout() {
+    public void logout() throws DatabaseException {
         Sessione.getInstance().logout();
     }
 

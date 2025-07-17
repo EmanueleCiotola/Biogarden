@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" spacing="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AddNewController">
+   <children>
+      <StackPane styleClass="homeBlockTitle">
+         <children>
+            <Label alignment="TOP_LEFT" text="Crea nuovo" />
+         </children>
+      </StackPane>
+      <FlowPane alignment="CENTER" hgap="20.0" prefWrapLength="275.0" vgap="20.0">
+         <children>
+            <Button contentDisplay="BOTTOM" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleAddProject" prefHeight="110.0" prefWidth="275.0" styleClass="buttonCard" text="Crea nuovo progetto">
+               <graphic>
+                  <ImageView fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../asset/icon/newProject.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button contentDisplay="BOTTOM" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleAddActivity" prefHeight="110.0" prefWidth="275.0" styleClass="buttonCard" text="Crea nuova attività">
+               <graphic>
+                  <ImageView fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../asset/icon/newActivity.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+        </FlowPane>
+   </children>
+</VBox>

@@ -51,7 +51,6 @@ public class CardsDaoImpl implements CardsDao {
 
         return lista;
     }
-    
     @Override
     public ArrayList<Attivita> getAttivitaByCodiceFiscale(String codiceFiscale) throws DatabaseException {
         ArrayList<Attivita> lista = new ArrayList<>();
@@ -118,7 +117,6 @@ public class CardsDaoImpl implements CardsDao {
 
         return lista;
     }
-    
     @Override
     public ArrayList<Lotto> getLottiByCodiceFiscale(String codiceFiscale) throws DatabaseException {
         ArrayList<Lotto> lista = new ArrayList<>();
@@ -179,4 +177,9 @@ public class CardsDaoImpl implements CardsDao {
 
         return lista;
     }
+
+    @Override
+    public void addProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {}
+    @Override
+    public void addActivity(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {}
 }

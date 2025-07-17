@@ -66,7 +66,14 @@
     -fx-text-fill: #0b4275 !important;
     -fx-background-radius: 20 !important;
     -fx-padding: 25 30 20 30 !important;
+    -fx-border-radius: 20 !important;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0, 1;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3) !important;
+}
+.button.buttonCard:hover, .button.buttonCard:focused{
+    -fx-border-color: #409df4;
 }
 
 .button {
@@ -103,10 +110,6 @@
 }
 .button.secondaryButton:hover, .button.secondaryButton:focused{
     -fx-border-color: #409df4;
-}
-.button.secondaryButton:armed  {
-    -fx-scale-x: 0.97;
-    -fx-scale-y: 0.97;
 }
 
 .text-field {
@@ -236,4 +239,80 @@
 }
 .check-box:selected:focused .mark {
     -fx-background-color: #409df4;
+}
+
+
+
+
+
+
+.date-picker {
+    -fx-background-color: #f6fafd;
+    -fx-text-fill: #0b4275;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: #0b4275;
+    -fx-prompt-text-fill: rgba(11, 66, 117, 0.5);
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 3);
+}
+.date-picker:focused {
+    -fx-border-color: #409df4;
+}
+.date-picker .text-field {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+.date-picker .arrow {
+    -fx-background-color: #0b4275;
+}
+.date-picker:focused .arrow {
+    -fx-background-color: #409df4;
+}
+.date-picker-popup {
+    -fx-background-color: #f6fafd;
+    -fx-border-color: #0b4275;
+    -fx-border-width: 2;
+}
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #c1d7f0;
+    -fx-text-fill: #0b4275;
+}
+.date-picker-popup .week-number-cell,
+.date-picker-popup .day-cell {
+    -fx-text-fill: #0b4275;
+}
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: rgba(193, 215, 240, .5);
+}
+.date-picker-popup .day-cell:focused {
+    -fx-background-color: #409df4;
+    -fx-text-fill: #f6fafd;
+}
+.date-picker-popup .selected {
+    -fx-background-color: #0b4275;
+    -fx-text-fill: #f6fafd;
+}
+.date-picker-popup .day-cell:disabled {
+    -fx-text-fill: rgba(11, 66, 117, 0.3);
+    -fx-opacity: 1;
+}
+
+
+.date-picker-popup .left-button,
+.date-picker-popup .right-button {
+    -fx-padding: 3 10;
+    -fx-min-width: 25;
+    -fx-max-width: 25;
+}
+.date-picker-popup .left-button .left-arrow,
+.date-picker-popup .right-button .right-arrow {
+    -fx-background-color: #f6fafd;
+    -fx-effect: none; /* Rimuove ombra freccia */
 }

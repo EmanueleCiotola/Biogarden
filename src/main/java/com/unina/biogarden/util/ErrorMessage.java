@@ -25,7 +25,10 @@ public enum ErrorMessage {
     PASSWORD_NON_COINCIDONO("Le password non coincidono."),
     CARICAMENTO_PROGETTI("Errore nel caricamento dei progetti. Riprova più tardi."),
     CARICAMENTO_ATTIVITA("Errore nel caricamento delle attività. Riprova più tardi."),
-    CARICAMENTO_LOTTI("Errore nel caricamento dei lotti. Riprova più tardi.");
+    CARICAMENTO_LOTTI("Errore nel caricamento dei lotti. Riprova più tardi."),
+    DATA_INIZIO_NULLA("Devi inserire una data di inizio per continuare."),
+    DATA_FINE_NULLA("Devi inserire una data di fine per continuare."),
+    DATA_FINE_PRECEDE_DATA_INIZIO("La data di fine non può precedere la data di inizio.");
 
     private final String message;
 
