@@ -63,11 +63,25 @@ public class AddAndUpdateService {
         return nomiColture;
     }
 
-    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws ValidationException, DatabaseException {
+        validaCampiNuovaAttivita(activityStartDate);
         tasksDao.addNewActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, tipoSemina, idColtura, raccoltaQuantitaPrevista);
     }   
+    private void validaCampiNuovaAttivita(LocalDate activityStartDate) throws ValidationException {
+        if (activityStartDate == null) {
+            throw new ValidationException(ErrorMessage.DATA_INIZIO_NULLA);
+        }
+    }
     
-    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String activityEndDate) throws DatabaseException {
+    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, LocalDate activityEndDate) throws ValidationException, DatabaseException {
+        validaCampiModificaAttivita(activityStartDate, activityEndDate);
         tasksDao.updateActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, activityEndDate);
-    }   
+    }
+    private void validaCampiModificaAttivita(LocalDate activityStartDate, LocalDate activityEndDate) throws ValidationException {
+        if (activityStartDate == null) {
+            throw new ValidationException(ErrorMessage.DATA_INIZIO_NULLA);
+        } else if (activityEndDate.isBefore(activityStartDate)) {
+            throw new ValidationException(ErrorMessage.DATA_FINE_PRECEDE_DATA_INIZIO);
+        }
+    } 
 }

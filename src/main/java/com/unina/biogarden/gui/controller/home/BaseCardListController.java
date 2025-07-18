@@ -45,7 +45,6 @@ public abstract class BaseCardListController<T> {
                 cardContainer.getChildren().add(card);
             }
         } catch (Exception e) {
-            System.out.println(e.getCause() + " + " + e.getMessage());
             mostraErrore();
         }
     }

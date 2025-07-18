@@ -1,5 +1,7 @@
 package com.unina.biogarden.gui.controller.home;
 
+import java.time.LocalDate;
+
 import com.unina.biogarden.service.AddAndUpdateService;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
@@ -115,7 +117,7 @@ public class AddActivityController {
     }
 
     @FXML private void handleAddNewActivity() {
-         try {
+        try {
             String idProgetto = idProgettoCombo.getValue();
             String idLotto = idLottoCombo.getValue();
             String idColtivatore = idColtivatoreCombo.getValue();
@@ -123,7 +125,7 @@ public class AddActivityController {
             String stato = statoCombo.getValue();
             String tipoSemina = tipoSeminaCombo.getValue();
             String idColtura = colturaCombo.getValue();
-            String activityStartDate = activityStartDatePicker.getValue().toString();
+            LocalDate activityStartDate = activityStartDatePicker.getValue();
             String raccoltaQuantitaPrevista = raccoltaQuantitaPrevistaSpinner.getValue().toString();
 
             addNewService.addNewActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, tipoSemina, idColtura, raccoltaQuantitaPrevista);
@@ -133,6 +135,7 @@ public class AddActivityController {
         } catch (Exception e) {
             FocusUtil.setFocusTo(addActivityContainer);
             Router.getInstance().showSnackbar(e.getMessage());
+            System.out.println(e.getCause() + " " + e.getStackTrace());
         }
     }
     @FXML private void handleGoBackToAddNewBlock() {

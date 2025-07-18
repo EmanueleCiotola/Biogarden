@@ -24,7 +24,7 @@ public class ActivityCardController {
         infoColtivatoreLabel.setText(attivita.getInfoColtivatore());
         idLottoLabel.setText(attivita.getIdLotto());
         dataInizioLabel.setText(attivita.getDataInizio().toString());
-        dataFineLabel.setText(attivita.getDataFine().toString());
+        dataFineLabel.setText(attivita.getDataFine() != null ? attivita.getDataFine().toString() : "Non definita");
         tipoLabel.setText(attivita.getTipo());
         statoLabel.setText(attivita.getStato());
 

@@ -1,5 +1,7 @@
 package com.unina.biogarden.gui.controller.home;
 
+import java.time.LocalDate;
+
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.service.AddAndUpdateService;
 import com.unina.biogarden.util.FocusUtil;
@@ -62,9 +64,9 @@ public class UpdateActivityController {
             String idLotto = idLottoCombo.getValue();
             String idColtivatore = idColtivatoreCombo.getValue();
             String stato = statoCombo.getValue();
-            String activityStartDate = activityStartDatePicker.getValue().toString();
-            String activityEndDate = activityEndDatePicker.getValue().toString();
-
+            LocalDate activityStartDate = activityStartDatePicker.getValue();
+            LocalDate activityEndDate = activityEndDatePicker.getValue();
+            
             updateService.updateActivity(idProgetto, idLotto, idColtivatore, idColtivatore, stato, activityStartDate, activityEndDate);
 
             Router.getInstance().showSnackbar("Attività modificata con successo.");

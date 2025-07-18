@@ -61,7 +61,7 @@ public class TasksDaoImpl implements TasksDao {
         "Mario Rossi",
         "LOT123",
         LocalDate.of(2025, 6, 10),
-        LocalDate.of(2025, 6, 20),
+        null,
         "Irrigazione",
         "Completata"
         ));
@@ -182,7 +182,7 @@ public class TasksDaoImpl implements TasksDao {
     @Override
     public void addProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {}
     @Override
-    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {}
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {}
 
     @Override
     public List<String> getNomiProgettiProprietario(String idProprietario) throws DatabaseException {
@@ -233,5 +233,5 @@ public class TasksDaoImpl implements TasksDao {
     }
 
     @Override
-    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String activityEndDate) throws DatabaseException {}
+    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, LocalDate activityEndDate) throws DatabaseException {}
 }

@@ -15,7 +15,7 @@ public interface TasksDao {
     public ArrayList<Lotto> getLottiByCodiceFiscale(String codiceFiscale) throws DatabaseException;
 
     public void addProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException;
-    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException;
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException;
 
     public List<String> getNomiProgettiProprietario(String idProprietario) throws DatabaseException;
     public List<String> getNomiLottiProprietario(String idProprietario) throws DatabaseException;
@@ -24,5 +24,5 @@ public interface TasksDao {
 
     public List<ReportVoceLotto> getReportLotti(String codiceFiscale) throws DatabaseException;
 
-    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String activityEndDate) throws DatabaseException;
+    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, LocalDate activityEndDate) throws DatabaseException;
 }
