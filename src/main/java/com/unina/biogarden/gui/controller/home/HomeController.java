@@ -72,7 +72,7 @@ public class HomeController {
         setActiveLink(allPlotsLink);
     }
     @FXML private void goToPlotReport() {
-        Router.getInstance().loadContent("home/plotReportBlock");
+        Router.getInstance().loadContent("home/allPlotsReportBlock");
         setActiveLink(plotReportLink);
     }
     @FXML private void goToAddNew() {

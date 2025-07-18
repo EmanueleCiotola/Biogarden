@@ -12,12 +12,14 @@ import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.layout.VBox;
 
 public class AddActivityController {
+    
     @FXML private VBox addActivityContainer;
     @FXML private ChoiceBox<String> idProgettoCombo;
     @FXML private ChoiceBox<String> idLottoCombo;
     @FXML private ChoiceBox<String> idColtivatoreCombo;
     @FXML private ChoiceBox<String> tipoCombo;
     @FXML private ChoiceBox<String> statoCombo;
+    @FXML private ChoiceBox<String> tipoSeminaCombo;
     @FXML private ChoiceBox<String> colturaCombo;
     @FXML private DatePicker activityStartDatePicker;
     @FXML private Spinner<Double> raccoltaQuantitaPrevistaSpinner;
@@ -42,7 +44,8 @@ public class AddActivityController {
             idLottoCombo.getItems().addAll(addNewService.getNomiLottiProprietario());
             idColtivatoreCombo.getItems().addAll(addNewService.getInfoColtivatoriDisponibili());
             tipoCombo.getItems().addAll("Semina", "Irrigazione", "Raccolta");
-            statoCombo.getItems().addAll("PIANIFICATA", "IN CORSO", "COMPLETATA", "FALLITA");
+            statoCombo.getItems().addAll("Pianificata", "In corso", "Completata", "Fallita");
+            tipoSeminaCombo.getItems().addAll("Erbe aromatiche", "Insalata", "Pomodori");
         } catch (Exception e) {
             Router.getInstance().showSnackbar(e.getMessage());
         }
@@ -53,6 +56,7 @@ public class AddActivityController {
         idLottoCombo.getSelectionModel().select(0);
         idColtivatoreCombo.getSelectionModel().select(0);
         tipoCombo.getSelectionModel().select(0);
+        statoCombo.getSelectionModel().select(0);
         statoCombo.getSelectionModel().select(0);
     }
     private void setupColturaCombo(String selectedProgetto, String selectedLotto) {
@@ -74,17 +78,22 @@ public class AddActivityController {
         String selectedLotto = idLottoCombo.getValue();
         String selectedTipo = tipoCombo.getValue();
 
-        checkColturaCombo(selectedProgetto, selectedLotto, selectedTipo);
+        checkTipoSeminaCombo(selectedProgetto, selectedLotto, selectedTipo);
         checkQuantitaSpinner(selectedTipo);
     }
-    private void checkColturaCombo(String selectedProgetto, String selectedLotto, String selectedTipo) {
+    private void checkTipoSeminaCombo(String selectedProgetto, String selectedLotto, String selectedTipo) {
+        if ("Semina".equals(selectedTipo)) {
+            tipoSeminaCombo.setDisable(false);
+            tipoSeminaCombo.getSelectionModel().select(0);
+        } else {
+            tipoSeminaCombo.getSelectionModel().clearSelection();
+            tipoSeminaCombo.setDisable(true);
+            checkColturaCombo(selectedProgetto, selectedLotto);
+        }
+    }
+    private void checkColturaCombo(String selectedProgetto, String selectedLotto) {
         colturaCombo.getItems().clear();
         
-        if ("Semina".equals(selectedTipo)) {
-            colturaCombo.setDisable(true);
-            return;
-        }
-
         if (selectedProgetto != null && selectedLotto != null) {
             setupColturaCombo(selectedProgetto, selectedLotto);
         } else {
@@ -112,9 +121,12 @@ public class AddActivityController {
             String idColtivatore = idColtivatoreCombo.getValue();
             String tipo = tipoCombo.getValue();
             String stato = statoCombo.getValue();
+            String tipoSemina = tipoSeminaCombo.getValue();
+            String idColtura = colturaCombo.getValue();
             String activityStartDate = activityStartDatePicker.getValue().toString();
+            String raccoltaQuantitaPrevista = raccoltaQuantitaPrevistaSpinner.getValue().toString();
 
-            addNewService.addNewActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate);
+            addNewService.addNewActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, tipoSemina, idColtura, raccoltaQuantitaPrevista);
 
             Router.getInstance().showSnackbar("Attività aggiunta con successo.");
             Router.getInstance().loadContent("home/addNewBlock");

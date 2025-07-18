@@ -27,7 +27,6 @@ public abstract class BaseCardListController<T> {
         }
     }
 
-
     protected void mostraSezione(List<T> elementi) {
         if (elementi.isEmpty()) {
             mostraMessaggioListaVuota();
@@ -46,6 +45,7 @@ public abstract class BaseCardListController<T> {
                 cardContainer.getChildren().add(card);
             }
         } catch (Exception e) {
+            System.out.println(e.getCause() + " + " + e.getMessage());
             mostraErrore();
         }
     }

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="50.0" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AllActivitiesController">
+<VBox spacing="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AllActivitiesController">
    <children>
       <StackPane styleClass="homeBlockTitle">
          <children>

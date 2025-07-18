@@ -5,6 +5,7 @@ import java.util.*;
 
 import com.unina.biogarden.dao.TasksDao;
 import com.unina.biogarden.model.Progetto;
+import com.unina.biogarden.model.ReportVoceLotto;
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.util.exception.DatabaseException;
@@ -181,12 +182,12 @@ public class TasksDaoImpl implements TasksDao {
     @Override
     public void addProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {}
     @Override
-    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate) throws DatabaseException {}
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {}
 
     @Override
     public List<String> getNomiProgettiProprietario(String idProprietario) throws DatabaseException {
         List<String> progetti = new ArrayList<>();
-        progetti.add("Progetto 1");
+        progetti.add("1");
         progetti.add("Progetto 2");
         progetti.add("Progetto 3");
         return progetti;
@@ -194,9 +195,10 @@ public class TasksDaoImpl implements TasksDao {
     @Override
     public List<String> getNomiLottiProprietario(String idProprietario) throws DatabaseException {
         List<String> lotti = new ArrayList<>();
-        lotti.add("Lotto numero 1");
+        lotti.add("1");
         lotti.add("Lotto numero 2");
         lotti.add("Lotto numero 3");
+        
         return lotti;
     }
     @Override
@@ -214,6 +216,19 @@ public class TasksDaoImpl implements TasksDao {
         colture.add("Coltura 1: Pomodori");
         colture.add("Coltura 2: Insalata");
         colture.add("Coltura 3: Pomodori");
+
         return colture;
+    }
+
+    @Override
+    public List<ReportVoceLotto> getReportLotti(String codiceFiscale) throws DatabaseException {
+        List<ReportVoceLotto> datiDiTest = List.of(
+            new ReportVoceLotto(1, "Erbe arom.", 4, 25.0, 20.5, 29.0),
+            new ReportVoceLotto(1, "Insalata", 1, 25.0, 20.5, 29.0),
+            new ReportVoceLotto(1, "Pomodori", 5, 25.0, 20.5, 29.0),
+            new ReportVoceLotto(2, "Pomodori", 1, 25.0, 20.5, 29.0)
+        );
+
+        return datiDiTest;
     }
 }

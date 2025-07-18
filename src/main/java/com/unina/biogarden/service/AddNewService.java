@@ -70,7 +70,7 @@ public class AddNewService {
         return nomiColture;
     }
 
-    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate) throws DatabaseException {
-        tasksDao.addNewActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate);
-    }
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {
+        tasksDao.addNewActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, tipoSemina, idColtura, raccoltaQuantitaPrevista);
+    }   
 }

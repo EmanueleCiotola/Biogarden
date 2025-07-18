@@ -324,6 +324,31 @@
 .choice-box:focused {
     -fx-border-color: #409df4;
 }
+.choice-box .context-menu {
+    -fx-background-color: #f6fafd;
+    -fx-border-color: #409df4;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+    -fx-padding: 2px;
+}
+.choice-box .menu-item {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-text-fill: #0b4275;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.choice-box .menu-item:focused {
+    -fx-background-color: #409df4;
+}
+.choice-box .menu-item:focused .label {
+    -fx-text-fill: #f6fafd;
+}
 
 .spinner {
     -fx-background-color: #f6fafd;
@@ -350,3 +375,22 @@
     -fx-max-width: 30;
     -fx-cursor: hand;
 }
+
+.chart-pie {
+    -fx-border-color: #0b4275;
+    -fx-border-width: 1;
+}
+.chart-pie-label {
+    -fx-font-size: 13;
+    -fx-fill: #0b4275;
+}
+.chart-pie-label-line {
+    -fx-stroke: #0b4275;
+    -fx-stroke-width: 2;
+}
+.chart-plot-background {
+    -fx-border-width: 0;
+}
+.default-color0.chart-pie { -fx-pie-color: #2073c1; }
+.default-color1.chart-pie { -fx-pie-color: #315b84; }
+.default-color2.chart-pie { -fx-pie-color: #69aeef; }

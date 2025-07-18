@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AllPlotsReportController">
+   <children>
+      <StackPane styleClass="homeBlockTitle">
+         <children>
+            <Label alignment="TOP_LEFT" text="Report sui tuoi lotti" />
+         </children>
+      </StackPane>
+      <FlowPane fx:id="plotReportContainer" hgap="20.0" prefWrapLength="800.0" vgap="20.0" />
+      <Label fx:id="emptyMessageLabel" managed="false" style="-fx-font-size: 13px; -fx-text-fill: #8b939b;" text="Nessun elemento da mostrare." visible="false" />
+   </children>
+</VBox>
