@@ -33,6 +33,9 @@
                     <Label fx:id="nRaccolteLabel" text="Numero" />
                     <Label text=" raccolte totali" />
                 </children>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
             </HBox>
             </children>
         </HBox>
