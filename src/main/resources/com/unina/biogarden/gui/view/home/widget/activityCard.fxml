@@ -23,9 +23,9 @@
                <children>
                   <Button fx:id="modificaAttivitaButton" mnemonicParsing="false" onAction="#handleModificaAttivita" styleClass="iconButton">
                      <graphic>
-                        <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@Uni/ProgettoPOOBDD/POO/Biogarden/src/main/resources/com/unina/biogarden/asset/icon/edit.png" />
+                              <Image url="@../../../../asset/icon/edit.png" />
                            </image>
                         </ImageView>
                      </graphic>

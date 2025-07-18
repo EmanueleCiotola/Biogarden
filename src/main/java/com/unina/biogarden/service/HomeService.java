@@ -16,44 +16,36 @@ public class HomeService {
     private static final HomeService instance = new HomeService();
     private final TasksDao tasksDao = new TasksDaoImpl();
 
-    private Sessione sessione;
-    private String codFiscProprietario;
-
     private HomeService() {}
     public static HomeService getInstance() {
         return instance;
-    }
-    
-    public void initialize() {
-        sessione = Sessione.getInstance();
-        codFiscProprietario = sessione.getUtenteCorrente().getCodiceFiscale();
     }
 
     public Utente getCurrentUser() throws DatabaseException {
         return Sessione.getInstance().getUtenteCorrente();
     }
     public void logout() throws DatabaseException {
-        sessione.logout();
+        Sessione.getInstance().logout();
     }
 
     public List<Progetto> getProgettiUtente() throws DatabaseException {        
-        List<Progetto> progetti = tasksDao.getProgettiByCodiceFiscale(codFiscProprietario);
+        List<Progetto> progetti = tasksDao.getProgettiByCodiceFiscale(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
 
         return progetti;
     }
     public List<Attivita> getAttivitaUtente() throws DatabaseException {
-        List<Attivita> attivita = tasksDao.getAttivitaByCodiceFiscale(codFiscProprietario);
+        List<Attivita> attivita = tasksDao.getAttivitaByCodiceFiscale(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
 
         return attivita;
     }
     public List<Lotto> getLottiUtente() throws DatabaseException {
-        List<Lotto> lotti = tasksDao.getLottiByCodiceFiscale(codFiscProprietario);
+        List<Lotto> lotti = tasksDao.getLottiByCodiceFiscale(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
 
         return lotti;
     }
 
     public List<ReportVoceLotto> getListaReportLotti() throws DatabaseException {
-        List<ReportVoceLotto> vociReport = tasksDao.getReportLotti(codFiscProprietario);
+        List<ReportVoceLotto> vociReport = tasksDao.getReportLotti(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
 
         return vociReport;
     }

@@ -112,6 +112,19 @@
     -fx-border-color: #409df4;
 }
 
+.button.iconButton {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.button.iconButton:hover, .button.iconButton:focused {
+    -fx-scale-x: 1.07;
+    -fx-scale-y: 1.07;
+}
+.button.iconButton:armed  {
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+}
+
 .text-field {
     -fx-background-color: #f6fafd;
     -fx-text-fill: #0b4275;

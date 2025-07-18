@@ -1,6 +1,7 @@
 package com.unina.biogarden.gui.controller.home.widget;
 
 import com.unina.biogarden.model.Attivita;
+import com.unina.biogarden.util.Router;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,7 +15,7 @@ public class ActivityCardController {
     @FXML private Label dataFineLabel;
     @FXML private Label tipoLabel;
     @FXML private Label statoLabel;
-    @FXML private Button modificaAttivitaLink;
+    @FXML private Button modificaAttivitaButton;
 
     private Attivita attivitaCorrente;
 
@@ -31,9 +32,8 @@ public class ActivityCardController {
     }
 
     @FXML private void handleModificaAttivita() {
-        modificaAttivitaLink.getScene().getWindow().setUserData(attivitaCorrente); // Per semplice passaggio di dati tra schermate
-        Attivita a = (Attivita) modificaAttivitaLink.getScene().getWindow().getUserData();
-        System.out.println(a);
+        Router.getContentContainer().setUserData(attivitaCorrente); // Per semplice passaggio di dati tra schermate
+        Router.getInstance().loadContent("home/updateActivityBlock");
     }
 
 }

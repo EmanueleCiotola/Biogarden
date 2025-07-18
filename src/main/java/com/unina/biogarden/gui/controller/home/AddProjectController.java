@@ -2,7 +2,7 @@ package com.unina.biogarden.gui.controller.home;
 
 import java.time.LocalDate;
 
-import com.unina.biogarden.service.AddNewService;
+import com.unina.biogarden.service.AddAndUpdateService;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
 
@@ -18,10 +18,10 @@ public class AddProjectController {
     @FXML private DatePicker projectStartDatePicker;
     @FXML private DatePicker projectEndDatePicker;
 
-    AddNewService addNewService;
+    AddAndUpdateService addNewService;
 
     public void initialize() {
-        addNewService = AddNewService.getInstance();
+        addNewService = AddAndUpdateService.getInstance();
 
         projectEndDatePicker.setDayCellFactory(_ -> new DateCell() {
             @Override

@@ -1,6 +1,6 @@
 package com.unina.biogarden.gui.controller.home;
 
-import com.unina.biogarden.service.AddNewService;
+import com.unina.biogarden.service.AddAndUpdateService;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
 
@@ -24,10 +24,10 @@ public class AddActivityController {
     @FXML private DatePicker activityStartDatePicker;
     @FXML private Spinner<Double> raccoltaQuantitaPrevistaSpinner;
 
-    AddNewService addNewService;
+    AddAndUpdateService addNewService;
 
     public void initialize() {
-        addNewService = AddNewService.getInstance();
+        addNewService = AddAndUpdateService.getInstance();
         
         getComboData();
         setComboDefault();

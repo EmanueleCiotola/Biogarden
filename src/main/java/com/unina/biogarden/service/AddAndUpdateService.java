@@ -11,20 +11,13 @@ import com.unina.biogarden.util.exception.DatabaseException;
 import com.unina.biogarden.util.exception.NoDataFound;
 import com.unina.biogarden.util.exception.ValidationException;
 
-public class AddNewService {
-    private static final AddNewService instance = new AddNewService();
+public class AddAndUpdateService {
+    private static final AddAndUpdateService instance = new AddAndUpdateService();
     private final TasksDao tasksDao = new TasksDaoImpl();
 
-    private Sessione sessione;
-    private String codFiscProprietario;
-
-    private AddNewService() {}
-    public static AddNewService getInstance() {
+    private AddAndUpdateService() {}
+    public static AddAndUpdateService getInstance() {
         return instance;
-    }
-    public void inizialize() {
-        sessione = Sessione.getInstance();
-        codFiscProprietario = sessione.getUtenteCorrente().getCodiceFiscale();
     }
     
     public void addNewProject(String name, LocalDate startDate, LocalDate endDate) throws ValidationException, DatabaseException {
@@ -42,7 +35,7 @@ public class AddNewService {
     }
 
     public List<String> getNomiProgettiProprietario() throws NoDataFound, DatabaseException {
-        List<String> nomiProgetti = tasksDao.getNomiProgettiProprietario(codFiscProprietario);
+        List<String> nomiProgetti = tasksDao.getNomiProgettiProprietario(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
         if (nomiProgetti.isEmpty()) {
             throw new NoDataFound(ErrorMessage.NESSUN_PROGETTO_TROVATo);
         }
@@ -50,7 +43,7 @@ public class AddNewService {
         return nomiProgetti;
     }
     public List<String> getNomiLottiProprietario() throws NoDataFound, DatabaseException {
-        List<String> nomiLotti = tasksDao.getNomiLottiProprietario(codFiscProprietario);
+        List<String> nomiLotti = tasksDao.getNomiLottiProprietario(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
         if (nomiLotti.isEmpty()) {
             throw new NoDataFound(ErrorMessage.NESSUN_LOTTO_TROVATO);
         }
@@ -72,5 +65,9 @@ public class AddNewService {
 
     public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {
         tasksDao.addNewActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, tipoSemina, idColtura, raccoltaQuantitaPrevista);
+    }   
+    
+    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String activityEndDate) throws DatabaseException {
+        tasksDao.updateActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, activityEndDate);
     }   
 }

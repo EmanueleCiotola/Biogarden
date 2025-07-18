@@ -231,4 +231,7 @@ public class TasksDaoImpl implements TasksDao {
 
         return datiDiTest;
     }
+
+    @Override
+    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String activityEndDate) throws DatabaseException {}
 }

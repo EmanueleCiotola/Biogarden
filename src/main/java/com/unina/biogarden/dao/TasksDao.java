@@ -23,4 +23,6 @@ public interface TasksDao {
     public List<String> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException;
 
     public List<ReportVoceLotto> getReportLotti(String codiceFiscale) throws DatabaseException;
+
+    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, String activityStartDate, String activityEndDate) throws DatabaseException;
 }
