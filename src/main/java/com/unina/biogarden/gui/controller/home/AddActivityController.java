@@ -135,7 +135,6 @@ public class AddActivityController {
         } catch (Exception e) {
             FocusUtil.setFocusTo(addActivityContainer);
             Router.getInstance().showSnackbar(e.getMessage());
-            System.out.println(e.getCause() + " " + e.getStackTrace());
         }
     }
     @FXML private void handleGoBackToAddNewBlock() {
