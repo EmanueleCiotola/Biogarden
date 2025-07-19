@@ -42,7 +42,7 @@ public class AddActivityController {
     
     private void getComboData() {
         try {
-            idProgettoCombo.getItems().addAll(addNewService.getNomiProgettiProprietario());
+            idProgettoCombo.getItems().addAll(addNewService.getNomiProgettiAttiviProprietario());
             idLottoCombo.getItems().addAll(addNewService.getNomiLottiProprietario());
             idColtivatoreCombo.getItems().addAll(addNewService.getInfoColtivatoriDisponibili());
             tipoCombo.getItems().addAll("Semina", "Irrigazione", "Raccolta");

@@ -84,6 +84,7 @@ public class HomeController {
             homeService.logout();
             Router.getInstance().navigateTo("auth/authPage");
         } catch (Exception e) {
+            FocusUtil.setFocusTo(homeContentContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }

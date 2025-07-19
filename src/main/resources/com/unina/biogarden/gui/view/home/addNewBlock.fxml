@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" spacing="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AddNewController">
+<VBox fx:id="addNewContainer" alignment="TOP_CENTER" spacing="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.biogarden.gui.controller.home.AddNewController">
    <children>
       <StackPane styleClass="homeBlockTitle">
          <children>

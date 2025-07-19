@@ -185,9 +185,9 @@ public class TasksDaoImpl implements TasksDao {
     public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {}
 
     @Override
-    public List<String> getNomiProgettiProprietario(String idProprietario) throws DatabaseException {
+    public List<String> getNomiProgettiAttiviProprietario(String idProprietario) throws DatabaseException {
         List<String> progetti = new ArrayList<>();
-        progetti.add("1");
+        progetti.add("Progetto 1");
         progetti.add("Progetto 2");
         progetti.add("Progetto 3");
         return progetti;

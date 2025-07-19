@@ -34,8 +34,8 @@ public class AddAndUpdateService {
         }
     }
 
-    public List<String> getNomiProgettiProprietario() throws NoDataFound, DatabaseException {
-        List<String> nomiProgetti = tasksDao.getNomiProgettiProprietario(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
+    public List<String> getNomiProgettiAttiviProprietario() throws NoDataFound, DatabaseException {
+        List<String> nomiProgetti = tasksDao.getNomiProgettiAttiviProprietario(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
         if (nomiProgetti.isEmpty()) {
             throw new NoDataFound(ErrorMessage.NESSUN_PROGETTO_TROVATo);
         }
