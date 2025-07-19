@@ -22,7 +22,7 @@ public class AddAndUpdateService {
     
     public void addNewProject(String name, LocalDate startDate, LocalDate endDate) throws ValidationException, DatabaseException {
         validaCampiNuovoProgetto(name, startDate, endDate);
-        tasksDao.addProject(name, startDate, endDate);
+        tasksDao.addNewProject(name, startDate, endDate);
     }
     private void validaCampiNuovoProgetto(String name, LocalDate startDate, LocalDate endDate) throws ValidationException {
         if (startDate == null) {

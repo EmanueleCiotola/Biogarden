@@ -2,6 +2,7 @@ package com.unina.biogarden.dao.implementazionePostgres;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -96,7 +97,22 @@ public class TasksDaoImpl implements TasksDao {
     }
 
     @Override
-    public void addProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {}
+    public void addNewProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {
+        String sql = "call creaProgetto(?, ?, ?)";
+
+        try (Connection conn = DatabaseManager.getConnection();
+            CallableStatement stmt = conn.prepareCall(sql)) {
+
+            stmt.setString(1, name);
+            stmt.setDate(2, java.sql.Date.valueOf(startDate));
+            stmt.setDate(3, java.sql.Date.valueOf(endDate));
+
+            stmt.execute();
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore durante la creazione del progetto: " + e.getMessage());
+        }
+    }
     @Override
     public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {}
 
