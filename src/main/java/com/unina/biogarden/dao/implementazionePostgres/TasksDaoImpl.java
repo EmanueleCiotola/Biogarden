@@ -22,8 +22,8 @@ public class TasksDaoImpl implements TasksDao {
         ArrayList<Progetto> lista = new ArrayList<>();
         String sql = "{ call getProgettiProprietario(?) }";
 
-        try (Connection conn = DatabaseManager.getConnection();
-            CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
 
             cs.setString(1, codiceFiscale);
 
@@ -48,8 +48,8 @@ public class TasksDaoImpl implements TasksDao {
         ArrayList<Attivita> lista = new ArrayList<>();
         String sql = "{ call getAttivitaProprietario(?) }";
 
-        try (Connection conn = DatabaseManager.getConnection();
-            CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
 
             cs.setString(1, codiceFiscale);
 
@@ -76,8 +76,8 @@ public class TasksDaoImpl implements TasksDao {
         ArrayList<Lotto> lista = new ArrayList<>();
         String sql = "{ call getLottiProprietario(?) }";
 
-        try (Connection conn = DatabaseManager.getConnection();
-            CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
 
             cs.setString(1, codiceFiscale);
 
@@ -85,9 +85,8 @@ public class TasksDaoImpl implements TasksDao {
                 while (rs.next()) {
                     String idLotto = rs.getString("idLotto");
                     Float mq = rs.getFloat("mq");
-                    String idProgetto = rs.getString("idProgetto");
 
-                    lista.add(new Lotto(idLotto, mq, idProgetto));
+                    lista.add(new Lotto(idLotto, mq));
                 }
             }
         } catch (SQLException e) {
@@ -97,11 +96,47 @@ public class TasksDaoImpl implements TasksDao {
     }
 
     @Override
+    public Map<String, Set<String>> getRelazioniProgettoLotto(String codiceFiscale) throws DatabaseException {
+        Map<String, Set<String>> progettoLottiMap = new LinkedHashMap<>();
+
+        String sql = "SELECT idProgetto, idLotto FROM getLottiEProgettiPerProprietario(?)";
+
+        try (Connection con = DatabaseManager.getConnection();
+            PreparedStatement pst = con.prepareStatement(sql)) {
+
+            pst.setString(1, codiceFiscale);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    int idProgettoInt = rs.getInt("idProgetto");
+                    String idProgetto;
+                    if (rs.wasNull()) {
+                        idProgetto = "nessun_progetto";  // chiave speciale per lotti senza progetto
+                    } else {
+                        idProgetto = String.valueOf(idProgettoInt);
+                    }
+
+                    String idLotto = String.valueOf(rs.getInt("idLotto"));
+
+                    progettoLottiMap.computeIfAbsent(idProgetto, _ -> new LinkedHashSet<>()).add(idLotto);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore nel recupero relazioni progetto-lotto: " + e.getMessage());
+        }
+
+        return progettoLottiMap;
+    }
+
+
+
+
+    @Override
     public void addNewProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {
         String sql = "call creaProgetto(?, ?, ?)";
 
-        try (Connection conn = DatabaseManager.getConnection();
-            CallableStatement stmt = conn.prepareCall(sql)) {
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement stmt = con.prepareCall(sql)) {
 
             stmt.setString(1, name);
             stmt.setDate(2, java.sql.Date.valueOf(startDate));

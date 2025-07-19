@@ -13,7 +13,9 @@ public interface TasksDao {
     public ArrayList<Progetto> getProgettiByCodiceFiscale(String codiceFiscale) throws DatabaseException;
     public ArrayList<Attivita> getAttivitaByCodiceFiscale(String codiceFiscale) throws DatabaseException;
     public ArrayList<Lotto> getLottiByCodiceFiscale(String codiceFiscale) throws DatabaseException;
-
+    
+    public Map<String, Set<String>> getRelazioniProgettoLotto(String codiceFiscale) throws DatabaseException;
+    
     public void addNewProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException;
     public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException;
 

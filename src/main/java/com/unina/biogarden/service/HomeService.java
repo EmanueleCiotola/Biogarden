@@ -1,6 +1,8 @@
 package com.unina.biogarden.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.unina.biogarden.dao.TasksDao;
 import com.unina.biogarden.dao.implementazionePostgres.TasksDaoImpl;
@@ -42,6 +44,12 @@ public class HomeService {
         List<Lotto> lotti = tasksDao.getLottiByCodiceFiscale(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
 
         return lotti;
+    }
+
+    public Map<String, Set<String>> getRelazioniProgettoLotto() throws DatabaseException {
+        Map<String, Set<String>> relazioni = tasksDao.getRelazioniProgettoLotto(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
+
+        return relazioni;
     }
 
     public List<ReportVoceLotto> getListaReportLotti() throws DatabaseException {
