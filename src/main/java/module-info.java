@@ -3,6 +3,7 @@ module com.unina.biogarden {
     requires javafx.fxml;
     requires javafx.web;
     requires transitive javafx.graphics;
+    requires java.sql;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;

@@ -7,8 +7,8 @@ import com.unina.biogarden.util.exception.InvalidCredentialsException;
 public interface UtenteDao {
     Utente verificaCredenziali(String username, String password) throws InvalidCredentialsException, DatabaseException;
 
-    boolean isUsernameLibero(String username);
-    boolean isCodFiscLibero(String codFisc);
+    boolean isUsernameLibero(String username) throws DatabaseException;
+    boolean isCodFiscLibero(String codFisc) throws DatabaseException;
 
     void registraUtente(Utente utente) throws DatabaseException;
 }
