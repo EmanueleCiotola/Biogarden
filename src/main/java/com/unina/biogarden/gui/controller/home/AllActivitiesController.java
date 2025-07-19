@@ -6,6 +6,7 @@ import com.unina.biogarden.gui.controller.home.widget.ActivityCardController;
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.service.HomeService;
 import com.unina.biogarden.util.ErrorMessage;
+import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
 import com.unina.biogarden.util.exception.DatabaseException;
 
@@ -25,6 +26,8 @@ public class AllActivitiesController extends BaseCardListController<Attivita> {
         homeService = HomeService.getInstance();
 
         init(activitiesCardContainer, emptyMessageLabel);
+
+        FocusUtil.setFocusTo(activitiesCardContainer);
     }
     
         @Override

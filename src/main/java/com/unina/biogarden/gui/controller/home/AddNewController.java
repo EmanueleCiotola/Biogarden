@@ -14,6 +14,8 @@ public class AddNewController {
 
     public void initialize() {
         addService = AddAndUpdateService.getInstance();
+
+        FocusUtil.setFocusTo(addNewContainer);
     }
 
     @FXML private void handleAddProject() {

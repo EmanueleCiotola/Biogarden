@@ -1,4 +1,4 @@
-package com.unina.biogarden.dao.implementazioneOracle;
+package com.unina.biogarden.dao.implementazionePostgres;
 
 import com.unina.biogarden.util.exception.InvalidCredentialsException;
 

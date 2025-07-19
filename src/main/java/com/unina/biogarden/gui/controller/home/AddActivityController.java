@@ -30,6 +30,8 @@ public class AddActivityController {
 
     public void initialize() {
         addNewService = AddAndUpdateService.getInstance();
+
+        FocusUtil.setFocusTo(addActivityContainer);
         
         getComboData();
         setComboDefault();

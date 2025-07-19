@@ -23,6 +23,12 @@ public class AddProjectController {
     public void initialize() {
         addNewService = AddAndUpdateService.getInstance();
 
+        FocusUtil.setFocusTo(addProjectContainer);
+
+        configuraProjectEndDatePicker();
+    }
+
+    private void configuraProjectEndDatePicker() {
         projectEndDatePicker.setDayCellFactory(_ -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
@@ -33,7 +39,6 @@ public class AddProjectController {
             }
         });
     }
-
 
     @FXML private void handleAddNewProject() {
         try {

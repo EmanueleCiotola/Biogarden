@@ -1,5 +1,9 @@
-package com.unina.biogarden.dao.implementazioneOracle;
+package com.unina.biogarden.dao.implementazionePostgres;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -8,174 +12,86 @@ import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.ReportVoceLotto;
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.model.Lotto;
+import com.unina.biogarden.util.DatabaseManager;
 import com.unina.biogarden.util.exception.DatabaseException;
 
 public class TasksDaoImpl implements TasksDao {
     @Override
     public ArrayList<Progetto> getProgettiByCodiceFiscale(String codiceFiscale) throws DatabaseException {
         ArrayList<Progetto> lista = new ArrayList<>();
+        String sql = "{ call getProgettiProprietario(?) }";
 
-        lista.add(new Progetto(
-            "Progetto Orto Urbano",
-            LocalDate.of(2025, 5, 1),
-            LocalDate.of(2025, 10, 31),
-            "In corso"
-        ));
+        try (Connection conn = DatabaseManager.getConnection();
+            CallableStatement cs = conn.prepareCall(sql)) {
 
-        lista.add(new Progetto(
-            "Progetto Compostaggio",
-            LocalDate.of(2025, 3, 15),
-            LocalDate.of(2025, 8, 15),
-            "Completata"
-        ));
+            cs.setString(1, codiceFiscale);
 
-        lista.add(new Progetto(
-            "Progetto Lorem Ipsum",
-            LocalDate.of(2025, 3, 15),
-            LocalDate.of(2025, 8, 15),
-            "Completata"
-        ));
+            try (ResultSet rs = cs.executeQuery()) {
+                while (rs.next()) {
+                    int idProgetto = rs.getInt("idProgetto");
+                    String nomeProgetto = rs.getString("nomeProgetto");
+                    LocalDate dataInizio = rs.getDate("dataInizio").toLocalDate();
+                    LocalDate dataFine = rs.getDate("dataFine").toLocalDate();
+                    String stato = rs.getString("stato");
 
-        lista.add(new Progetto(
-            "Progetto Lulu",
-            LocalDate.of(2025, 3, 15),
-            LocalDate.of(2025, 8, 15),
-            "TERMINATO"
-        ));
-
-        lista.add(new Progetto(
-            "Progetto Sort",
-            LocalDate.of(2025, 3, 15),
-            LocalDate.of(2025, 8, 15),
-            "Completata"
-        ));
-
+                    lista.add(new Progetto(String.valueOf(idProgetto), nomeProgetto, dataInizio, dataFine, stato));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore durante il recupero dei progetti: " + e);
+        }
         return lista;
     }
     @Override
     public ArrayList<Attivita> getAttivitaByCodiceFiscale(String codiceFiscale) throws DatabaseException {
         ArrayList<Attivita> lista = new ArrayList<>();
+        String sql = "{ call getAttivitaProprietario(?) }";
 
-        lista.add(new Attivita(
-        "Irrigazione estiva",
-        "Mario Rossi",
-        "LOT123",
-        LocalDate.of(2025, 6, 10),
-        null,
-        "Irrigazione",
-        "Completata"
-        ));
+        try (Connection conn = DatabaseManager.getConnection();
+            CallableStatement cs = conn.prepareCall(sql)) {
 
-        lista.add(new Attivita(
-        "Raccolta pomodori",
-        "Anna Verdi",
-        "LOT456",
-        LocalDate.of(2025, 7, 1),
-        LocalDate.of(2025, 7, 3),
-        "Raccolta",
-        "In corso"
-        ));
+            cs.setString(1, codiceFiscale);
 
-        lista.add(new Attivita(
-        "Pulizia appezzamento",
-        "Luigi Bianchi",
-        "LOT789",
-        LocalDate.of(2025, 7, 5),
-        LocalDate.of(2025, 7, 10),
-        "Manutenzione",
-        "Pianificata"
-        ));
+            try (ResultSet rs = cs.executeQuery()) {
+                while (rs.next()) {
+                    String nomeProgetto = rs.getString("nomeProgetto");
+                    String infoColtivatore = rs.getString("infoColtivatore");
+                    String idLotto = rs.getString("idLotto");
+                    LocalDate dataInizio = rs.getDate("dataInizio").toLocalDate();
+                    LocalDate dataFine = (rs.getDate("dataFine") != null) ? rs.getDate("dataFine").toLocalDate() : null;
+                    String tipo = rs.getString("tipo");
+                    String stato = rs.getString("stato");
 
-        lista.add(new Attivita(
-        "Irrigazione estiva",
-        "Mario Rossi",
-        "LOT123",
-        LocalDate.of(2025, 6, 10),
-        LocalDate.of(2025, 6, 20),
-        "Irrigazione",
-        "Completata"
-        ));
-
-        lista.add(new Attivita(
-        "Raccolta pomodori",
-        "Anna Verdi",
-        "LOT456",
-        LocalDate.of(2025, 7, 1),
-        LocalDate.of(2025, 7, 3),
-        "Raccolta",
-        "In corso"
-        ));
-
-        lista.add(new Attivita(
-        "Pulizia appezzamento",
-        "Luigi Bianchi",
-        "LOT789",
-        LocalDate.of(2025, 7, 5),
-        LocalDate.of(2025, 7, 10),
-        "Manutenzione",
-        "Pianificata"
-        ));
-
+                    lista.add(new Attivita(nomeProgetto, infoColtivatore, idLotto, dataInizio, dataFine, tipo, stato));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore durante il recupero delle attività: " + e.getMessage());
+        }
         return lista;
     }
     @Override
     public ArrayList<Lotto> getLottiByCodiceFiscale(String codiceFiscale) throws DatabaseException {
         ArrayList<Lotto> lista = new ArrayList<>();
+        String sql = "{ call getLottiProprietario(?) }";
 
-        lista.add(new Lotto(
-        "1",
-        19.4f,
-        "Progetto Orto Urbano"
-        ));
+        try (Connection conn = DatabaseManager.getConnection();
+            CallableStatement cs = conn.prepareCall(sql)) {
 
-        lista.add(new Lotto(
-        "25",
-        25.0f,
-        "PRO456"
-        ));
+            cs.setString(1, codiceFiscale);
 
-        lista.add(new Lotto(
-            "3151",
-            19.4f,
-            "Progetto Orto Urbano"
-        ));
+            try (ResultSet rs = cs.executeQuery()) {
+                while (rs.next()) {
+                    String idLotto = rs.getString("idLotto");
+                    Float mq = rs.getFloat("mq");
+                    String idProgetto = rs.getString("idProgetto");
 
-        lista.add(new Lotto(
-            "2",
-            25.0f,
-            "PRO456"
-        ));
-
-        lista.add(new Lotto(
-            "35",
-            19.4f,
-            "PRO123"
-        ));
-
-        lista.add(new Lotto(
-            "531",
-            25.0f,
-            "PRO456"
-        ));
-
-        lista.add(new Lotto(
-            "4",
-            19.4f,
-            "Progetto Orto Urbano"
-        ));
-
-        lista.add(new Lotto(
-            "31353",
-            25.0f,
-            "PRO456"
-        ));
-
-        lista.add(new Lotto(
-            "634",
-            19.4f,
-            "PRO123"
-        ));
-
+                    lista.add(new Lotto(idLotto, mq, idProgetto));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore durante il recupero dei lotti: " + e.getMessage());
+        }
         return lista;
     }
 

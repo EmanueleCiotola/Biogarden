@@ -28,6 +28,8 @@ public class UpdateActivityController {
     public void initialize() {
         updateService = AddAndUpdateService.getInstance();
 
+        FocusUtil.setFocusTo(updateActivityContainer);
+
         preparaCampi();
         riempiCampi();
         eliminaScelteImpossibili();
