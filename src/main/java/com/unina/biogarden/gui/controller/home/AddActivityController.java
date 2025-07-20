@@ -146,7 +146,7 @@ public class AddActivityController {
             String tipo = tipoCombo.getValue();
             String stato = statoCombo.getValue();
             String tipoSemina = tipoSeminaCombo.getValue();
-            String idColtura = String.valueOf(colturaCombo.getValue().getIdColtura());
+            String idColtura = colturaCombo.getValue() != null ? String.valueOf(colturaCombo.getValue().getIdColtura()) : null;
             LocalDate activityStartDate = activityStartDatePicker.getValue();
             String raccoltaQuantitaPrevista = raccoltaQuantitaPrevistaSpinner.getValue().toString();
 

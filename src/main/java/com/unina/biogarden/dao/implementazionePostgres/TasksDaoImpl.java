@@ -236,11 +236,9 @@ public class TasksDaoImpl implements TasksDao {
                     risultati.add(new ReportVoceLotto(idLotto, tipo, numeroRaccolteSuccesso, mediaKg, minKg, maxKg));
                 }
             }
-
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
-
         return risultati;
     }
   
@@ -259,6 +257,7 @@ public class TasksDaoImpl implements TasksDao {
             stmt.execute();
 
         } catch (SQLException e) {
+            System.out.println(e);
             throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }
@@ -296,6 +295,7 @@ public class TasksDaoImpl implements TasksDao {
             stmt.execute();
 
         } catch (SQLException e) {
+            System.out.println(e);
             throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }

@@ -20,7 +20,7 @@ public class ReportVoceLotto {
     public String getIdLotto() { return String.valueOf(idLotto); }
     public String getTipo() { return String.valueOf(tipo); }
     public int getNumeroRaccolteSuccesso() { return numeroRaccolteSuccesso; }
-    public String getMediaKg() { return String.valueOf(mediaKg); }
-    public String getMinKg() { return String.valueOf(minKg); }
-    public String getMaxKg() { return String.valueOf(maxKg); }
+    public String getMediaKg() { return String.format("%.1f", mediaKg); }
+    public String getMinKg() { return String.format("%.1f", minKg); }
+    public String getMaxKg() { return String.format("%.1f", maxKg); }
 }

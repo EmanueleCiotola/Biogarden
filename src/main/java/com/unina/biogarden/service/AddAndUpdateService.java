@@ -70,10 +70,13 @@ public class AddAndUpdateService {
     }
 
     public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws ValidationException, DatabaseException {
-        validaCampiNuovaAttivita(activityStartDate);
+        validaCampiNuovaAttivita(tipo, idColtura, activityStartDate);
         tasksDao.addNewActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, tipoSemina, idColtura, raccoltaQuantitaPrevista);
     }   
-    private void validaCampiNuovaAttivita(LocalDate activityStartDate) throws ValidationException {
+    private void validaCampiNuovaAttivita(String tipo, String idColtura, LocalDate activityStartDate) throws ValidationException {
+        if (!tipo.equalsIgnoreCase("Semina") && idColtura == null) {
+            throw new ValidationException(ErrorMessage.ID_COLTURA_RICHIESTO_PER_TIPO_ATTIVITA);
+        }
         if (activityStartDate == null) {
             throw new ValidationException(ErrorMessage.DATA_INIZIO_NULLA);
         }
