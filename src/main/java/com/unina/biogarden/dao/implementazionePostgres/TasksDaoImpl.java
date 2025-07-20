@@ -55,6 +55,7 @@ public class TasksDaoImpl implements TasksDao {
 
             try (ResultSet rs = cs.executeQuery()) {
                 while (rs.next()) {
+                    int idAttivita = rs.getInt("idAttivita");
                     String nomeProgetto = rs.getString("nomeProgetto");
                     String infoColtivatore = rs.getString("infoColtivatore");
                     String idLotto = rs.getString("idLotto");
@@ -63,7 +64,7 @@ public class TasksDaoImpl implements TasksDao {
                     String tipo = rs.getString("tipo");
                     String stato = rs.getString("stato");
 
-                    lista.add(new Attivita(nomeProgetto, infoColtivatore, idLotto, dataInizio, dataFine, tipo, stato));
+                    lista.add(new Attivita(idAttivita, nomeProgetto, infoColtivatore, idLotto, dataInizio, dataFine, tipo, stato));
                 }
             }
         } catch (SQLException e) {
@@ -128,56 +129,64 @@ public class TasksDaoImpl implements TasksDao {
         return progettoLottiMap;
     }
 
-
-
-
-    @Override
-    public void addNewProject(String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {
-        String sql = "call creaProgetto(?, ?, ?)";
-
-        try (Connection con = DatabaseManager.getConnection();
-            CallableStatement stmt = con.prepareCall(sql)) {
-
-            stmt.setString(1, name);
-            stmt.setDate(2, java.sql.Date.valueOf(startDate));
-            stmt.setDate(3, java.sql.Date.valueOf(endDate));
-
-            stmt.execute();
-
-        } catch (SQLException e) {
-            throw new DatabaseException("Errore durante la creazione del progetto: " + e.getMessage());
-        }
-    }
-    @Override
-    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {}
-
     @Override
     public List<String> getNomiProgettiAttiviProprietario(String idProprietario) throws DatabaseException {
         List<String> progetti = new ArrayList<>();
-        progetti.add("Progetto 1");
-        progetti.add("Progetto 2");
-        progetti.add("Progetto 3");
+        String sql = "SELECT nomeProgetto FROM getNomiProgettiAttiviProprietario(?)";
+
+        try (Connection con = DatabaseManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, idProprietario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    progetti.add(rs.getString("nomeProgetto"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore nel recupero nomi progetti attivi: " + e.getMessage());
+        }
         return progetti;
     }
     @Override
-    public List<String> getNomiLottiProprietario(String idProprietario) throws DatabaseException {
+    public List<String> getNomiLottiProprietario(String codFisc) throws DatabaseException {
         List<String> lotti = new ArrayList<>();
-        lotti.add("1");
-        lotti.add("Lotto numero 2");
-        lotti.add("Lotto numero 3");
-        
+
+        String query = "SELECT * FROM getNomiLottiProprietario(?)";
+
+        try (Connection con = DatabaseManager.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query)) {
+
+            stmt.setString(1, codFisc);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lotti.add(rs.getString("nomeLotto"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore nel recupero dei nomi dei lotti del proprietario: " + e.getMessage());
+        }
         return lotti;
     }
     @Override
     public List<String> getInfoColtivatoriDisponibili() throws DatabaseException {
         List<String> coltivatori = new ArrayList<>();
-        coltivatori.add("Luca Guida, CODFISC");
-        coltivatori.add("Mario Rosa, CODFISC");
-        coltivatori.add("Giulia Fontanella, CODFISC");
+        String sql = "SELECT * FROM getColtivatoriDisponibili()";
+
+        try (Connection con = DatabaseManager.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                coltivatori.add(rs.getString("coltivatore"));
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore nel recupero dei coltivatori disponibili: " + e.getMessage());
+        }
         return coltivatori;
     }
 
-    @Override
+    @Override // TODO
     public List<String> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException {
         List<String> colture = new ArrayList<>();
         colture.add("Coltura 1: Pomodori");
@@ -189,16 +198,100 @@ public class TasksDaoImpl implements TasksDao {
 
     @Override
     public List<ReportVoceLotto> getReportLotti(String codiceFiscale) throws DatabaseException {
-        List<ReportVoceLotto> datiDiTest = List.of(
-            new ReportVoceLotto(1, "Erbe arom.", 4, 25.0, 20.5, 29.0),
-            new ReportVoceLotto(1, "Insalata", 1, 25.0, 20.5, 29.0),
-            new ReportVoceLotto(1, "Pomodori", 5, 25.0, 20.5, 29.0),
-            new ReportVoceLotto(2, "Pomodori", 1, 25.0, 20.5, 29.0)
-        );
+        List<ReportVoceLotto> risultati = new ArrayList<>();
 
-        return datiDiTest;
+        String sql = "SELECT * FROM getReportLottiProprietario(?)";
+
+        try (Connection con = DatabaseManager.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, codiceFiscale);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int idLotto = rs.getInt("idLotto");
+                    String tipo = rs.getString("tipo");
+                    int numeroRaccolteSuccesso = rs.getInt("numeroRaccolteSuccesso");
+                    double mediaKg = rs.getDouble("mediaKg");
+                    double minKg = rs.getDouble("minKg");
+                    double maxKg = rs.getDouble("maxKg");
+
+                    risultati.add(new ReportVoceLotto(idLotto, tipo, numeroRaccolteSuccesso, mediaKg, minKg, maxKg));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore nel recupero report lotti: " + e.getMessage());
+        }
+
+        return risultati;
+    }
+  
+    @Override
+    public void addNewProject(String codFisc, String name, LocalDate startDate, LocalDate endDate) throws DatabaseException {
+        String sql = "call creaProgetto(?, ?, ?, ?)";
+
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement stmt = con.prepareCall(sql)) {
+
+            stmt.setString(1, codFisc);
+            stmt.setString(2, name);
+            stmt.setDate(3, java.sql.Date.valueOf(startDate));
+            stmt.setDate(4, java.sql.Date.valueOf(endDate));
+
+            stmt.execute();
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore durante la creazione del progetto: " + e.getMessage());
+        }
+    }
+    @Override // TODO
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {
+        String sql = "CALL creaAttivita(?, ?, ?, ?, ?, ?)";
+
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement stmt = con.prepareCall(sql)) {
+
+            stmt.setDate(1, java.sql.Date.valueOf(activityStartDate));
+            stmt.setString(2, tipo);
+            stmt.setString(3, stato);
+            stmt.setString(4, idColtivatore);
+            stmt.setInt(5, Integer.parseInt(idLotto));
+            stmt.setInt(6, Integer.parseInt(idProgetto));
+
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore nella creazione dell'attività: " + e.getMessage());
+        }
     }
 
-    @Override
-    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, LocalDate activityEndDate) throws DatabaseException {}
+    @Override // TODO
+    public void updateActivity(String idAttivita, String idProgetto, String idLotto, String codFisc, String tipo, String stato, LocalDate dataInizio, LocalDate dataFine) throws DatabaseException {
+        String sql = "{ CALL updateAttivita(?, ?, ?, ?, ?, ?, ?, ?) }";
+
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
+
+            int idAtt = Integer.parseInt(idAttivita);
+            int idProj = Integer.parseInt(idProgetto);
+            int idLot = Integer.parseInt(idLotto);
+
+            cs.setInt(1, idAtt);
+            cs.setInt(2, idProj);
+            cs.setInt(3, idLot);
+            cs.setString(4, codFisc);
+            cs.setString(5, tipo);
+            cs.setString(6, stato);
+            cs.setDate(7, java.sql.Date.valueOf(dataInizio));
+            if (dataFine != null) {
+                cs.setDate(8, java.sql.Date.valueOf(dataFine));
+            } else {
+                cs.setNull(8, java.sql.Types.DATE);
+            }
+            
+            cs.executeUpdate();
+        } catch (Exception e) { // SQLException e NumberFormatException
+            throw new DatabaseException("Errore aggiornamento attività: " + e.getMessage());
+        }
+    }
 }

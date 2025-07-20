@@ -22,7 +22,8 @@ public class AddAndUpdateService {
     
     public void addNewProject(String name, LocalDate startDate, LocalDate endDate) throws ValidationException, DatabaseException {
         validaCampiNuovoProgetto(name, startDate, endDate);
-        tasksDao.addNewProject(name, startDate, endDate);
+        String codiceFiscaleProprietario = Sessione.getInstance().getUtenteCorrente().getCodiceFiscale();
+        tasksDao.addNewProject(codiceFiscaleProprietario, name, startDate, endDate);
     }
     private void validaCampiNuovoProgetto(String name, LocalDate startDate, LocalDate endDate) throws ValidationException {
         if (startDate == null) {
@@ -75,12 +76,13 @@ public class AddAndUpdateService {
     
     public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, LocalDate activityEndDate) throws ValidationException, DatabaseException {
         validaCampiModificaAttivita(activityStartDate, activityEndDate);
-        tasksDao.updateActivity(idProgetto, idLotto, idColtivatore, tipo, stato, activityStartDate, activityEndDate);
+        String codiceFiscaleProprietario = Sessione.getInstance().getUtenteCorrente().getCodiceFiscale();
+        tasksDao.updateActivity(idProgetto, idLotto, idColtivatore, codiceFiscaleProprietario, tipo, stato, activityStartDate, activityEndDate);
     }
     private void validaCampiModificaAttivita(LocalDate activityStartDate, LocalDate activityEndDate) throws ValidationException {
         if (activityStartDate == null) {
             throw new ValidationException(ErrorMessage.DATA_INIZIO_NULLA);
-        } else if (activityEndDate.isBefore(activityStartDate)) {
+        } else if (activityEndDate != null && activityEndDate.isBefore(activityStartDate)) {
             throw new ValidationException(ErrorMessage.DATA_FINE_PRECEDE_DATA_INIZIO);
         }
     } 

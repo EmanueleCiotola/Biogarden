@@ -39,12 +39,10 @@ public class AllPlotsReportController extends BaseCardListController<ReportLotto
     protected List<ReportLotto> caricaElementi() throws DatabaseException {
         List<ReportVoceLotto> listaPiana = homeService.getListaReportLotti();
 
-        // Raggruppa per idLotto
-        Map<String, List<ReportVoceLotto>> mappa = listaPiana.stream()
+        Map<String, List<ReportVoceLotto>> mappa = listaPiana.stream() // Raggruppa per idLotto
             .collect(Collectors.groupingBy(ReportVoceLotto::getIdLotto));
 
-        // Costruisci lista di gruppi con somma raccolte riuscite
-        List<ReportLotto> raggruppamentoPerLotto = mappa.entrySet().stream()
+        List<ReportLotto> raggruppamentoPerLotto = mappa.entrySet().stream() // Costruisci lista di gruppi con somma raccolte riuscite
             .map(e -> {
                 String idLotto = e.getKey();
                 List<ReportVoceLotto> voci = e.getValue();

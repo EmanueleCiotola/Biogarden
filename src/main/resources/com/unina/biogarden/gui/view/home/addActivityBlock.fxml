@@ -41,6 +41,9 @@
          <VBox.margin>
             <Insets bottom="20.0" top="5.0" />
          </VBox.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </ChoiceBox>
       <Label styleClass="small" text="Tipo attività" />
       <ChoiceBox fx:id="tipoCombo" maxWidth="250.0" prefWidth="250.0">
