@@ -1,7 +1,5 @@
 package com.unina.biogarden.dao.implementazionePostgres;
 
-import com.unina.biogarden.util.exception.InvalidCredentialsException;
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +13,12 @@ import com.unina.biogarden.model.UtenteProprietario;
 import com.unina.biogarden.util.DatabaseManager;
 import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.exception.DatabaseException;
+import com.unina.biogarden.util.exception.InvalidCredentialsException;
+import com.unina.biogarden.util.exception.UtenteColtivatoreException;
 
 public class UtenteDaoImpl implements UtenteDao {
     @Override
-    public Utente verificaCredenziali(String username, String password) throws InvalidCredentialsException, DatabaseException {
+    public Utente verificaCredenziali(String username, String password) throws InvalidCredentialsException, UtenteColtivatoreException, DatabaseException {
         String sql = "SELECT * FROM loginUtente(?, ?)";
 
         try (Connection connection = DatabaseManager.getConnection(); // Nella parentesi tonda va tutto ciò che poi andrebbe chiuso nel finally, in tal modo questo viene fatto in automatico
@@ -39,8 +39,9 @@ public class UtenteDaoImpl implements UtenteDao {
                         String partitaIva = rs.getString("partitaIVA");
                         return new UtenteProprietario(nome, cognome, codFisc, usernameDB, partitaIva);
                     } else if ("Coltivatore".equalsIgnoreCase(tipoUtente)) {
-                        double saldo = rs.getDouble("saldo");
-                        return new UtenteColtivatore(nome, cognome, codFisc, usernameDB, saldo);
+                        //? double saldo = rs.getDouble("saldo");
+                        //? return new UtenteColtivatore(nome, cognome, codFisc, usernameDB, saldo);
+                        throw new UtenteColtivatoreException(ErrorMessage.COLTIVATORE_LOGIN);
                     } else {
                         throw new InvalidCredentialsException(ErrorMessage.CREDENZIALI_NON_VALIDE);
                     }
@@ -49,7 +50,7 @@ public class UtenteDaoImpl implements UtenteDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO);
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }
 
@@ -93,7 +94,7 @@ public class UtenteDaoImpl implements UtenteDao {
     }
 
     @Override
-    public void registraUtente(Utente utente) throws DatabaseException {
+    public void registraUtente(Utente utente) throws UtenteColtivatoreException, DatabaseException {
         String sql = "CALL registraNuovoUtente(?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseManager.getConnection();
             CallableStatement cs = conn.prepareCall(sql)) {
@@ -112,8 +113,17 @@ public class UtenteDaoImpl implements UtenteDao {
             }
 
             cs.execute();
+            if (utente instanceof UtenteColtivatore) {
+                throw new UtenteColtivatoreException(ErrorMessage.COLTIVATORE_SIGNIN);
+            }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore durante la registrazione dell'utente: " + e.getMessage());
+            if ("U1001".equals(e.getSQLState())) {
+                throw new DatabaseException(ErrorMessage.USERNAME_OCCUPATO);
+            } else if ("U1002".equals(e.getSQLState())) {
+                throw new DatabaseException(ErrorMessage.CODICE_FISCALE_OCCUPATO);
+            } else {
+                throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
+            }
         }
     }
 }

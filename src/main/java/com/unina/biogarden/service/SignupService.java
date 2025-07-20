@@ -7,6 +7,7 @@ import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.Sessione;
 import com.unina.biogarden.util.exception.ValidationException;
 import com.unina.biogarden.util.exception.DatabaseException;
+import com.unina.biogarden.util.exception.UtenteColtivatoreException;
 
 public class SignupService {
     private static final String REGEX_PARTITA_IVA = "\\d+";
@@ -94,7 +95,7 @@ public class SignupService {
         }
     }
 
-    public void signup(Utente utenteDaRegistrare) throws DatabaseException {
+    public void signup(Utente utenteDaRegistrare) throws UtenteColtivatoreException, DatabaseException {
         dao.registraUtente(utenteDaRegistrare);
         Sessione.getInstance().setUtenteCorrente(utenteDaRegistrare);
     }

@@ -6,6 +6,7 @@ import com.unina.biogarden.model.Utente;
 import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.Sessione;
 import com.unina.biogarden.util.exception.InvalidCredentialsException;
+import com.unina.biogarden.util.exception.UtenteColtivatoreException;
 import com.unina.biogarden.util.exception.ValidationException;
 import com.unina.biogarden.util.exception.DatabaseException;
 
@@ -18,7 +19,7 @@ public class LoginService {
         return instance;
     }
 
-    public void login(String username, String password) throws InvalidCredentialsException, ValidationException, DatabaseException {
+    public void login(String username, String password) throws ValidationException, InvalidCredentialsException, UtenteColtivatoreException, DatabaseException {
         validaCampiLogin(username, password);
         richiediLogin(username, password);
     }
@@ -29,7 +30,7 @@ public class LoginService {
             throw new ValidationException(ErrorMessage.PASSWORD_VUOTA);
         }
     }
-    private void richiediLogin(String username, String password) throws InvalidCredentialsException, DatabaseException {
+    private void richiediLogin(String username, String password) throws InvalidCredentialsException, UtenteColtivatoreException, DatabaseException {
         Utente utente = dao.verificaCredenziali(username, password);
         Sessione.getInstance().setUtenteCorrente(utente);
     }
