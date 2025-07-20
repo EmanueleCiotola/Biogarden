@@ -11,10 +11,12 @@ import java.util.*;
 import com.unina.biogarden.dao.TasksDao;
 import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.ReportVoceLotto;
+import com.unina.biogarden.model.UtenteColtivatore;
 import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.util.DatabaseManager;
 import com.unina.biogarden.util.exception.DatabaseException;
+import com.unina.biogarden.util.exception.NoDataFound;
 
 public class TasksDaoImpl implements TasksDao {
     @Override
@@ -56,6 +58,7 @@ public class TasksDaoImpl implements TasksDao {
             try (ResultSet rs = cs.executeQuery()) {
                 while (rs.next()) {
                     int idAttivita = rs.getInt("idAttivita");
+                    int idProgetto = rs.getInt("idProgetto");
                     String nomeProgetto = rs.getString("nomeProgetto");
                     String infoColtivatore = rs.getString("infoColtivatore");
                     String idLotto = rs.getString("idLotto");
@@ -64,7 +67,7 @@ public class TasksDaoImpl implements TasksDao {
                     String tipo = rs.getString("tipo");
                     String stato = rs.getString("stato");
 
-                    lista.add(new Attivita(idAttivita, nomeProgetto, infoColtivatore, idLotto, dataInizio, dataFine, tipo, stato));
+                    lista.add(new Attivita(idAttivita, idProgetto, nomeProgetto, infoColtivatore, idLotto, dataInizio, dataFine, tipo, stato));
                 }
             }
         } catch (SQLException e) {
@@ -130,58 +133,53 @@ public class TasksDaoImpl implements TasksDao {
     }
 
     @Override
-    public List<String> getNomiProgettiAttiviProprietario(String idProprietario) throws DatabaseException {
-        List<String> progetti = new ArrayList<>();
-        String sql = "SELECT nomeProgetto FROM getNomiProgettiAttiviProprietario(?)";
+    public ArrayList<Progetto> getProgettiAttiviProprietario(String codiceFiscale) throws DatabaseException {
+        ArrayList<Progetto> lista = new ArrayList<>();
+        
+        String sql = "{ call getProgettiAttiviProprietario(?) }";
 
         try (Connection con = DatabaseManager.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql)) {
+            CallableStatement cs = con.prepareCall(sql)) {
 
-            ps.setString(1, idProprietario);
-            try (ResultSet rs = ps.executeQuery()) {
+            cs.setString(1, codiceFiscale);
+
+            try (ResultSet rs = cs.executeQuery()) {
                 while (rs.next()) {
-                    progetti.add(rs.getString("nomeProgetto"));
+                    int idProgetto = rs.getInt("idProgetto");
+                    String nomeProgetto = rs.getString("nomeProgetto");
+                    LocalDate dataInizio = rs.getDate("dataInizio").toLocalDate();
+                    LocalDate dataFine = rs.getDate("dataFine").toLocalDate();
+                    String stato = rs.getString("stato");
+
+                    lista.add(new Progetto(String.valueOf(idProgetto), nomeProgetto, dataInizio, dataFine, stato));
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore nel recupero nomi progetti attivi: " + e.getMessage());
+            throw new DatabaseException("Errore durante il recupero dei progetti attivi: " + e);
         }
-        return progetti;
+        return lista;
     }
     @Override
-    public List<String> getNomiLottiProprietario(String codFisc) throws DatabaseException {
-        List<String> lotti = new ArrayList<>();
-
-        String query = "SELECT * FROM getNomiLottiProprietario(?)";
+    public List<UtenteColtivatore> getInfoColtivatoriDisponibili() throws DatabaseException {
+        List<UtenteColtivatore> coltivatori = new ArrayList<>();
+        String sql = "{ call getColtivatoriDisponibili() }";
 
         try (Connection con = DatabaseManager.getConnection();
-            PreparedStatement stmt = con.prepareStatement(query)) {
+            CallableStatement cs = con.prepareCall(sql)) {
 
-            stmt.setString(1, codFisc);
-            try (ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet rs = cs.executeQuery()) {
                 while (rs.next()) {
-                    lotti.add(rs.getString("nomeLotto"));
+                    String nome = rs.getString("nome");
+                    String cognome = rs.getString("cognome");
+                    String codFisc = rs.getString("codFisc");
+                    String username = rs.getString("username");
+                    double saldo = rs.getDouble("saldo");
+
+                    coltivatori.add(new UtenteColtivatore(nome, cognome, codFisc, username, saldo));
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore nel recupero dei nomi dei lotti del proprietario: " + e.getMessage());
-        }
-        return lotti;
-    }
-    @Override
-    public List<String> getInfoColtivatoriDisponibili() throws DatabaseException {
-        List<String> coltivatori = new ArrayList<>();
-        String sql = "SELECT * FROM getColtivatoriDisponibili()";
-
-        try (Connection con = DatabaseManager.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                coltivatori.add(rs.getString("coltivatore"));
-            }
-        } catch (SQLException e) {
-            throw new DatabaseException("Errore nel recupero dei coltivatori disponibili: " + e.getMessage());
+            throw new DatabaseException("Errore durante il recupero dei coltivatori disponibili: " + e.getMessage());
         }
         return coltivatori;
     }
@@ -262,6 +260,82 @@ public class TasksDaoImpl implements TasksDao {
             stmt.execute();
         } catch (SQLException e) {
             throw new DatabaseException("Errore nella creazione dell'attività: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Progetto getProgettoByAttivita(int idAttivita) throws DatabaseException {
+        String sql = "{ CALL getProgettoByAttivita(?) }";
+
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
+
+            cs.setInt(1, idAttivita);
+
+            try (ResultSet rs = cs.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("idProgetto");
+                    String nome = rs.getString("nome");
+                    LocalDate dataInizio = rs.getDate("dataInizio").toLocalDate();
+                    LocalDate dataFine = rs.getDate("dataFine").toLocalDate();
+                    String codFisc = rs.getString("codFisc");
+
+                    Progetto progetto = new Progetto(String.valueOf(id), nome, dataInizio, dataFine, codFisc);
+                    return progetto;
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore: " + e.getMessage());
+        }
+    }
+    @Override
+    public Lotto getLottoByAttivita(int idAttivita) throws DatabaseException {
+        String sql = "{ CALL getLottoByAttivita(?) }";
+
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
+
+            cs.setInt(1, idAttivita);
+
+            try (ResultSet rs = cs.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("idLotto");
+                    float mq = rs.getFloat("mq");
+
+                    Lotto lotto = new Lotto(String.valueOf(id), mq);
+                    return lotto;
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore: " + e.getMessage());
+        }
+    }
+    @Override
+    public UtenteColtivatore getColtivatoreByAttivita(int idAttivita) throws DatabaseException {
+        String sql = "{ CALL getColtivatoreByAttivita(?) }";
+
+        try (Connection con = DatabaseManager.getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
+
+            cs.setInt(1, idAttivita);
+
+            try (ResultSet rs = cs.executeQuery()) {
+                if (rs.next()) {
+                    String nome = rs.getString("nome");
+                    String cognome = rs.getString("cognome");
+                    String codFisc = rs.getString("codFisc");
+                    String username = rs.getString("username");
+                    double saldo = rs.getDouble("saldo");
+
+                    UtenteColtivatore coltivatore = new UtenteColtivatore(nome, cognome, codFisc, username, saldo);
+                    return coltivatore;
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Errore: " + e.getMessage());
         }
     }
 

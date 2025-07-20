@@ -1,6 +1,11 @@
 package com.unina.biogarden.gui.controller.home;
 
+import java.util.List;
+
+import com.unina.biogarden.model.Lotto;
+import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.service.AddAndUpdateService;
+import com.unina.biogarden.util.DataManager;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
 
@@ -23,8 +28,12 @@ public class AddNewController {
     }
     @FXML private void handleAddActivity() {
         try {
-            addService.getNomiProgettiAttiviProprietario(); // Non permette di andare alla schermata voluta se non ci sono progetti disponibili
-            addService.getNomiLottiProprietario();
+
+            List<Progetto> progetti = addService.getProgettiAttiviProprietario();
+            List<Lotto> lotti = addService.getLottiProprietario();
+
+            DataManager.getInstance().setProgetti(progetti);
+            DataManager.getInstance().setLotti(lotti);
 
             Router.getInstance().loadContent("home/addActivityBlock");
         } catch (Exception e) {

@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.unina.biogarden.dao.TasksDao;
 import com.unina.biogarden.dao.implementazionePostgres.TasksDaoImpl;
+import com.unina.biogarden.model.Attivita;
+import com.unina.biogarden.model.Lotto;
+import com.unina.biogarden.model.Progetto;
+import com.unina.biogarden.model.UtenteColtivatore;
 import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.Sessione;
 import com.unina.biogarden.util.exception.DatabaseException;
@@ -35,23 +39,23 @@ public class AddAndUpdateService {
         }
     }
 
-    public List<String> getNomiProgettiAttiviProprietario() throws NoDataFound, DatabaseException {
-        List<String> nomiProgetti = tasksDao.getNomiProgettiAttiviProprietario(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
+    public List<Progetto> getProgettiAttiviProprietario() throws NoDataFound, DatabaseException {
+        List<Progetto> nomiProgetti = tasksDao.getProgettiAttiviProprietario(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
         if (nomiProgetti.isEmpty()) {
             throw new NoDataFound(ErrorMessage.NESSUN_PROGETTO_TROVATo);
         }
 
         return nomiProgetti;
     }
-    public List<String> getNomiLottiProprietario() throws NoDataFound, DatabaseException {
-        List<String> nomiLotti = tasksDao.getNomiLottiProprietario(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
+    public List<Lotto> getLottiProprietario() throws NoDataFound, DatabaseException {
+        List<Lotto> nomiLotti = tasksDao.getLottiByCodiceFiscale(Sessione.getInstance().getUtenteCorrente().getCodiceFiscale());
         if (nomiLotti.isEmpty()) {
             throw new NoDataFound(ErrorMessage.NESSUN_LOTTO_TROVATO);
         }
 
         return nomiLotti;
     }
-    public List<String> getInfoColtivatoriDisponibili() throws DatabaseException {
+    public List<UtenteColtivatore> getInfoColtivatoriDisponibili() throws DatabaseException {
         return tasksDao.getInfoColtivatoriDisponibili();
     }
 
@@ -74,6 +78,28 @@ public class AddAndUpdateService {
         }
     }
     
+    public Progetto getProgettoByAttivita(Attivita attivita) throws NoDataFound, DatabaseException {
+        Progetto progetto = tasksDao.getProgettoByAttivita(attivita.getIdAttivita());
+        if (progetto == null) {
+            throw new NoDataFound(ErrorMessage.PROGETTO_NON_TROVATO);
+        }
+        return progetto;
+    }
+    public Lotto getLottoByAttivita(Attivita attivita) throws NoDataFound, DatabaseException {
+        Lotto lotto = tasksDao.getLottoByAttivita(attivita.getIdAttivita());
+        if (lotto == null) {
+            throw new NoDataFound(ErrorMessage.LOTTO_NON_TROVATO);
+        }
+        return lotto;
+    }
+    public UtenteColtivatore getColtivatoreByAttivita(Attivita attivita) throws NoDataFound, DatabaseException {
+        UtenteColtivatore coltivatore = tasksDao.getColtivatoreByAttivita(attivita.getIdAttivita());
+        if (coltivatore == null) {
+            throw new NoDataFound(ErrorMessage.COLTIVATORE_NON_TROVATO);
+        }
+        return coltivatore;
+    }
+
     public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, LocalDate activityEndDate) throws ValidationException, DatabaseException {
         validaCampiModificaAttivita(activityStartDate, activityEndDate);
         String codiceFiscaleProprietario = Sessione.getInstance().getUtenteCorrente().getCodiceFiscale();

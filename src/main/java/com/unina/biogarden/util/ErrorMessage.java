@@ -31,7 +31,10 @@ public enum ErrorMessage {
     DATA_FINE_PRECEDE_DATA_INIZIO("La data di fine non può precedere la data di inizio."),
     NESSUN_PROGETTO_TROVATo("Non hai nessun progetto."),
     NESSUN_LOTTO_TROVATO("Non hai nessun lotto."),
-    NESSUNA_COLTURA_TROVATA("Non sono state trovate colture su questo lotto in questo progetto.");
+    NESSUNA_COLTURA_TROVATA("Non sono state trovate colture su questo lotto in questo progetto."),
+    PROGETTO_NON_TROVATO("Non è stato trovato il progetto a cui appartiene questa attività."),
+    LOTTO_NON_TROVATO("Non è stato trovato il lotto in cui è stata svolta questa attività."),
+    COLTIVATORE_NON_TROVATO("Non è stato trovato il coltivatore che ha svolto questa attività.");
 
     private final String message;
 

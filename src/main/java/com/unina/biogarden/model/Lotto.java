@@ -16,4 +16,9 @@ public class Lotto {
     public Float getMq() {
         return mq;
     }
+
+    @Override
+    public String toString() {
+        return "Lotto numero " + idLotto;
+    }
 }

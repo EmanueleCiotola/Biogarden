@@ -3,6 +3,9 @@ package com.unina.biogarden.gui.controller.home;
 import java.time.LocalDate;
 
 import com.unina.biogarden.model.Attivita;
+import com.unina.biogarden.model.Lotto;
+import com.unina.biogarden.model.Progetto;
+import com.unina.biogarden.model.UtenteColtivatore;
 import com.unina.biogarden.service.AddAndUpdateService;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
@@ -15,9 +18,9 @@ import javafx.scene.layout.VBox;
 public class UpdateActivityController {
     
     @FXML private VBox updateActivityContainer;
-    @FXML private ChoiceBox<String> idProgettoCombo;
-    @FXML private ChoiceBox<String> idLottoCombo;
-    @FXML private ChoiceBox<String> idColtivatoreCombo;
+    @FXML private ChoiceBox<Progetto> idProgettoCombo;
+    @FXML private ChoiceBox<Lotto> idLottoCombo;
+    @FXML private ChoiceBox<UtenteColtivatore> idColtivatoreCombo;
     @FXML private ChoiceBox<String> tipoCombo;
     @FXML private ChoiceBox<String> statoCombo;
     @FXML private DatePicker activityStartDatePicker;
@@ -40,15 +43,21 @@ public class UpdateActivityController {
         statoCombo.getItems().addAll("Pianificata", "In corso", "Completata", "Fallita");
     }
     private void riempiCampi() {
-        Attivita attivita = (Attivita) Router.getContentContainer().getUserData(); // Per semplice passaggio di dati tra schermate
+        try {
+            Attivita attivita = (Attivita) Router.getContentContainer().getUserData(); // Per semplice passaggio di dati tra schermate
+            
+            idProgettoCombo.setValue(updateService.getProgettoByAttivita(attivita));
+            idLottoCombo.setValue(updateService.getLottoByAttivita(attivita));
+            idColtivatoreCombo.setValue(updateService.getColtivatoreByAttivita(attivita));
     
-        idProgettoCombo.setValue(attivita.getNomeProgetto());
-        idLottoCombo.setValue(attivita.getIdLotto());
-        idColtivatoreCombo.setValue(attivita.getInfoColtivatore());
-        tipoCombo.setValue(attivita.getTipo());
-        statoCombo.setValue(attivita.getStato());
-        activityStartDatePicker.setValue(attivita.getDataInizio());
-        activityEndDatePicker.setValue(attivita.getDataFine());
+            tipoCombo.setValue(attivita.getTipo());
+            statoCombo.setValue(attivita.getStato());
+            activityStartDatePicker.setValue(attivita.getDataInizio());
+            activityEndDatePicker.setValue(attivita.getDataFine());
+        } catch (Exception e) {
+            FocusUtil.setFocusTo(updateActivityContainer);
+            Router.getInstance().showSnackbar(e.getMessage());
+        }
     }
     private void eliminaScelteImpossibili() {
         String stato = statoCombo.getValue();
@@ -62,9 +71,9 @@ public class UpdateActivityController {
 
     @FXML private void handleUpdateActivity() {
         try {
-            String idProgetto = idProgettoCombo.getValue();
-            String idLotto = idLottoCombo.getValue();
-            String idColtivatore = idColtivatoreCombo.getValue();
+            String idProgetto = idProgettoCombo.getValue().getIdProgetto();
+            String idLotto = idLottoCombo.getValue().getIdLotto();
+            String idColtivatore = idColtivatoreCombo.getValue().getCodiceFiscale();
             String stato = statoCombo.getValue();
             LocalDate activityStartDate = activityStartDatePicker.getValue();
             LocalDate activityEndDate = activityEndDatePicker.getValue();

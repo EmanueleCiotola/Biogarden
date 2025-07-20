@@ -32,4 +32,9 @@ public class Progetto {
     public String getStato() {
         return stato;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

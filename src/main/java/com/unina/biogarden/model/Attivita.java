@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Attivita {
     private int idAttivita;
+    private int idProgetto;
     private String nomeProgetto;
     private String infoColtivatore;
     private String idLotto;
@@ -12,8 +13,9 @@ public class Attivita {
     private String tipo;
     private String stato;
 
-    public Attivita(int idAttivita, String nomeProgetto, String infoColtivatore, String idLotto, LocalDate dataInizio, LocalDate dataFine, String tipo, String stato) {
+    public Attivita(int idAttivita, int idProgetto, String nomeProgetto, String infoColtivatore, String idLotto, LocalDate dataInizio, LocalDate dataFine, String tipo, String stato) {
         this.idAttivita = idAttivita;
+        this.idProgetto = idProgetto;
         this.nomeProgetto = nomeProgetto;
         this.infoColtivatore = infoColtivatore;
         this.idLotto = idLotto;
@@ -25,6 +27,9 @@ public class Attivita {
 
     public int getIdAttivita() {
         return idAttivita;
+    }
+    public int getIdProgetto() {
+        return idProgetto;
     }
     public String getNomeProgetto() {
         return nomeProgetto;

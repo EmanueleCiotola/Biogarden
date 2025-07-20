@@ -1,8 +1,13 @@
 package com.unina.biogarden.gui.controller.home;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.unina.biogarden.model.Lotto;
+import com.unina.biogarden.model.Progetto;
+import com.unina.biogarden.model.UtenteColtivatore;
 import com.unina.biogarden.service.AddAndUpdateService;
+import com.unina.biogarden.util.DataManager;
 import com.unina.biogarden.util.FocusUtil;
 import com.unina.biogarden.util.Router;
 
@@ -16,9 +21,9 @@ import javafx.scene.layout.VBox;
 public class AddActivityController {
     
     @FXML private VBox addActivityContainer;
-    @FXML private ChoiceBox<String> idProgettoCombo;
-    @FXML private ChoiceBox<String> idLottoCombo;
-    @FXML private ChoiceBox<String> idColtivatoreCombo;
+    @FXML private ChoiceBox<Progetto> idProgettoCombo; // Fa toString automatico, modificato nel model
+    @FXML private ChoiceBox<Lotto> idLottoCombo; // Fa toString automatico, modificato nel model
+    @FXML private ChoiceBox<UtenteColtivatore> idColtivatoreCombo; // Fa toString automatico, modificato nel model
     @FXML private ChoiceBox<String> tipoCombo;
     @FXML private ChoiceBox<String> statoCombo;
     @FXML private ChoiceBox<String> tipoSeminaCombo;
@@ -27,12 +32,16 @@ public class AddActivityController {
     @FXML private Spinner<Double> raccoltaQuantitaPrevistaSpinner;
 
     AddAndUpdateService addNewService;
+    List<Progetto> progettiDisponibili;
+    List<Lotto> lottiDisponibili;
 
     public void initialize() {
         addNewService = AddAndUpdateService.getInstance();
 
         FocusUtil.setFocusTo(addActivityContainer);
         
+        setData();
+
         getComboData();
         setComboDefault();
 
@@ -42,11 +51,17 @@ public class AddActivityController {
         setupListeners();
     }
     
+    private void setData() {
+        progettiDisponibili = DataManager.getInstance().getProgetti();
+        lottiDisponibili = DataManager.getInstance().getLotti();
+    }
+
     private void getComboData() {
         try {
-            idProgettoCombo.getItems().addAll(addNewService.getNomiProgettiAttiviProprietario());
-            idLottoCombo.getItems().addAll(addNewService.getNomiLottiProprietario());
+            idProgettoCombo.getItems().addAll(progettiDisponibili);
+            idLottoCombo.getItems().addAll(lottiDisponibili);
             idColtivatoreCombo.getItems().addAll(addNewService.getInfoColtivatoriDisponibili());
+
             tipoCombo.getItems().addAll("Semina", "Irrigazione", "Raccolta");
             statoCombo.getItems().addAll("Pianificata", "In corso", "Completata", "Fallita");
             tipoSeminaCombo.getItems().addAll("Erbe aromatiche", "Insalata", "Pomodori");
@@ -63,9 +78,12 @@ public class AddActivityController {
         statoCombo.getSelectionModel().select(0);
         statoCombo.getSelectionModel().select(0);
     }
-    private void setupColturaCombo(String selectedProgetto, String selectedLotto) {
+    private void setupColturaCombo(Progetto selectedProgetto, Lotto selectedLotto) {
         try {
-            colturaCombo.getItems().addAll(addNewService.getNomiColtureLotto(selectedProgetto, selectedLotto));
+            String idProgetto = selectedProgetto.getIdProgetto().toString();
+            String idLotto = selectedLotto.getIdLotto().toString();
+
+            colturaCombo.getItems().addAll(addNewService.getNomiColtureLotto(idProgetto, idLotto));
             colturaCombo.getSelectionModel().select(0);
             colturaCombo.setDisable(false);
         } catch (Exception e) {
@@ -78,14 +96,14 @@ public class AddActivityController {
         idLottoCombo.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> listenerCheck());
     }
     private void listenerCheck() {
-        String selectedProgetto = idProgettoCombo.getValue();
-        String selectedLotto = idLottoCombo.getValue();
+        Progetto selectedProgetto = idProgettoCombo.getValue();
+        Lotto selectedLotto = idLottoCombo.getValue();
         String selectedTipo = tipoCombo.getValue();
 
         checkTipoSeminaCombo(selectedProgetto, selectedLotto, selectedTipo);
         checkQuantitaSpinner(selectedTipo);
     }
-    private void checkTipoSeminaCombo(String selectedProgetto, String selectedLotto, String selectedTipo) {
+    private void checkTipoSeminaCombo(Progetto selectedProgetto, Lotto selectedLotto, String selectedTipo) {
         if ("Semina".equals(selectedTipo)) {
             tipoSeminaCombo.setDisable(false);
             tipoSeminaCombo.getSelectionModel().select(0);
@@ -95,7 +113,7 @@ public class AddActivityController {
             checkColturaCombo(selectedProgetto, selectedLotto);
         }
     }
-    private void checkColturaCombo(String selectedProgetto, String selectedLotto) {
+    private void checkColturaCombo(Progetto selectedProgetto, Lotto selectedLotto) {
         colturaCombo.getItems().clear();
         
         if (selectedProgetto != null && selectedLotto != null) {
@@ -120,9 +138,9 @@ public class AddActivityController {
 
     @FXML private void handleAddNewActivity() {
         try {
-            String idProgetto = idProgettoCombo.getValue();
-            String idLotto = idLottoCombo.getValue();
-            String idColtivatore = idColtivatoreCombo.getValue();
+            String idProgetto = idProgettoCombo.getValue().getIdProgetto();
+            String idLotto = idLottoCombo.getValue().getIdLotto();
+            String idColtivatore = idColtivatoreCombo.getValue().getCodiceFiscale();
             String tipo = tipoCombo.getValue();
             String stato = statoCombo.getValue();
             String tipoSemina = tipoSeminaCombo.getValue();
