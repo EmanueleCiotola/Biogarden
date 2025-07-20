@@ -6,6 +6,7 @@ import java.util.List;
 import com.unina.biogarden.dao.TasksDao;
 import com.unina.biogarden.dao.implementazionePostgres.TasksDaoImpl;
 import com.unina.biogarden.model.Attivita;
+import com.unina.biogarden.model.Coltura;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.UtenteColtivatore;
@@ -59,13 +60,13 @@ public class AddAndUpdateService {
         return tasksDao.getInfoColtivatoriDisponibili();
     }
 
-    public List<String> getNomiColtureLotto(String idLotto, String idProgetto) throws NoDataFound, DatabaseException {
-        List<String> nomiColture = tasksDao.getNomiColtureLotto(idLotto, idProgetto);
-        if (nomiColture.isEmpty()) {
+    public List<Coltura> getNomiColtureLotto(String idLotto, String idProgetto) throws NoDataFound, DatabaseException {
+        List<Coltura> colture = tasksDao.getNomiColtureLotto(idLotto, idProgetto);
+        if (colture.isEmpty()) {
             throw new NoDataFound(ErrorMessage.NESSUNA_COLTURA_TROVATA);
         }
 
-        return nomiColture;
+        return colture;
     }
 
     public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws ValidationException, DatabaseException {

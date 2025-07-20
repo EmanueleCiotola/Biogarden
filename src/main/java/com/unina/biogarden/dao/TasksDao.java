@@ -1,13 +1,13 @@
 package com.unina.biogarden.dao;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.ReportVoceLotto;
 import com.unina.biogarden.model.UtenteColtivatore;
 import com.unina.biogarden.model.Attivita;
+import com.unina.biogarden.model.Coltura;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.util.exception.DatabaseException;
 
@@ -23,7 +23,7 @@ public interface TasksDao {
     
     public ArrayList<Progetto> getProgettiAttiviProprietario(String codiceFiscale) throws DatabaseException;
     public List<UtenteColtivatore> getInfoColtivatoriDisponibili() throws DatabaseException;
-    public List<String> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException;
+    public List<Coltura> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException;
 
     public List<ReportVoceLotto> getReportLotti(String codiceFiscale) throws DatabaseException;
 

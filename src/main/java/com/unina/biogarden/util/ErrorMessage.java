@@ -2,6 +2,7 @@ package com.unina.biogarden.util;
 
 public enum ErrorMessage {
     ERRORE_GENERICO("Si è verificato un errore, riprova più tardi."),
+    ERRORE_GENERICO_SERVER("Si è verificato un problema con il server, riprova più tardi."),
     CREDENZIALI_NON_VALIDE("Credenziali non valide."),
     PIVA_VUOTA("Devi inserire una partita IVA per continuare."),
     PIVA_LUNGHEZZA("La partita IVA deve contenere 11 caratteri."),

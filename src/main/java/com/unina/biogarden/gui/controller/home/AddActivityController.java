@@ -3,6 +3,7 @@ package com.unina.biogarden.gui.controller.home;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.unina.biogarden.model.Coltura;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.UtenteColtivatore;
@@ -27,7 +28,7 @@ public class AddActivityController {
     @FXML private ChoiceBox<String> tipoCombo;
     @FXML private ChoiceBox<String> statoCombo;
     @FXML private ChoiceBox<String> tipoSeminaCombo;
-    @FXML private ChoiceBox<String> colturaCombo;
+    @FXML private ChoiceBox<Coltura> colturaCombo;
     @FXML private DatePicker activityStartDatePicker;
     @FXML private Spinner<Double> raccoltaQuantitaPrevistaSpinner;
 
@@ -82,8 +83,9 @@ public class AddActivityController {
         try {
             String idProgetto = selectedProgetto.getIdProgetto().toString();
             String idLotto = selectedLotto.getIdLotto().toString();
+            List<Coltura> colture = addNewService.getNomiColtureLotto(idProgetto, idLotto);
 
-            colturaCombo.getItems().addAll(addNewService.getNomiColtureLotto(idProgetto, idLotto));
+            colturaCombo.getItems().addAll(colture);
             colturaCombo.getSelectionModel().select(0);
             colturaCombo.setDisable(false);
         } catch (Exception e) {
@@ -144,7 +146,7 @@ public class AddActivityController {
             String tipo = tipoCombo.getValue();
             String stato = statoCombo.getValue();
             String tipoSemina = tipoSeminaCombo.getValue();
-            String idColtura = colturaCombo.getValue();
+            String idColtura = String.valueOf(colturaCombo.getValue().getIdColtura());
             LocalDate activityStartDate = activityStartDatePicker.getValue();
             String raccoltaQuantitaPrevista = raccoltaQuantitaPrevistaSpinner.getValue().toString();
 

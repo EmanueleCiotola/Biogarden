@@ -13,8 +13,10 @@ import com.unina.biogarden.model.Progetto;
 import com.unina.biogarden.model.ReportVoceLotto;
 import com.unina.biogarden.model.UtenteColtivatore;
 import com.unina.biogarden.model.Attivita;
+import com.unina.biogarden.model.Coltura;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.util.DatabaseManager;
+import com.unina.biogarden.util.ErrorMessage;
 import com.unina.biogarden.util.exception.DatabaseException;
 
 public class TasksDaoImpl implements TasksDao {
@@ -40,7 +42,7 @@ public class TasksDaoImpl implements TasksDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore durante il recupero dei progetti: " + e);
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
         return lista;
     }
@@ -71,7 +73,7 @@ public class TasksDaoImpl implements TasksDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore durante il recupero delle attività: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
         return lista;
     }
@@ -94,7 +96,7 @@ public class TasksDaoImpl implements TasksDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore durante il recupero dei lotti: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
         return lista;
     }
@@ -126,7 +128,7 @@ public class TasksDaoImpl implements TasksDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore nel recupero relazioni progetto-lotto: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
 
         return progettoLottiMap;
@@ -155,7 +157,7 @@ public class TasksDaoImpl implements TasksDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore durante il recupero dei progetti attivi: " + e);
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
         return lista;
     }
@@ -179,18 +181,35 @@ public class TasksDaoImpl implements TasksDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore durante il recupero dei coltivatori disponibili: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
         return coltivatori;
     }
 
-    @Override // TODO
-    public List<String> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException {
-        List<String> colture = new ArrayList<>();
-        colture.add("Coltura 1: Pomodori");
-        colture.add("Coltura 2: Insalata");
-        colture.add("Coltura 3: Pomodori");
+    @Override
+    public List<Coltura> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException {
+        List<Coltura> colture = new ArrayList<>();
 
+        String sql = "SELECT * FROM getColtureByLottoProgetto(?, ?)";
+
+        try (Connection con = DatabaseManager.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, Integer.parseInt(idLotto));
+            stmt.setInt(2, Integer.parseInt(idProgetto));
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int idColtura = rs.getInt("idcoltura");
+                    String tipo = rs.getString("tipo");
+                    Coltura coltura = new Coltura(idColtura, Integer.parseInt(idLotto), Integer.parseInt(idProgetto), tipo);
+                    
+                    colture.add(coltura);
+                }
+            }
+        } catch (Exception e) { // SQLException e NumberFormatException
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
+        }
         return colture;
     }
 
@@ -219,7 +238,7 @@ public class TasksDaoImpl implements TasksDao {
             }
 
         } catch (SQLException e) {
-            throw new DatabaseException("Errore nel recupero report lotti: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
 
         return risultati;
@@ -240,12 +259,12 @@ public class TasksDaoImpl implements TasksDao {
             stmt.execute();
 
         } catch (SQLException e) {
-            throw new DatabaseException("Errore durante la creazione del progetto: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }
-    @Override // TODO
-    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaQuantitaPrevista) throws DatabaseException {
-        String sql = "CALL creaAttivita(?, ?, ?, ?, ?, ?)";
+    @Override
+    public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaKgPrevista) throws DatabaseException {
+        String sql = "CALL creaAttivita(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DatabaseManager.getConnection();
             CallableStatement stmt = con.prepareCall(sql)) {
@@ -257,9 +276,27 @@ public class TasksDaoImpl implements TasksDao {
             stmt.setInt(5, Integer.parseInt(idLotto));
             stmt.setInt(6, Integer.parseInt(idProgetto));
 
+            // Set parametri opzionali (tipoSemina, idColtura, raccoltaKgPrevista)
+            if (tipoSemina != null && !tipoSemina.isEmpty()) {
+                stmt.setString(7, tipoSemina);
+            } else {
+                stmt.setNull(7, java.sql.Types.VARCHAR);
+            }
+            if (idColtura != null && !idColtura.isEmpty()) {
+                stmt.setInt(8, Integer.parseInt(idColtura));
+            } else {
+                stmt.setNull(8, java.sql.Types.INTEGER);
+            }
+            if (raccoltaKgPrevista != null && !raccoltaKgPrevista.isEmpty()) {
+                stmt.setBigDecimal(9, new java.math.BigDecimal(raccoltaKgPrevista));
+            } else {
+                stmt.setNull(9, java.sql.Types.NUMERIC);
+            }
+
             stmt.execute();
+
         } catch (SQLException e) {
-            throw new DatabaseException("Errore nella creazione dell'attività: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }
 
@@ -286,7 +323,7 @@ public class TasksDaoImpl implements TasksDao {
                 return null;
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }
     @Override
@@ -309,7 +346,7 @@ public class TasksDaoImpl implements TasksDao {
                 return null;
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }
     @Override
@@ -335,7 +372,7 @@ public class TasksDaoImpl implements TasksDao {
                 return null;
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Errore: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }
 
@@ -365,7 +402,7 @@ public class TasksDaoImpl implements TasksDao {
             
             cs.executeUpdate();
         } catch (Exception e) { // SQLException e NumberFormatException
-            throw new DatabaseException("Errore aggiornamento attività: " + e.getMessage());
+            throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }
 }
