@@ -49,7 +49,6 @@ public class UtenteDaoImpl implements UtenteDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Per debug dettagliato
             throw new DatabaseException(ErrorMessage.ERRORE_GENERICO);
         }
     }
