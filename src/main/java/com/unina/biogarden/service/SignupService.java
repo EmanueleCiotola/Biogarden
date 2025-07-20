@@ -72,7 +72,7 @@ public class SignupService {
         validaPassword(password);
         validaRipetizionePassword(password, ripetizionePassword);
     }
-    public void validaPassword(String password)throws ValidationException {
+    private void validaPassword(String password)throws ValidationException {
         if (password.isEmpty()) {
             throw new ValidationException(ErrorMessage.PASSWORD_VUOTA);
         } else if (password.contains(" ")) {
@@ -87,7 +87,7 @@ public class SignupService {
             throw new ValidationException(ErrorMessage.PASSWORD_LUNGHEZZA);
         }
     }
-    public void validaRipetizionePassword(String password, String ripetizionePassword) throws ValidationException {
+    private void validaRipetizionePassword(String password, String ripetizionePassword) throws ValidationException {
         if (ripetizionePassword.isEmpty()) {
             throw new ValidationException(ErrorMessage.PASSWORD_RIPETUTA_VUOTA);
         } else if (!password.equals(ripetizionePassword)) {

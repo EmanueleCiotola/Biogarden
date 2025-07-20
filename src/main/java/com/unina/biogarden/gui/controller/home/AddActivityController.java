@@ -32,9 +32,9 @@ public class AddActivityController {
     @FXML private DatePicker activityStartDatePicker;
     @FXML private Spinner<Double> raccoltaQuantitaPrevistaSpinner;
 
-    AddAndUpdateService addNewService;
-    List<Progetto> progettiDisponibili;
-    List<Lotto> lottiDisponibili;
+    private AddAndUpdateService addNewService;
+    private List<Progetto> progettiDisponibili;
+    private List<Lotto> lottiDisponibili;
 
     public void initialize() {
         addNewService = AddAndUpdateService.getInstance();

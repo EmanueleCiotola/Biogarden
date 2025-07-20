@@ -18,7 +18,7 @@ public class AddProjectController {
     @FXML private DatePicker projectStartDatePicker;
     @FXML private DatePicker projectEndDatePicker;
 
-    AddAndUpdateService addNewService;
+    private AddAndUpdateService addNewService;
 
     public void initialize() {
         addNewService = AddAndUpdateService.getInstance();

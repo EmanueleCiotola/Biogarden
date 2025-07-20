@@ -103,8 +103,7 @@ public class AllProjectsController extends BaseCardListController<Progetto> {
         }
     }
     
-    @FXML 
-    private void onLottoCheckChanged(String idLotto, boolean isNowSelected) {
+    @FXML private void onLottoCheckChanged(String idLotto, boolean isNowSelected) {
         aggiornaFiltri(idLotto, isNowSelected);
         aggiornaVistaFiltrata();
     }

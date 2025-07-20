@@ -30,10 +30,10 @@ public class AllActivitiesController extends BaseCardListController<Attivita> {
         FocusUtil.setFocusTo(activitiesCardContainer);
     }
     
-        @Override
-        protected String getCardFXMLPath() {
-            return ACTIVITY_CARD_PATH;
-        }
+    @Override
+    protected String getCardFXMLPath() {
+        return ACTIVITY_CARD_PATH;
+    }
 
     @Override
     protected List<Attivita> caricaElementi() throws DatabaseException {

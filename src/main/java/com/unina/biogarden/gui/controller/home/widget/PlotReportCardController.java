@@ -15,23 +15,22 @@ public class PlotReportCardController {
     @FXML private PieChart graficoReport;
 
     public void setData(ReportLotto report) {
-    idLottoLabel.setText(report.getIdLotto());
-    nRaccolteLabel.setText(String.valueOf(report.getNumRaccolte()));
+        idLottoLabel.setText(report.getIdLotto());
+        nRaccolteLabel.setText(String.valueOf(report.getNumRaccolte()));
 
-    int rowIndex = 1;
-    for (ReportVoceLotto voce : report.getVoci()) {
-        Label tipoLabel = new Label(voce.getTipo());
-        Label mediaLabel = new Label(voce.getMediaKg());
-        Label minLabel = new Label(voce.getMinKg());
-        Label maxLabel = new Label(voce.getMaxKg());
-        tabellaReport.addRow(rowIndex++, tipoLabel, mediaLabel, minLabel, maxLabel);
+        int rowIndex = 1;
+        for (ReportVoceLotto voce : report.getVoci()) {
+            Label tipoLabel = new Label(voce.getTipo());
+            Label mediaLabel = new Label(voce.getMediaKg());
+            Label minLabel = new Label(voce.getMinKg());
+            Label maxLabel = new Label(voce.getMaxKg());
+            tabellaReport.addRow(rowIndex++, tipoLabel, mediaLabel, minLabel, maxLabel);
 
-        int raccolteSuccesso = voce.getNumeroRaccolteSuccesso();
-        if (raccolteSuccesso > 0) {
-            PieChart.Data slice = new PieChart.Data(voce.getTipo(), raccolteSuccesso);
-            graficoReport.getData().add(slice);
+            int raccolteSuccesso = voce.getNumeroRaccolteSuccesso();
+            if (raccolteSuccesso > 0) {
+                PieChart.Data slice = new PieChart.Data(voce.getTipo(), raccolteSuccesso);
+                graficoReport.getData().add(slice);
+            }
         }
     }
-}
-
 }

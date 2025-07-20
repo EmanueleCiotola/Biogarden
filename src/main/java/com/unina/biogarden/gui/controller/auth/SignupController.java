@@ -36,7 +36,7 @@ public class SignupController {
     private String partitaIvaTemporanea;
     private Utente utenteInCostruzione;
 
-    @FXML private void initialize() {
+    public void initialize() {
         FocusUtil.setFocusTo(signupContainer);
         signupService = SignupService.getInstance();
 

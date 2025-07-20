@@ -28,10 +28,10 @@ public class AddNewController {
     }
     @FXML private void handleAddActivity() {
         try {
-
             List<Progetto> progetti = addService.getProgettiAttiviProprietario();
             List<Lotto> lotti = addService.getLottiProprietario();
 
+            DataManager.getInstance().clear();
             DataManager.getInstance().setProgetti(progetti);
             DataManager.getInstance().setLotti(lotti);
 
