@@ -27,6 +27,7 @@ public class UpdateActivityController {
     @FXML private DatePicker activityEndDatePicker;
 
     AddAndUpdateService updateService;
+    Attivita attivita;
 
     public void initialize() {
         updateService = AddAndUpdateService.getInstance();
@@ -44,7 +45,7 @@ public class UpdateActivityController {
     }
     private void riempiCampi() {
         try {
-            Attivita attivita = (Attivita) Router.getContentContainer().getUserData(); // Per semplice passaggio di dati tra schermate
+            attivita = (Attivita) Router.getContentContainer().getUserData(); // Per semplice passaggio di dati tra schermate
             
             idProgettoCombo.setValue(updateService.getProgettoByAttivita(attivita));
             idLottoCombo.setValue(updateService.getLottoByAttivita(attivita));
@@ -71,14 +72,20 @@ public class UpdateActivityController {
 
     @FXML private void handleUpdateActivity() {
         try {
-            String idProgetto = idProgettoCombo.getValue().getIdProgetto();
+            int idAttivita = attivita.getIdAttivita();
+            int idProgetto = Integer.parseInt(idProgettoCombo.getValue().getIdProgetto());
+            String nomeProgetto = idProgettoCombo.getValue().getNomeProgetto();
             String idLotto = idLottoCombo.getValue().getIdLotto();
             String idColtivatore = idColtivatoreCombo.getValue().getCodiceFiscale();
-            String stato = statoCombo.getValue();
+            String infoColtivatore = attivita.getInfoColtivatore();
             LocalDate activityStartDate = activityStartDatePicker.getValue();
             LocalDate activityEndDate = activityEndDatePicker.getValue();
+            String tipo = attivita.getTipo();
+            String stato = statoCombo.getValue();
+
+            Attivita attivita = new Attivita(idAttivita, idProgetto, nomeProgetto, idColtivatore, infoColtivatore, idLotto, activityStartDate, activityEndDate, tipo, stato);
             
-            updateService.updateActivity(idProgetto, idLotto, idColtivatore, idColtivatore, stato, activityStartDate, activityEndDate);
+            updateService.updateActivity(attivita);
 
             Router.getInstance().showSnackbar("Attività modificata con successo.");
             Router.getInstance().loadContent("home/allActivitiesBlock");

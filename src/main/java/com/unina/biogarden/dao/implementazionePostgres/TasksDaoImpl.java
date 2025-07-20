@@ -16,7 +16,6 @@ import com.unina.biogarden.model.Attivita;
 import com.unina.biogarden.model.Lotto;
 import com.unina.biogarden.util.DatabaseManager;
 import com.unina.biogarden.util.exception.DatabaseException;
-import com.unina.biogarden.util.exception.NoDataFound;
 
 public class TasksDaoImpl implements TasksDao {
     @Override
@@ -60,6 +59,7 @@ public class TasksDaoImpl implements TasksDao {
                     int idAttivita = rs.getInt("idAttivita");
                     int idProgetto = rs.getInt("idProgetto");
                     String nomeProgetto = rs.getString("nomeProgetto");
+                    String idColtivatore = rs.getString("idColtivatore");
                     String infoColtivatore = rs.getString("infoColtivatore");
                     String idLotto = rs.getString("idLotto");
                     LocalDate dataInizio = rs.getDate("dataInizio").toLocalDate();
@@ -67,7 +67,7 @@ public class TasksDaoImpl implements TasksDao {
                     String tipo = rs.getString("tipo");
                     String stato = rs.getString("stato");
 
-                    lista.add(new Attivita(idAttivita, idProgetto, nomeProgetto, infoColtivatore, idLotto, dataInizio, dataFine, tipo, stato));
+                    lista.add(new Attivita(idAttivita, idProgetto, nomeProgetto, idColtivatore, infoColtivatore, idLotto, dataInizio, dataFine, tipo, stato));
                 }
             }
         } catch (SQLException e) {
@@ -339,26 +339,26 @@ public class TasksDaoImpl implements TasksDao {
         }
     }
 
-    @Override // TODO
-    public void updateActivity(String idAttivita, String idProgetto, String idLotto, String codFisc, String tipo, String stato, LocalDate dataInizio, LocalDate dataFine) throws DatabaseException {
-        String sql = "{ CALL updateAttivita(?, ?, ?, ?, ?, ?, ?, ?) }";
+    @Override
+    public void updateActivity(Attivita attivita, String codFiscProprietario) throws DatabaseException {
+        String sql = " CALL updateAttivita(?, ?, ?, ?, ?, ?, ?, ?) ";
 
         try (Connection con = DatabaseManager.getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            int idAtt = Integer.parseInt(idAttivita);
-            int idProj = Integer.parseInt(idProgetto);
-            int idLot = Integer.parseInt(idLotto);
+            int idAtt = attivita.getIdAttivita();
+            int idProj = attivita.getIdProgetto();
+            int idLot = Integer.parseInt(attivita.getIdLotto());
 
             cs.setInt(1, idAtt);
             cs.setInt(2, idProj);
             cs.setInt(3, idLot);
-            cs.setString(4, codFisc);
-            cs.setString(5, tipo);
-            cs.setString(6, stato);
-            cs.setDate(7, java.sql.Date.valueOf(dataInizio));
-            if (dataFine != null) {
-                cs.setDate(8, java.sql.Date.valueOf(dataFine));
+            cs.setString(4, attivita.getIdColtivatore());
+            cs.setString(5, attivita.getTipo());
+            cs.setString(6, attivita.getStato());
+            cs.setDate(7, java.sql.Date.valueOf(attivita.getDataInizio()));
+            if (attivita.getDataFine() != null) {
+                cs.setDate(8, java.sql.Date.valueOf(attivita.getDataFine()));
             } else {
                 cs.setNull(8, java.sql.Types.DATE);
             }

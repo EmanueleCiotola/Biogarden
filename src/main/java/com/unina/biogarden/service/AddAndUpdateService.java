@@ -100,10 +100,10 @@ public class AddAndUpdateService {
         return coltivatore;
     }
 
-    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, LocalDate activityEndDate) throws ValidationException, DatabaseException {
-        validaCampiModificaAttivita(activityStartDate, activityEndDate);
+    public void updateActivity(Attivita attivita) throws ValidationException, DatabaseException {
+        validaCampiModificaAttivita(attivita.getDataInizio(), attivita.getDataFine());
         String codiceFiscaleProprietario = Sessione.getInstance().getUtenteCorrente().getCodiceFiscale();
-        tasksDao.updateActivity(idProgetto, idLotto, idColtivatore, codiceFiscaleProprietario, tipo, stato, activityStartDate, activityEndDate);
+        tasksDao.updateActivity(attivita, codiceFiscaleProprietario);
     }
     private void validaCampiModificaAttivita(LocalDate activityStartDate, LocalDate activityEndDate) throws ValidationException {
         if (activityStartDate == null) {

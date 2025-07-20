@@ -1,6 +1,7 @@
 package com.unina.biogarden.dao;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.unina.biogarden.model.Progetto;
@@ -30,5 +31,5 @@ public interface TasksDao {
     public Lotto getLottoByAttivita(int idAttivita) throws DatabaseException;
     public UtenteColtivatore getColtivatoreByAttivita(int idAttivita) throws DatabaseException;
 
-    public void updateActivity(String idProgetto, String idLotto, String idColtivatore, String codFisc, String tipo, String stato, LocalDate activityStartDate, LocalDate activityEndDate) throws DatabaseException;
+    public void updateActivity(Attivita attivita, String codFiscProprietario) throws DatabaseException;
 }

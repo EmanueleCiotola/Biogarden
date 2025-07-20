@@ -6,6 +6,7 @@ public class Attivita {
     private int idAttivita;
     private int idProgetto;
     private String nomeProgetto;
+    private String idColtivatore;
     private String infoColtivatore;
     private String idLotto;
     private LocalDate dataInizio;
@@ -13,10 +14,11 @@ public class Attivita {
     private String tipo;
     private String stato;
 
-    public Attivita(int idAttivita, int idProgetto, String nomeProgetto, String infoColtivatore, String idLotto, LocalDate dataInizio, LocalDate dataFine, String tipo, String stato) {
+    public Attivita(int idAttivita, int idProgetto, String nomeProgetto, String idColtivatore, String infoColtivatore, String idLotto, LocalDate dataInizio, LocalDate dataFine, String tipo, String stato) {
         this.idAttivita = idAttivita;
         this.idProgetto = idProgetto;
         this.nomeProgetto = nomeProgetto;
+        this.idColtivatore = idColtivatore;
         this.infoColtivatore = infoColtivatore;
         this.idLotto = idLotto;
         this.dataInizio = dataInizio;
@@ -33,6 +35,9 @@ public class Attivita {
     }
     public String getNomeProgetto() {
         return nomeProgetto;
+    }
+    public String getIdColtivatore() {
+        return idColtivatore;
     }
     public String getInfoColtivatore() {
         return infoColtivatore;
