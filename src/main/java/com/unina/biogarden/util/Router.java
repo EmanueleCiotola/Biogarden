@@ -13,7 +13,7 @@ import javafx.animation.PauseTransition;
 public class Router {
     private static final String FXML_VIEW_PATH = "/com/unina/biogarden/gui/view/";
     private static final Duration FADE_DURATION = Duration.millis(250);
-    private static final Duration SNACKBAR_DURATION = Duration.millis(200);
+    private static final Duration SNACKBAR_DURATION = Duration.millis(2000);
 
     private static Router instance;
     private Pane rootStack;
