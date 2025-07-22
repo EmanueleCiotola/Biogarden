@@ -14,7 +14,7 @@ public class PlotReportCardController {
     @FXML private GridPane tabellaReport;
     @FXML private PieChart graficoReport;
 
-    int rowIndex = 1;
+    private int rowIndex = 1;
 
     public void setData(ReportLotto report) {
         idLottoLabel.setText(report.getIdLotto());
