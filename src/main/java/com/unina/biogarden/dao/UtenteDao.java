@@ -6,10 +6,10 @@ import com.unina.biogarden.util.exception.InvalidCredentialsException;
 import com.unina.biogarden.util.exception.UtenteColtivatoreException;
 
 public interface UtenteDao {
-    Utente verificaCredenziali(String username, String password) throws InvalidCredentialsException, UtenteColtivatoreException, DatabaseException;
+    public Utente verificaCredenziali(String username, String password) throws InvalidCredentialsException, UtenteColtivatoreException, DatabaseException;
 
-    boolean isUsernameLibero(String username) throws DatabaseException;
-    boolean isCodFiscLibero(String codFisc) throws DatabaseException;
+    public boolean isUsernameLibero(String username) throws DatabaseException;
+    public boolean isCodFiscLibero(String codFisc) throws DatabaseException;
 
-    void registraUtente(Utente utente) throws UtenteColtivatoreException, DatabaseException;
+    public void registraUtente(Utente utente) throws UtenteColtivatoreException, DatabaseException;
 }

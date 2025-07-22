@@ -55,14 +55,13 @@ public class SignupController {
 
     @FXML private void handleConfermaBloccoPartitaIvaSignup() {
         Toggle selectedToggle = sceltaTipoUtenteSignupToggle.getSelectedToggle();
+        FocusUtil.setFocusTo(signupContainer);
 
         try {
             utenteInCostruzione = creaUtenteDaToggle(selectedToggle);
 
             Router.getInstance().switchBlocks(bloccoPartitaIvaSignup, bloccoNomeCognomeSignup);
-            FocusUtil.setFocusTo(signupContainer);
         } catch (Exception e) {
-            FocusUtil.setFocusTo(signupContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
@@ -83,6 +82,7 @@ public class SignupController {
     @FXML private void handleConfermaBloccoNomeCognomeSignup() {
         String nome = nomeSignupField.getText().trim();
         String cognome = cognomeSignupField.getText().trim();
+        FocusUtil.setFocusTo(signupContainer);
 
         try {
             signupService.validaBloccoNomeCognomeSignup(nome, cognome);
@@ -91,20 +91,19 @@ public class SignupController {
             utenteInCostruzione.setCognome(cognome);
 
             Router.getInstance().switchBlocks(bloccoNomeCognomeSignup, bloccoCodFiscUsernameSignup);
-            FocusUtil.setFocusTo(signupContainer);
         } catch (Exception e) {
-            FocusUtil.setFocusTo(signupContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
     @FXML private void handleIndietroBloccoPartitaIvaSignup() {
-        Router.getInstance().switchBlocks(bloccoNomeCognomeSignup, bloccoPartitaIvaSignup);
         FocusUtil.setFocusTo(signupContainer);
+        Router.getInstance().switchBlocks(bloccoNomeCognomeSignup, bloccoPartitaIvaSignup);
     }
     
     @FXML private void handleConfermaBloccoCodFiscUsernameSignup() { 
         String codiceFiscale = codiceFiscaleSignupField.getText().trim().toUpperCase();
         String username = usernameSignupField.getText().trim();
+        FocusUtil.setFocusTo(signupContainer);
         
         try {
             signupService.validaBloccoCodFiscUsernameSignup(codiceFiscale, username);
@@ -113,35 +112,35 @@ public class SignupController {
             utenteInCostruzione.setUsername(username);
 
             Router.getInstance().switchBlocks(bloccoCodFiscUsernameSignup, bloccoPasswordSignup);
-            FocusUtil.setFocusTo(signupContainer);
         } catch (Exception e) {
-            FocusUtil.setFocusTo(signupContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
     @FXML private void handleIndietroBloccoCodFiscUsernameSignup() {
-        Router.getInstance().switchBlocks(bloccoCodFiscUsernameSignup, bloccoNomeCognomeSignup);
         FocusUtil.setFocusTo(signupContainer);
+        Router.getInstance().switchBlocks(bloccoCodFiscUsernameSignup, bloccoNomeCognomeSignup);
     }
 
     @FXML private void handleConfermaBloccoPasswordSignup() {
         String password = passwordSignupField.getText().trim();
         String ripetizionePassword = ripetiPasswordSignupField.getText().trim();
+        FocusUtil.setFocusTo(signupContainer);
 
         try {
             signupService.validaBloccoPasswordSignup(password, ripetizionePassword);
+
             utenteInCostruzione.setPassword(password);
+
             signupService.signup(utenteInCostruzione);
 
             Router.getInstance().navigateTo("home/homePage");
         } catch (Exception e) {
-            FocusUtil.setFocusTo(signupContainer);
             Router.getInstance().showSnackbar(e.getMessage());
         }
     }
     @FXML private void handleIndietroDaBloccoPasswordSignup() {
-        Router.getInstance().switchBlocks(bloccoPasswordSignup, bloccoCodFiscUsernameSignup);
         FocusUtil.setFocusTo(signupContainer);
+        Router.getInstance().switchBlocks(bloccoPasswordSignup, bloccoCodFiscUsernameSignup);
     }
 
     @FXML private void goToLogin() {

@@ -116,14 +116,14 @@ public class Router {
         pause.play();
     }
     public void removeSnackbar(Node snackbar) {
-    if (rootStack.getChildren().contains(snackbar)) {
-        fadeOut(snackbar, () -> {
-            rootStack.getChildren().remove(snackbar);
-            if (snackbar == currentSnackbar) {
-                currentSnackbar = null;
-            }
-        });
-    }
+        if (rootStack.getChildren().contains(snackbar)) {
+            fadeOut(snackbar, () -> {
+                rootStack.getChildren().remove(snackbar);
+                if (snackbar == currentSnackbar) {
+                    currentSnackbar = null;
+                }
+            });
+        }
 }
 
     public void switchBlocks(Node from, Node to) {

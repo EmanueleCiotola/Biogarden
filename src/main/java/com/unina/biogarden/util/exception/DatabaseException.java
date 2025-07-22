@@ -6,7 +6,4 @@ public class DatabaseException extends Exception {
     public DatabaseException(ErrorMessage message) {
         super(message.toString());
     }
-    public DatabaseException(String string) {
-        super(string);
-    }
 }
