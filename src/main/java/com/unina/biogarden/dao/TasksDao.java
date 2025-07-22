@@ -23,7 +23,7 @@ public interface TasksDao {
     
     public ArrayList<Progetto> getProgettiAttiviProprietario(String codiceFiscale) throws DatabaseException;
     public List<UtenteColtivatore> getInfoColtivatoriDisponibili() throws DatabaseException;
-    public List<Coltura> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException;
+    public List<Coltura> getColtureLotto(String idLotto, String idProgetto) throws DatabaseException;
 
     public List<ReportVoceLotto> getReportLotti(String codiceFiscale) throws DatabaseException;
 

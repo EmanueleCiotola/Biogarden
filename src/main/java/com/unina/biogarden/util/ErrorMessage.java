@@ -38,7 +38,7 @@ public enum ErrorMessage {
     PROGETTO_NON_TROVATO("Non è stato trovato il progetto a cui appartiene questa attività."),
     LOTTO_NON_TROVATO("Non è stato trovato il lotto in cui è stata svolta questa attività."),
     COLTIVATORE_NON_TROVATO("Non è stato trovato il coltivatore che ha svolto questa attività."),
-    ID_COLTURA_RICHIESTO_PER_TIPO_ATTIVITA("Quest'attività deve essere associato a una coltura esistente.");
+    ID_COLTURA_RICHIESTO_PER_TIPO_ATTIVITA("Quest'attività deve essere associata a una coltura esistente.");
 
     private final String message;
 

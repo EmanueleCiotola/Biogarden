@@ -77,17 +77,19 @@ public class AddActivityController {
         idColtivatoreCombo.getSelectionModel().select(0);
         tipoCombo.getSelectionModel().select(0);
         statoCombo.getSelectionModel().select(0);
-        statoCombo.getSelectionModel().select(0);
+        tipoSeminaCombo.getSelectionModel().select(0);
     }
     private void setupColturaCombo(Progetto selectedProgetto, Lotto selectedLotto) {
         try {
+            colturaCombo.getItems().clear();
+            colturaCombo.setDisable(false);
+
             String idProgetto = selectedProgetto.getIdProgetto().toString();
             String idLotto = selectedLotto.getIdLotto().toString();
-            List<Coltura> colture = addNewService.getNomiColtureLotto(idProgetto, idLotto);
+            List<Coltura> colture = addNewService.getColtureLotto(idProgetto, idLotto);
 
             colturaCombo.getItems().addAll(colture);
             colturaCombo.getSelectionModel().select(0);
-            colturaCombo.setDisable(false);
         } catch (Exception e) {
             Router.getInstance().showSnackbar(e.getMessage());
         }
@@ -109,20 +111,16 @@ public class AddActivityController {
         if ("Semina".equals(selectedTipo)) {
             tipoSeminaCombo.setDisable(false);
             tipoSeminaCombo.getSelectionModel().select(0);
+            disableColturaCombo(selectedProgetto, selectedLotto);
         } else {
             tipoSeminaCombo.getSelectionModel().clearSelection();
             tipoSeminaCombo.setDisable(true);
-            checkColturaCombo(selectedProgetto, selectedLotto);
+            setupColturaCombo(selectedProgetto, selectedLotto);
         }
     }
-    private void checkColturaCombo(Progetto selectedProgetto, Lotto selectedLotto) {
+    private void disableColturaCombo(Progetto selectedProgetto, Lotto selectedLotto) {
         colturaCombo.getItems().clear();
-        
-        if (selectedProgetto != null && selectedLotto != null) {
-            setupColturaCombo(selectedProgetto, selectedLotto);
-        } else {
-            colturaCombo.setDisable(true);
-        }
+        colturaCombo.setDisable(true);
     }
     private void checkQuantitaSpinner(String selectedTipo) {
         if ("Raccolta".equals(selectedTipo)) {

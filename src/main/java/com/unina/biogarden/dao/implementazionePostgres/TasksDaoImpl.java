@@ -187,7 +187,7 @@ public class TasksDaoImpl implements TasksDao {
     }
 
     @Override
-    public List<Coltura> getNomiColtureLotto(String idLotto, String idProgetto) throws DatabaseException {
+    public List<Coltura> getColtureLotto(String idLotto, String idProgetto) throws DatabaseException {
         List<Coltura> colture = new ArrayList<>();
 
         String sql = "SELECT * FROM getColtureByLottoProgetto(?, ?)";
@@ -265,6 +265,8 @@ public class TasksDaoImpl implements TasksDao {
     public void addNewActivity(String idProgetto, String idLotto, String idColtivatore, String tipo, String stato, LocalDate activityStartDate, String tipoSemina, String idColtura, String raccoltaKgPrevista) throws DatabaseException {
         String sql = "CALL creaAttivita(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        System.out.println(tipoSemina);
+
         try (Connection con = DatabaseManager.getConnection();
             CallableStatement stmt = con.prepareCall(sql)) {
 
@@ -295,7 +297,6 @@ public class TasksDaoImpl implements TasksDao {
             stmt.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
             throw new DatabaseException(ErrorMessage.ERRORE_GENERICO_SERVER);
         }
     }

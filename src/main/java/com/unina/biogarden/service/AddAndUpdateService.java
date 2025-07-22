@@ -60,8 +60,8 @@ public class AddAndUpdateService {
         return tasksDao.getInfoColtivatoriDisponibili();
     }
 
-    public List<Coltura> getNomiColtureLotto(String idLotto, String idProgetto) throws NoDataFound, DatabaseException {
-        List<Coltura> colture = tasksDao.getNomiColtureLotto(idLotto, idProgetto);
+    public List<Coltura> getColtureLotto(String idLotto, String idProgetto) throws NoDataFound, DatabaseException {
+        List<Coltura> colture = tasksDao.getColtureLotto(idLotto, idProgetto);
         if (colture.isEmpty()) {
             throw new NoDataFound(ErrorMessage.NESSUNA_COLTURA_TROVATA);
         }
@@ -76,8 +76,7 @@ public class AddAndUpdateService {
     private void validaCampiNuovaAttivita(String tipo, String idColtura, LocalDate activityStartDate) throws ValidationException {
         if (!tipo.equalsIgnoreCase("Semina") && idColtura == null) {
             throw new ValidationException(ErrorMessage.ID_COLTURA_RICHIESTO_PER_TIPO_ATTIVITA);
-        }
-        if (activityStartDate == null) {
+        } else if (activityStartDate == null) {
             throw new ValidationException(ErrorMessage.DATA_INIZIO_NULLA);
         }
     }
